@@ -12,16 +12,11 @@ vim.g.mapleader = ' '
 local opts = { noremap = true, silent = true }
 local map = vim.keymap.set
 
-map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-
 -- Configs
 require("config.lazy")
 
 -- LSP
 capabilities = require("cmp_nvim_lsp").default_capabilities()
-require'lspconfig'.hls.setup{
-    capabilities = capabilities, 
-}
 
 cmp = require('cmp')
 cmp.setup{
@@ -31,7 +26,21 @@ cmp.setup{
         { name = 'path' }
     },
 }
+
+vim.diagnostic.config { virtual_text = true }
+
+map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+
+-- Individual LSP setups
+lsp_config = require('lspconfig')
+
+lsp_config.hls.setup{
+    capabilities = capabilities, 
+}
  
+lsp_config.pyright.setup{
+    capabilities = capabilities, 
+}
 -- Treesitter
 require'nvim-treesitter.configs'.setup { 
   highlight = { 
@@ -47,7 +56,7 @@ vim.cmd[[colorscheme tokyonight]]
 
 -- Telescope keybindings
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
-vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+map('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
+map('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
+map('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
+map('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
