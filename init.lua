@@ -21,6 +21,7 @@ capabilities = require("cmp_nvim_lsp").default_capabilities()
 cmp = require('cmp')
 cmp.setup{
     sources = cmp.config.sources { 
+        { name = 'codecompanion' },
         { name = 'nvim_lsp' },
         { name = "buffer" },
         { name = 'path' }
@@ -60,3 +61,24 @@ map('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
 map('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
 map('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 map('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+
+-- Copilot
+require('copilot').setup({})
+
+-- Code completions
+require("codecompanion").setup({
+  strategies = {
+    chat = {
+      adapter = "copilot",
+    },
+    inline = {
+      adapter = "copilot",
+    },
+  },
+})
+
+map({ "n", "v" }, "<C-a>", "<cmd>CodeCompanionActions<cr>", { noremap = true, silent = true })
+map({ "n", "v" }, "<LocalLeader>a", "<cmd>CodeCompanionChat Toggle<cr>", { noremap = true, silent = true })
+map("v", "ga", "<cmd>CodeCompanionChat Add<cr>", { noremap = true, silent = true })
+
+vim.cmd([[cab cc CodeCompanion]])
