@@ -21,7 +21,6 @@ capabilities = require("cmp_nvim_lsp").default_capabilities()
 cmp = require('cmp')
 cmp.setup{
     sources = cmp.config.sources { 
-        { name = 'codecompanion' },
         { name = 'nvim_lsp' },
         { name = "buffer" },
         { name = 'path' }
@@ -63,7 +62,22 @@ map('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 map('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
 
 -- Copilot
-require('copilot').setup({})
+require('copilot').setup({
+  suggestion = {
+    enabled = true,
+    auto_trigger = true,
+    hide_during_completion = true,
+    debounce = 75,
+    keymap = {
+      accept = "<M-l>",
+      accept_word = false,
+      accept_line = false,
+      next = "<M-]>",
+      prev = "<M-[>",
+      dismiss = "<C-]>",
+      }
+    },
+})
 
 -- Code completions
 require("codecompanion").setup({
@@ -73,6 +87,18 @@ require("codecompanion").setup({
     },
     inline = {
       adapter = "copilot",
+    },
+  },
+  display = {
+    action_palette = {
+      width = 95,
+      height = 10,
+      prompt = "Prompt ", -- Prompt used for interactive LLM calls
+      provider = "telescope", -- default|telescope|mini_pick
+      opts = {
+        show_default_actions = true, -- Show the default actions in the action palette?
+        show_default_prompt_library = true, -- Show the default prompt library in the action palette?
+      },
     },
   },
 })
