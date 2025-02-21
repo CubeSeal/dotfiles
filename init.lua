@@ -6,6 +6,7 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.wo.relativenumber = true
 vim.g.netrw_bufsettings = 'noma nomod nu rnu nobl nowrap ro'
+vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
 
 -- Remaps
 vim.g.mapleader = ' '
@@ -19,11 +20,37 @@ require("config.lazy")
 capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 cmp = require('cmp')
+
+local select_opts = {behavior = cmp.SelectBehavior.Select}
+
 cmp.setup{
     sources = cmp.config.sources { 
         { name = 'nvim_lsp' },
         { name = "buffer" },
         { name = 'path' }
+    },
+    window = {
+      documentation = cmp.config.window.bordered()
+    },
+    formatting = {
+        fields = {'menu', 'abbr', 'kind'},
+        format = function(entry, item)
+          local menu_icon = {
+            codecompanion = '🤖',
+            nvim_lsp = 'λ',
+            buffer = 'Ω',
+            path = '🖫',
+          }
+
+          item.menu = menu_icon[entry.source.name]
+          return item
+        end,
+    },
+    mapping = {
+        ['<C-p>'] = cmp.mapping.select_prev_item(select_opts),
+        ['<C-n>'] = cmp.mapping.select_next_item(select_opts),
+        ['<CR>'] = cmp.mapping.confirm({select = false}),
+        ['<Tab>'] = cmp.mapping.confirm({select = true}),
     },
 }
 
@@ -94,7 +121,7 @@ require("codecompanion").setup({
       width = 95,
       height = 10,
       prompt = "Prompt ", -- Prompt used for interactive LLM calls
-      provider = "telescope", -- default|telescope|mini_pick
+      provider = "default", -- default|ttelescopeelescope|mini_pick
       opts = {
         show_default_actions = true, -- Show the default actions in the action palette?
         show_default_prompt_library = true, -- Show the default prompt library in the action palette?
