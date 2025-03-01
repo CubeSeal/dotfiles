@@ -23,9 +23,7 @@ require("config.lazy")
 
 -- LSP
 capabilities = require("cmp_nvim_lsp").default_capabilities()
-
 cmp = require('cmp')
-
 local select_opts = {behavior = cmp.SelectBehavior.Select}
 
 cmp.setup{
