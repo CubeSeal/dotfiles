@@ -8,6 +8,11 @@ vim.wo.relativenumber = true
 vim.g.netrw_bufsettings = 'noma nomod nu rnu nobl nowrap ro'
 vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
 
+-- Folds
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldlevelstart = 99
+
 -- Remaps
 vim.g.mapleader = ' '
 local opts = { noremap = true, silent = true }
