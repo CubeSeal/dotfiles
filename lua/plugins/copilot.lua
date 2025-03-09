@@ -1,1 +1,4 @@
-return { "zbirenbaum/copilot.lua" }
+return {
+    "zbirenbaum/copilot.lua",
+    enabled = false,
+}
