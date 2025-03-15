@@ -4,6 +4,7 @@ vim.opt.wrap = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4 
 vim.opt.expandtab = true
+vim.opt.colorcolumn = "120"
 vim.wo.relativenumber = true
 vim.g.netrw_bufsettings = 'noma nomod nu rnu nobl nowrap ro'
 vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
