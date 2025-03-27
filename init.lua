@@ -1,6 +1,11 @@
 -- Basic stuff
 vim.opt.number = true
+vim.opt.mouse = 'a'
 vim.opt.wrap = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.updatetime = 250
+vim.opt.timeoutlen = 300
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4 
 vim.opt.expandtab = true
@@ -16,15 +21,25 @@ vim.opt.foldlevelstart = 99
 
 -- Remaps
 vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 local opts = { noremap = true, silent = true }
 map = vim.keymap.set
+
+-- Highlight on Yank
+vim.api.nvim_create_autocmd('TextYankPost', {
+  desc = 'Highlight when yanking (copying) text',
+  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+})
 
 -- Configs
 require("config.lazy")
 
 -- LSP
-capabilities = require("cmp_nvim_lsp").default_capabilities()
-cmp = require('cmp')
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+local cmp = require('cmp')
 local select_opts = {behavior = cmp.SelectBehavior.Select}
 
 cmp.setup{
@@ -58,12 +73,8 @@ cmp.setup{
     },
 }
 
--- map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-
 -- Diagnostic Floating window:
 -- You will likely want to reduce updatetime which affects CursorHold
--- note: this setting is global and should be set only once
-vim.o.updatetime = 250
 vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
   group = vim.api.nvim_create_augroup("float_diagnostic", { clear = true }),
   callback = function ()
@@ -81,6 +92,7 @@ lsp_config.hls.setup{
 lsp_config.pyright.setup{
     capabilities = capabilities, 
 }
+
 -- Treesitter
 require'nvim-treesitter.configs'.setup { 
   highlight = { 
