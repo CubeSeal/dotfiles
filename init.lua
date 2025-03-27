@@ -17,7 +17,7 @@ vim.opt.foldlevelstart = 99
 -- Remaps
 vim.g.mapleader = ' '
 local opts = { noremap = true, silent = true }
-local map = vim.keymap.set
+map = vim.keymap.set
 
 -- Configs
 require("config.lazy")
@@ -58,7 +58,7 @@ cmp.setup{
     },
 }
 
-map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+-- map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
 
 -- Diagnostic Floating window:
 -- You will likely want to reduce updatetime which affects CursorHold
@@ -115,7 +115,7 @@ map('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 map('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
 
 -- AI:
-local AI_FLAG = 0
+local AI_FLAG = 1
 
 if AI_FLAG == 1 then 
     require('config.AI')
