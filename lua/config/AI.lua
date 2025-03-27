@@ -18,12 +18,22 @@ require('copilot').setup({
 
 -- Code completions
 require("codecompanion").setup({
+  adapters = {
+    gemini = function()
+      return require("codecompanion.adapters").extend("gemini", {
+      env = {
+        api_key = "cmd:cat ~/gemini.txt",
+        model = "gemini-2.5-pro-exp-03-25",
+      },
+    })
+    end,
+  },
   strategies = {
     chat = {
-      adapter = "copilot",
+      adapter = "gemini",
     },
     inline = {
-      adapter = "copilot",
+      adapter = "gemini",
     },
   },
   display = {
