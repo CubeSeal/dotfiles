@@ -55,6 +55,7 @@ local select_opts = {behavior = cmp.SelectBehavior.Select}
 cmp.setup{
     sources = cmp.config.sources { 
         { name = 'nvim_lsp' },
+        { name = 'render-markdown'},
         { name = "buffer" },
         { name = 'path' }
     },
@@ -132,3 +133,10 @@ local AI_FLAG = 1
 if AI_FLAG == 1 then 
     require('config.AI')
 end
+
+-- Render Markdown
+require('render-markdown').setup({
+    file_types = {'markdown', 'codecompanion'},
+    render_modes = { 'n', 'c', 't'},
+    sign = {enabled = false},
+})
