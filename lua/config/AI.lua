@@ -22,7 +22,7 @@ require("codecompanion").setup({
     gemini = function()
       return require("codecompanion.adapters").extend("gemini", {
       env = {
-        api_key = "cmd:cat ~/gemini.txt",
+        api_key = "cmd:cat ~/gemini.apikey",
         model = "gemini-2.5-pro-exp-03-25",
       },
     })
