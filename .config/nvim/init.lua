@@ -34,8 +34,8 @@ opt.foldlevelstart = 99
 vim.g.mapleader = ' '
 vim.g.maplocalleader = '\\'
 
--- Autocommands {{{1
--- Highlight on Yank {{{2
+-- Autocommands {{{2
+-- Highlight on Yank {{{3
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
@@ -44,7 +44,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- Diagnostics {{{2
+-- Diagnostics {{{3
 vim.diagnostic.config{virtual_lines = true}
 -- Diagnostic Floating window:
 -- You will likely want to reduce updatetime which affects CursorHold
@@ -199,7 +199,7 @@ require("codecompanion").setup({
   },
 })
 
-map({ "n", "v" }, "<C-a>", "<cmd>CodeCompanionActions<cr>", { noremap = true, silent = true })
+map({ "n", "v" }, "<Leader>a", "<cmd>CodeCompanionActions<cr>", { noremap = true, silent = true })
 map({ "n", "v" }, "<LocalLeader>a", "<cmd>CodeCompanionChat Toggle<cr>", { noremap = true, silent = true })
 map("v", "ga", "<cmd>CodeCompanionChat Add<cr>", { noremap = true, silent = true })
 
