@@ -1,6 +1,6 @@
 return {
   "folke/tokyonight.nvim",
-  lazy = false,
+  lazy = true,
   opts = {},
   enabled = false,
 }

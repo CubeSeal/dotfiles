@@ -207,7 +207,6 @@ vim.cmd([[cab cc CodeCompanion]])
 
 -- Render Markdown
 require('render-markdown').setup({
-  file_types = {'markdown', 'codecompanion'},
   render_modes = { 'n', 'c', 't'},
   sign = {enabled = false},
 })
