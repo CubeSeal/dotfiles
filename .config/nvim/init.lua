@@ -3,7 +3,7 @@ local opts = { noremap = true, silent = true }
 local map = vim.keymap.set
 local opt = vim.opt
 
--- Standard Vim Options {{{1
+-- Options {{{1
 opt.number = true
 opt.mouse = 'a'
 opt.wrap = true
@@ -19,23 +19,23 @@ vim.wo.relativenumber = true
 vim.g.netrw_bufsettings = 'noma nomod nu rnu nobl nowrap ro'
 opt.completeopt = {'menu', 'menuone', 'noselect'}
 
--- Remaps {{{2
+-- Remaps {{{1
 map('n', '<A-h>', '<C-w>h')
 map('n', '<A-j>', '<C-w>j')
 map('n', '<A-k>', '<C-w>k')
 map('n', '<A-l>', '<C-w>l')
 
--- Folds {{{2
+-- Folds {{{1
 opt.foldmethod = "expr"
 opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 opt.foldlevelstart = 99
 
--- Leader {{{2
+-- Leader {{{1
 vim.g.mapleader = ' '
 vim.g.maplocalleader = '\\'
 
--- Autocommands {{{2
--- Highlight on Yank {{{3
+-- Autocommands {{{1
+-- Highlight on Yank {{{2
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
@@ -44,7 +44,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- Diagnostics {{{3
+-- Diagnostics {{{2
 vim.diagnostic.config{virtual_lines = true}
 -- Diagnostic Floating window:
 -- You will likely want to reduce updatetime which affects CursorHold

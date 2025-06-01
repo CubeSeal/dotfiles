@@ -1,6 +1,6 @@
 return {
   'rebelot/kanagawa.nvim',
-  event = 'BufReadPost',
+  event = 'UIEnter',
   config = function()
     require('kanagawa').setup({
       colors = {
