@@ -1,7 +1,7 @@
 return {
   "olimorris/codecompanion.nvim",
   config = true,
-  event="InsertEnter",
+  keys={ '<Leader>', '<LocalLeader>' },
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-treesitter/nvim-treesitter",
