@@ -19,6 +19,12 @@ vim.wo.relativenumber = true
 vim.g.netrw_bufsettings = 'noma nomod nu rnu nobl nowrap ro'
 opt.completeopt = {'menu', 'menuone', 'noselect'}
 
+-- Remaps {{{2
+map('n', '<A-h>', '<C-w>h')
+map('n', '<A-j>', '<C-w>j')
+map('n', '<A-k>', '<C-w>k')
+map('n', '<A-l>', '<C-w>l')
+
 -- Folds {{{2
 opt.foldmethod = "expr"
 opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
