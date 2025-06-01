@@ -1,5 +1,13 @@
 return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
-  event = { "BufReadPost" },
+  event = 'BufReadPost',
+  opts = { 
+    highlight = { 
+      enable = true, 
+    }, 
+    indent = { 
+      enable = true, 
+    }, 
+  }
 }
