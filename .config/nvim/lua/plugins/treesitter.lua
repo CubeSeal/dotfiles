@@ -1,13 +1,11 @@
 return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
-  event = 'BufReadPost',
-  opts = { 
-    highlight = { 
-      enable = true, 
-    }, 
-    indent = { 
-      enable = true, 
-    }, 
-  }
+  event = "VeryLazy",
+  config = function()
+    require("nvim-treesitter.configs").setup({
+      highlight = { enable = true },
+      indent = { enable = true },
+    })
+  end
 }

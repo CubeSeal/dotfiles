@@ -55,5 +55,9 @@ vim.diagnostic.config{virtual_lines = true}
 --   end
 -- })
 
+-- LSP Enable
+vim.lsp.enable('hls')
+vim.lsp.enable('pyright')
+
 -- Configs {{{1
 require("config.lazy")
