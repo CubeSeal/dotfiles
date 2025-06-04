@@ -1,16 +1,62 @@
 {
-    "layer": "top",
-    "modules-left": ["hyprland/workspaces", "hyprland/mode"],
-    "modules-center": ["hyprland/window"],
-    "modules-right": ["battery", "clock"],
-    "hyprland/window": {
-        "max-length": 50
-    },
-    "battery": {
-        "format": "{capacity}% {icon}",
-        "format-icons": ["", "", "", "", ""]
-    },
-    "clock": {
-        "format-alt": "{:%a, %d. %b  %H:%M}"
+  "layer": "top",
+  "modules-left": [
+    "hyprland/workspaces",
+    "custom/lock",
+    "custom/reboot",
+    "custom/power"
+  ],
+  "modules-center": ["hyprland/window"],
+  "modules-right": [
+    "network",
+    "clock"
+  ],
+  "custom/lock": {
+  "format": "<span color='#00FFFF'>  </span>",
+  "on-click": "hyprctl dispatch exit",
+  "tooltip": true,
+  "tooltip-format": "Exit"
+  },
+  "custom/reboot": {
+    "format": "<span color='#FFD700'>  </span>",
+    "on-click": "systemctl reboot",
+    "tooltip": true,
+    "tooltip-format": "Reboot"
+  },
+  "custom/power": {
+    "format": "<span color='#FF4040'>  </span>",
+    "on-click": "systemctl poweroff",
+    "tooltip": true,
+    "tooltip-format": "Poweroff" 
+  },
+  "hyprland/workspaces": {
+    "disable-scroll": false,
+    "all-outputs": true,
+    "format": "{icon}: {windows}",
+    "window-rewrite-default": "",
+    "window-rewrite": {
+      "title<.*youtube.*>": "", // Windows whose titles contain "youtube"
+      "class<firefox> title<.*netflix.*>": "󰝆", // Windows whose class is "firefox" and title contains "github". Note that "class" always comes first.
+      "class<firefox>": "", // Windows whose classes are "firefox"
+      "kitty": "", // Windows that contain "foot" in either class or title. For optimization reasons, it will only match against a title if at least one other window explicitly matches against a title.
+      "code": "󰨞"
     }
+  },
+  "hyprland/window": {
+    "max-length": 50
+  },
+  "network": {
+    "format-wifi": "<span color='#00FFFF'> 󰤨 </span>{essid} ",
+    "format-ethernet": "<span color='#7FFF00'> </span>Wired ",
+    "tooltip-format": "<span color='#FF1493'> 󰅧 </span>{bandwidthUpBytes}  <span color='#00BFFF'> 󰅢 </span>{bandwidthDownBytes}",
+    "format-linked": "<span color='#FFA500'> 󱘖 </span>{ifname} (No IP) ",
+    "format-disconnected": "<span color='#FF4040'>  </span>Disconnected ",
+    "format-alt": "<span color='#00FFFF'> 󰤨 </span>{signalStrength}% ",
+    "interval": 1
+  },
+  "clock": {
+    "format": "{:%A | %d %B | %I:%M %p}",
+    "tooltip-format": "<tt>{calendar}</tt>",
+    "format-alt": "{:%a, %d. %b  %H:%M}"
+  }
 }

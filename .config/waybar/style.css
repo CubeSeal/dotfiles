@@ -1,0 +1,49 @@
+* {
+ font-family: "Atkinson Hyperlegible", "Symbols Nerd Font", sans-serif;
+ font-weight: normal;
+ font-size: 15px;
+ color: #dcdfe1;
+}
+
+#custom-lock,
+#custom-reboot,
+#custom-power,
+#workspaces,
+#window,
+#network,
+#clock {
+  background-color: rgba(15,27,53,0.9);
+  margin: 4px 4px 0px;
+  padding: 0px 6px;
+  border-radius: 10px;
+  border-width: 0px;
+}
+
+#waybar {
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  box-shadow: none;
+}
+
+#window:hover {
+  background-color: rgba(70, 75, 90, 0.9);
+}
+
+#workspaces button {
+  background: transparent;
+  border: none;
+  color: #888888;
+  padding: 2px 8px;
+  font-weight: bold;
+}
+
+#workspaces button:hover{
+  background-color: rgba(97, 175, 239, 0.2);
+  padding: 4px 8px;
+  border-radius: 0px;
+}
+
+#window {
+  font-weight: 200;
+  font-style: italic;
+}
