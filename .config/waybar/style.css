@@ -1,7 +1,7 @@
 * {
- font-family: "Atkinson Hyperlegible", "Symbols Nerd Font", sans-serif;
+ font-family: "Atkinson Hyperlegible Next", "Symbols Nerd Font", sans-serif;
  font-weight: normal;
- font-size: 15px;
+ font-size: 16px;
  color: #dcdfe1;
 }
 
@@ -12,7 +12,7 @@
 #window,
 #network,
 #clock {
-  background-color: rgba(15,27,53,0.9);
+  background-color: rgba(15,27,53, 0.4);
   margin: 4px 4px 0px;
   padding: 0px 6px;
   border-radius: 10px;

@@ -12,7 +12,7 @@
     "clock"
   ],
   "custom/launcher": {
-  "format": "<span color='#00FFFF'> 󱓞 </span>",
+  "format": "<span color='#19e5e6'> 󱓞 </span>",
   "on-click": "walker",
   "tooltip": true,
   "tooltip-format": "Walker"
@@ -24,7 +24,7 @@
     "tooltip-format": "Reboot"
   },
   "custom/power": {
-    "format": "<span color='#FF4040'>  </span>",
+    "format": "<span color='#ff6666'>  </span>",
     "on-click": "systemctl poweroff",
     "tooltip": true,
     "tooltip-format": "Poweroff" 
@@ -47,16 +47,16 @@
   },
   "network": {
     "format-wifi": "<span color='#00FFFF'> 󰤨 </span>{essid} ",
-    "format-ethernet": "<span color='#7FFF00'> </span>Wired ",
-    "tooltip-format": "<span color='#FF1493'> 󰅧 </span>{bandwidthUpBytes}  <span color='#00BFFF'> 󰅢 </span>{bandwidthDownBytes}",
+    "format-ethernet": "<span color = '#7fd926'>  </span>{ipaddr} <span color='#dc3790'> 󰅧 </span>{bandwidthUpBits} <span color='#26acd9'> 󰅢  </span>{bandwidthDownBits}",
+    "tooltip-format": "<span color = '#7fff00'>  </span>{ipaddr} <span color='#dc3790'> 󰅧 </span>{bandwidthUpBits} <span color='#26acd9'> 󰅢 </span>{bandwidthDownBits}",
     "format-linked": "<span color='#FFA500'> 󱘖 </span>{ifname} (No IP) ",
     "format-disconnected": "<span color='#FF4040'>  </span>Disconnected ",
     "format-alt": "<span color='#00FFFF'> 󰤨 </span>{signalStrength}% ",
     "interval": 1
   },
   "clock": {
-    "format": "{:%A | %d %B | %I:%M %p}",
-    "tooltip-format": "<tt>{calendar}</tt>",
+    "format": " {:%A | %d %B | %I:%M %p} ",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
     "format-alt": "{:%a, %d. %b  %H:%M}"
   }
 }
