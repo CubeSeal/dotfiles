@@ -5,7 +5,7 @@
  color: #dcdfe1;
 }
 
-#custom-lock,
+#custom-launcher,
 #custom-reboot,
 #custom-power,
 #workspaces,
@@ -33,7 +33,7 @@
   background: transparent;
   border: none;
   color: #888888;
-  padding: 2px 8px;
+  padding: 0px 8px;
   font-weight: bold;
 }
 

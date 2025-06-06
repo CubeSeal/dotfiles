@@ -2,7 +2,7 @@
   "layer": "top",
   "modules-left": [
     "hyprland/workspaces",
-    "custom/lock",
+    "custom/launcher",
     "custom/reboot",
     "custom/power"
   ],
@@ -11,11 +11,11 @@
     "network",
     "clock"
   ],
-  "custom/lock": {
-  "format": "<span color='#00FFFF'>  </span>",
-  "on-click": "hyprctl dispatch exit",
+  "custom/launcher": {
+  "format": "<span color='#00FFFF'> 󱓞 </span>",
+  "on-click": "walker",
   "tooltip": true,
-  "tooltip-format": "Exit"
+  "tooltip-format": "Walker"
   },
   "custom/reboot": {
     "format": "<span color='#FFD700'>  </span>",
