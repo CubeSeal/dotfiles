@@ -2,7 +2,7 @@
  font-family: "Atkinson Hyperlegible Next", "Symbols Nerd Font", sans-serif;
  font-weight: normal;
  font-size: 16px;
- color: #dcdfe1;
+ color: #dcd7ba;
 }
 
 #custom-launcher,
@@ -12,7 +12,7 @@
 #window,
 #network,
 #clock {
-  background-color: rgba(15,27,53, 0.4);
+  background-color: #1F1F28;
   margin: 4px 4px 0px;
   padding: 0px 6px;
   border-radius: 10px;
