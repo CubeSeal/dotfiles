@@ -13,8 +13,6 @@ return {
           }
         }
       }, 
-      transparent = true,
-      theme = "dragon",
     })
     vim.cmd[[colorscheme kanagawa]]
   end
