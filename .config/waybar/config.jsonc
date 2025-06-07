@@ -47,8 +47,8 @@
   },
   "network": {
     "format-wifi": "<span color='#00FFFF'> 󰤨 </span>{essid} ",
-    "format-ethernet": "<span color = '#6A9589'>  </span>{ipaddr} <span color='#D27E99'> 󰅧 </span>{bandwidthUpBits} <span color='#7E9CD8'> 󰅢  </span>{bandwidthDownBits}",
-    "tooltip-format": "<span color = '#7fff00'>  </span>{ipaddr} <span color='#dc3790'> 󰅧 </span>{bandwidthUpBits} <span color='#26acd9'> 󰅢 </span>{bandwidthDownBits}",
+    "format-ethernet": "<span color = '#6A9589'>  </span>{ipaddr}",
+    "tooltip-format": "<span color='#D27E99'> 󰅧 </span>{bandwidthUpBits} <span color='#7E9CD8'> 󰅢  </span>{bandwidthDownBits}",
     "format-linked": "<span color='#FFA500'> 󱘖 </span>{ifname} (No IP) ",
     "format-disconnected": "<span color='#FF4040'>  </span>Disconnected ",
     "format-alt": "<span color='#00FFFF'> 󰤨 </span>{signalStrength}% ",
