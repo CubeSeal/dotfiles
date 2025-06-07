@@ -13,7 +13,7 @@
   ],
   "custom/launcher": {
   "format": "<span color='#A3D4D5'> 󱓞 </span>",
-  "on-click": "walker",
+  "on-click": "walker -s 'kanagawa'",
   "tooltip": true,
   "tooltip-format": "Walker"
   },

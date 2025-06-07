@@ -29,6 +29,14 @@
   background-color: rgba(70, 75, 90, 0.9);
 }
 
+#workspaces {
+  margin: 4px 4px 0 10px;
+}
+
+#clock {
+  margin: 4px 10px 0 4px;
+}
+
 #workspaces button {
   background: transparent;
   border: none;
