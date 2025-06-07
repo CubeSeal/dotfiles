@@ -13,6 +13,7 @@ return {
           }
         }
       }, 
+      transparent = true,
       theme = "wave",
     })
     vim.cmd[[colorscheme kanagawa-wave]]
