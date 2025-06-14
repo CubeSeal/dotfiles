@@ -12,8 +12,8 @@ opt.smartcase = true
 opt.updatetime = 250
 opt.timeoutlen = 300
 opt.expandtab = true
-opt.shiftwidth = 2
-opt.tabstop = 2
+opt.shiftwidth = 4
+opt.tabstop = 4
 opt.colorcolumn = "120"
 vim.wo.relativenumber = true
 vim.g.netrw_bufsettings = 'noma nomod nu rnu nobl nowrap ro'
@@ -37,11 +37,11 @@ vim.g.maplocalleader = '\\'
 -- Autocommands {{{1
 -- Highlight on Yank {{{2
 vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
+    desc = 'Highlight when yanking (copying) text',
+    group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+    callback = function()
+        vim.highlight.on_yank()
+    end,
 })
 
 -- Diagnostics {{{2
