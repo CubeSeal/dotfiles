@@ -150,12 +150,7 @@
     # $ nix search wget
     environment.systemPackages = with pkgs; [
         # vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-        ghc
-        cabal-install
-        haskellPackages.zlib
-        haskellPackages.haskell-language-server
         wget
-        gcc
         kitty # Required for hyprland.
         firefox
         git
@@ -164,12 +159,9 @@
         zsh-powerlevel10k
         nodejs
         walker 
-        uv
         wl-clipboard
         fastfetch
         ripgrep
-        jujutsu
-        (texlive.combine {inherit (texlive) scheme-small titlesec enumitem nopageno; })
     ];
 
     # Some programs need SUID wrappers, can be configured further or are
