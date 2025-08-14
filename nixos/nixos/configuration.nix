@@ -154,6 +154,7 @@
         kitty # Required for hyprland.
         firefox
         git
+        lazygit
         stow
         hyprpaper
         zsh-powerlevel10k
