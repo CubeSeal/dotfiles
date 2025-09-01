@@ -162,6 +162,7 @@
                     enable = true;
                     enableZshIntegration = true;
                   };
+                  steam.enable = true;
                 };
 
                 # Fonts
