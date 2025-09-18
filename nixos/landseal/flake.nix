@@ -163,6 +163,9 @@
                     enableZshIntegration = true;
                   };
                   steam.enable = true;
+                  firefox.enable = true;
+                  git.enable = true;
+                  lazygit.enable = true;
                 };
 
                 # Fonts
@@ -180,10 +183,8 @@
                   # vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
                   wget
                   kitty # Required for hyprland.
-                  firefox
-                  git
-                  lazygit
                   stow
+                  grimblast
                   hyprpaper
                   nodejs
                   walker 
@@ -192,6 +193,7 @@
                   ripgrep
                   qbittorrent
                   mpv
+                  prismlauncher
                 ];
 
                 # Some programs need SUID wrappers, can be configured further or are
