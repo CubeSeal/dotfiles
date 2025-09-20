@@ -167,6 +167,10 @@
                   firefox.enable = true;
                   git.enable = true;
                   lazygit.enable = true;
+                  zoxide = {
+                    enable = true;
+                    enableZshIntegration = true;
+                  };
                 };
 
                 # Some programs need SUID wrappers, can be configured further or are
