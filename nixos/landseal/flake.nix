@@ -187,13 +187,14 @@
                   grimblast
                   hyprpaper
                   nodejs
+                  qbittorrent
                   walker 
                   wl-clipboard
                   fastfetch
                   ripgrep
-                  qbittorrent
                   mpv
                   prismlauncher
+                  jujutsu
                 ];
 
                 # Some programs need SUID wrappers, can be configured further or are
