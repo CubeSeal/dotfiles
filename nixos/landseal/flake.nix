@@ -36,6 +36,9 @@
                     ./hardware-configuration.nix
                   ];
 
+                # Flakes
+                nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
                 # Bootloader.
                 boot.loader.grub.enable = true;
                 boot.loader.grub.device = "/dev/sda";
@@ -85,21 +88,6 @@
                   LC_TIME = "en_AU.UTF-8";
                 };
 
-                # Configure keymap in X11
-                services.xserver.xkb = {
-                  layout = "au";
-                  variant = "";
-                };
-
-                # Printing
-                services.printing.enable = true;
-                # Printer Auto-Discovery
-                services.avahi = {
-                  enable = true;
-                  nssmdns4 = true;
-                  openFirewall = true;
-                };
-
                 # Define a user account. Don't forget to set a password with ‘passwd’.
                 users.users.landseal = {
                   isNormalUser = true;
@@ -112,33 +100,46 @@
                 # Allow unfree packages
                 nixpkgs.config.allowUnfree = true;
 
-                # Allow dynamic linking
-                programs.nix-ld.enable = true;
-
-                # SDDM
-                services.displayManager = {
-                  autoLogin = {
-                    enable = true;
-                    user = "landseal";
+                # Services
+                services = {
+                  # Enable the OpenSSH daemon.
+                  openssh.enable = true;
+                  # Configure keymap in X11
+                  xserver.xkb = {
+                    layout = "au";
+                    variant = "";
                   };
-                  sddm = {
+                  # Printing
+                  printing.enable = true;
+                  # Printer Auto-Discovery
+                  avahi = {
                     enable = true;
-                    theme = "${pkgs.sddm-chili-theme}/share/sddm/themes/chili";
-                    wayland.enable = true;
-                    autoNumlock = true;
-                    extraPackages = with pkgs; [
-                      libsForQt5.qt5.qtquickcontrols2
-                      libsForQt5.qt5.qtgraphicaleffects
-                    ];
+                    nssmdns4 = true;
+                    openFirewall = true;
                   };
-                  defaultSession = "hyprland";
+                  # SDDM
+                  displayManager = {
+                    autoLogin = {
+                      enable = true;
+                      user = "landseal";
+                    };
+                    sddm = {
+                      enable = true;
+                      theme = "${pkgs.sddm-chili-theme}/share/sddm/themes/chili";
+                      wayland.enable = true;
+                      autoNumlock = true;
+                      extraPackages = with pkgs; [
+                        libsForQt5.qt5.qtquickcontrols2
+                        libsForQt5.qt5.qtgraphicaleffects
+                      ];
+                    };
+                    defaultSession = "hyprland";
+                  };
                 };
-
-                # Flakes
-                nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
                 # Programs
                 programs = {
+                  nix-ld.enable = true; # Enable dynamic linking
                   hyprland = {
                     enable = true;
                     xwayland.enable = true;
@@ -168,15 +169,15 @@
                   lazygit.enable = true;
                 };
 
-                # Fonts
-                fonts.packages = with pkgs; [
-                  nerd-fonts.symbols-only
-                  atkinson-hyperlegible-next
-                  atkinson-hyperlegible-mono
-                  eb-garamond
-                  gelasio
-                ];
+                # Some programs need SUID wrappers, can be configured further or are
+                # started in user sessions.
+                # programs.mtr.enable = true;
+                # programs.gnupg.agent = {
+                #   enable = true;
+                #   enableSSHSupport = true;
+                # };
 
+                # Packages
                 # List packages installed in system profile. To search, run:
                 # $ nix search wget
                 environment.systemPackages = with pkgs; [
@@ -197,18 +198,14 @@
                   jujutsu
                 ];
 
-                # Some programs need SUID wrappers, can be configured further or are
-                # started in user sessions.
-                # programs.mtr.enable = true;
-                # programs.gnupg.agent = {
-                #   enable = true;
-                #   enableSSHSupport = true;
-                # };
-
-                # List services that you want to enable:
-
-                # Enable the OpenSSH daemon.
-                services.openssh.enable = true;
+                # Fonts
+                fonts.packages = with pkgs; [
+                  nerd-fonts.symbols-only
+                  atkinson-hyperlegible-next
+                  atkinson-hyperlegible-mono
+                  eb-garamond
+                  gelasio
+                ];
 
                 # Open ports in the firewall.
                 # networking.firewall.allowedTCPPorts = [ ... ];
