@@ -34,13 +34,24 @@ opt.foldlevelstart = 99
 vim.g.mapleader = ' '
 vim.g.maplocalleader = '\\'
 
--- Autocommands {{{1
+-- Autocommand {{{1
 -- Highlight on Yank {{{2
 vim.api.nvim_create_autocmd('TextYankPost', {
     desc = 'Highlight when yanking (copying) text',
     group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
     callback = function()
         vim.highlight.on_yank()
+    end,
+})
+
+-- MakeProgram {{{2
+
+-- Haskell {{{3
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'haskell',
+    group = vim.api.nvim_create_augroup('CabalBuild', { clear = true }),
+    callback = function()
+        vim.bo.makeprg = 'cabal build'
     end,
 })
 
