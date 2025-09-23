@@ -89,12 +89,14 @@
                 };
 
                 # Define a user account. Don't forget to set a password with ‘passwd’.
-                users.users.landseal = {
-                  isNormalUser = true;
-                  description = "landseal";
-                  extraGroups = [ "networkmanager" "wheel" ];
-                  packages = with pkgs; [];
-                  shell = pkgs.zsh;
+                users.users = {
+                  landseal = {
+                    isNormalUser = true;
+                    description = "landseal";
+                    extraGroups = [ "networkmanager" "wheel" ];
+                    packages = with pkgs; [];
+                    shell = pkgs.zsh;
+                  };
                 };
 
                 # Allow unfree packages
@@ -135,6 +137,23 @@
                     };
                     defaultSession = "hyprland";
                   };
+                  # Minidlna
+                  minidlna = {
+                    enable = true;
+                    settings = {
+                      media_dir = [ "APV,/home/landseal/Movies/" ];
+                      friendly_name = "NixOS-Media";
+                      inotify = "yes";
+                      log_level = "error";
+                      announceInterval = 1;
+                    };
+                    openFirewall = true;
+                  };
+                };
+
+                # Minidlna account access
+                users.users.minidlna = {
+                  extraGroups = [ "landseal" "users" ];
                 };
 
                 # Programs
