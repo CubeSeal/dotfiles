@@ -36,35 +36,56 @@
                     ./hardware-configuration.nix
                   ];
 
-                # Flakes
-                nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-                # Bootloader.
-                boot.loader.grub.enable = true;
-                boot.loader.grub.device = "/dev/sda";
-                boot.loader.grub.useOSProber = true;
-
-                boot.initrd.luks.devices."luks-7af26863-041e-4fde-9fa7-de9ccbfcadd4".device = "/dev/disk/by-uuid/7af26863-041e-4fde-9fa7-de9ccbfcadd4";
-                # Setup keyfile
-                boot.initrd.secrets = {
-                  "/boot/crypto_keyfile.bin" = null;
+                # Nix settings
+                nix = {
+                  settings = {
+                    # Flakes
+                    experimental-features = [ "nix-command" "flakes" ];
+                    # Automated garbage collector
+                    auto-optimise-store = true;
+                  };
+                  # GC options
+                  gc = {
+                    automatic = true;
+                    dates = "weekly";
+                    options = "--delete-older-than 30d";
+                  };
                 };
 
-                boot.loader.grub.enableCryptodisk = true;
+                # Bootloader.
+                boot = {
+                  loader = {
+                    grub = {
+                      enable = true;
+                      device = "/dev/sda";
+                      useOSProber = true;
+                      enableCryptodisk = true;
+                    };
+                  };
+                  initrd = {
+                    luks = {
+                      devices = {
+                        "luks-cc063602-d5a0-42d9-9a37-13fa40992cda" = {
+                          device = "/dev/disk/by-uuid/cc063602-d5a0-42d9-9a37-13fa40992cda";
+                        };
+                        "luks-7af26863-041e-4fde-9fa7-de9ccbfcadd4" = {
+                          device = "/dev/disk/by-uuid/7af26863-041e-4fde-9fa7-de9ccbfcadd4";
+                        };
+                      };
+                    };
+                    # Setup keyfile
+                    secrets = {
+                      "/boot/crypto_keyfile.bin" = null;
+                    };
+                  };
+                };
 
-                boot.initrd.luks.devices."luks-cc063602-d5a0-42d9-9a37-13fa40992cda".keyFile = "/boot/crypto_keyfile.bin";
-                boot.initrd.luks.devices."luks-7af26863-041e-4fde-9fa7-de9ccbfcadd4".keyFile = "/boot/crypto_keyfile.bin";
-
-                networking.hostName = "nixos"; # Define your hostname.
-
-                # Automated garbage collector
-                nix.settings.auto-optimise-store = true;
-                nix.gc.automatic = true;
-                nix.gc.dates = "weekly";
-                nix.gc.options = "--delete-older-than 30d";
 
                 # Enable networking
-                networking.networkmanager.enable = true;
+                networking = {
+                  hostName = "nixos"; # Define your hostname.
+                  networkmanager.enable = true;
+                };
                 # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
                 # Configure network proxy if necessary
                 # networking.proxy.default = "http://user:password@proxy:port/";
@@ -74,18 +95,19 @@
                 time.timeZone = "Australia/Sydney";
 
                 # Select internationalisation properties.
-                i18n.defaultLocale = "en_AU.UTF-8";
-
-                i18n.extraLocaleSettings = {
-                  LC_ADDRESS = "en_AU.UTF-8";
-                  LC_IDENTIFICATION = "en_AU.UTF-8";
-                  LC_MEASUREMENT = "en_AU.UTF-8";
-                  LC_MONETARY = "en_AU.UTF-8";
-                  LC_NAME = "en_AU.UTF-8";
-                  LC_NUMERIC = "en_AU.UTF-8";
-                  LC_PAPER = "en_AU.UTF-8";
-                  LC_TELEPHONE = "en_AU.UTF-8";
-                  LC_TIME = "en_AU.UTF-8";
+                i18n = {
+                  defaultLocale = "en_AU.UTF-8";
+                  extraLocaleSettings = {
+                    LC_ADDRESS = "en_AU.UTF-8";
+                    LC_IDENTIFICATION = "en_AU.UTF-8";
+                    LC_MEASUREMENT = "en_AU.UTF-8";
+                    LC_MONETARY = "en_AU.UTF-8";
+                    LC_NAME = "en_AU.UTF-8";
+                    LC_NUMERIC = "en_AU.UTF-8";
+                    LC_PAPER = "en_AU.UTF-8";
+                    LC_TELEPHONE = "en_AU.UTF-8";
+                    LC_TIME = "en_AU.UTF-8";
+                  };
                 };
 
                 # Define a user account. Don't forget to set a password with ‘passwd’.
