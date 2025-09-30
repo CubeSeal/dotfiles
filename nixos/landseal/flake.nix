@@ -67,9 +67,11 @@
                       devices = {
                         "luks-cc063602-d5a0-42d9-9a37-13fa40992cda" = {
                           device = "/dev/disk/by-uuid/cc063602-d5a0-42d9-9a37-13fa40992cda";
+                          keyFile = "/boot/crypto_keyfile.bin";
                         };
                         "luks-7af26863-041e-4fde-9fa7-de9ccbfcadd4" = {
                           device = "/dev/disk/by-uuid/7af26863-041e-4fde-9fa7-de9ccbfcadd4";
+                          keyFile = "/boot/crypto_keyfile.bin";
                         };
                       };
                     };
