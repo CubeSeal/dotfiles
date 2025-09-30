@@ -9,17 +9,36 @@
         [ (modulesPath + "/installer/scan/not-detected.nix")
         ];
 
-    boot.initrd.availableKernelModules = [ "ahci" "ohci_pci" "ehci_pci" "pata_atiixp" "firewire_ohci" "uas" "usbhid" "usb_storage" "sd_mod" ];
-    boot.initrd.kernelModules = [ ];
-    boot.kernelModules = [ "kvm-amd" ];
-    boot.extraModulePackages = [ ];
+    boot = {
+      loader.grub.enableCryptodisk = true;
+      initrd = {
+        availableKernelModules = [ "ahci" "ohci_pci" "ehci_pci" "pata_atiixp" "firewire_ohci" "uas" "usbhid" "usb_storage" "sd_mod" ];
+        kernelModules = [ ];
+        luks = {
+          devices = {
+            "luks-cc063602-d5a0-42d9-9a37-13fa40992cda" = {
+              device = "/dev/disk/by-uuid/cc063602-d5a0-42d9-9a37-13fa40992cda";
+              keyFile = "/boot/crypto_keyfile.bin";
+            };
+            "luks-7af26863-041e-4fde-9fa7-de9ccbfcadd4" = {
+              device = "/dev/disk/by-uuid/7af26863-041e-4fde-9fa7-de9ccbfcadd4";
+              keyFile = "/boot/crypto_keyfile.bin";
+            };
+          };
+        };
+        # Setup keyfile
+        secrets = {
+          "/boot/crypto_keyfile.bin" = null;
+        };
+      };
+      kernelModules = [ "kvm-amd" ];
+      extraModulePackages = [ ];
+    };
 
     fileSystems."/" =
         { device = "/dev/disk/by-uuid/ad8364a4-a96a-49f6-b241-dcdf2c3e2633";
             fsType = "ext4";
         };
-
-    boot.initrd.luks.devices."luks-cc063602-d5a0-42d9-9a37-13fa40992cda".device = "/dev/disk/by-uuid/cc063602-d5a0-42d9-9a37-13fa40992cda";
 
     swapDevices =
         [ { device = "/dev/disk/by-uuid/6325e23f-ce4b-40b3-9cca-b936bfcca9a3"; }
