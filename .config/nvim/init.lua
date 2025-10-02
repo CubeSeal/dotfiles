@@ -20,6 +20,8 @@ vim.g.netrw_bufsettings = 'noma nomod nu rnu nobl nowrap ro'
 opt.completeopt = {'menu', 'menuone', 'noselect'}
 
 -- Remaps {{{1
+
+-- Split navigation with Alt + hjkl
 map('n', '<A-h>', '<C-w>h')
 map('n', '<A-j>', '<C-w>j')
 map('n', '<A-k>', '<C-w>k')
