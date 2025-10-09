@@ -71,7 +71,7 @@
                   networkmanager.enable = true;
                 };
                 # Wifi: Configure with nmtui or nmcli.
-                # Bluetooth: Configure with bluetui (installed below).
+                # Bluetooth: Configure with overskride (installed below).
                 hardware.bluetooth.enable = true;
                 # Configure network proxy if necessary
                 # networking.proxy.default = "http://user:password@proxy:port/";
@@ -230,7 +230,7 @@
                   mpv
                   prismlauncher
                   jujutsu
-                  bluetui
+                  overskride
                 ];
 
                 # Fonts

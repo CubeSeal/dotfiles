@@ -1,3 +1,4 @@
+// vim: set tabstop=2 shiftwidth=2 expandtab:
 {
   "layer": "top",
   "modules-left": [
@@ -47,23 +48,23 @@
     "max-length": 50
   },
   "bluetooth": {
+  "on-click": "overskride",
 	"format": "",
 	"format-connected": " <span color='#7FB4CA'> </span>{device_alias} ",
 	"format-connected-battery": " <span color='#7FB4CA'> </span>{device_battery_percentage}%",
-	// "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
-	"tooltip-format-connected": "{num_connections} connected\n\n{device_enumerate}",
-	"tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-	"tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
+	"tooltip-format-connected": "{num_connections} connected\n{device_enumerate}",
+	"tooltip-format-enumerate-connected": "{device_alias}\t",
+	"tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_battery_percentage}%"
   },
   "network": {
     "format-wifi": " <span color='#7FB4CA'>󰤨 </span>{essid} ",
     "format-ethernet": " <span color = '#6A9589'> </span>{ipaddr} ",
-    "tooltip-format": "<span color='#D27E99'> 󰅧 </span>{bandwidthUpBits} <span color='#7E9CD8'> 󰅢  </span>{bandwidthDownBits}",
-    "tooltip-format-wifi": "<span color='#D27E99'> 󰅧 </span>{bandwidthUpBits} <span color='#7E9CD8'> 󰅢  </span>{bandwidthDownBits} <span color='#7FB4CA'> 󰒋 </span>{gwaddr}",
-    "tooltip-format-ethernet": "<span color='#D27E99'> 󰅧 </span>{bandwidthUpBits} <span color='#7E9CD8'> 󰅢  </span>{bandwidthDownBits} <span color='#6A9589'> 󰒋 </span>{gwaddr}",
+    "tooltip-format": "<span color='#D27E99'> 󰅧 </span>{bandwidthUpBits}\n<span color='#7E9CD8'> 󰅢 </span>{bandwidthDownBits}",
+    "tooltip-format-wifi": "<span color='#D27E99'> 󰅧 </span>{bandwidthUpBits}\n<span color='#7E9CD8'> 󰅢 </span>{bandwidthDownBits}\n<span color='#FF9E3B'> 󰩟 </span>{ipaddr} ",
+    "tooltip-format-ethernet": "<span color='#D27E99'> 󰅧 </span>{bandwidthUpBits}\n<span color='#7E9CD8'> 󰅢 </span>{bandwidthDownBits}\n<span color='#FF9E3B'> 󰩟 </span>{ipaddr} ",
     "format-linked": "<span color='#FFA500'> 󱘖 </span>{ifname} (No IP) ",
     "format-disconnected": "<span color='#FF4040'>  </span>Disconnected ",
-    "format-alt": "<span color='#FF9E3B'> 󰩟 </span>{ipaddr} ",
+    "format-alt": " <span color='#7FB4CA'> 󰒋 </span>{gwaddr} ",
     "interval": 10,
     "family": "ipv4"
   },
