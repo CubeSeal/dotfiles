@@ -8,6 +8,7 @@
   ],
   "modules-center": ["hyprland/window"],
   "modules-right": [
+    "bluetooth",
     "network",
     "clock"
   ],
@@ -44,6 +45,15 @@
   },
   "hyprland/window": {
     "max-length": 50
+  },
+  "bluetooth": {
+	"format": "",
+	"format-connected": " <span color='#7FB4CA'> </span>{device_alias} ",
+	"format-connected-battery": " <span color='#7FB4CA'> </span>{device_battery_percentage}%",
+	// "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
+	"tooltip-format-connected": "{num_connections} connected\n\n{device_enumerate}",
+	"tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+	"tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
   },
   "network": {
     "format-wifi": " <span color='#7FB4CA'>󰤨 </span>{essid} ",
