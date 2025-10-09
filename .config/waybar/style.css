@@ -11,17 +11,13 @@
 #workspaces,
 #window,
 #network,
-#bluetooth.connected,
+#bluetooth,
 #clock {
   background-color: #1F1F28;
   margin: 4px 4px 0px;
   padding: 0px 6px;
   border-radius: 10px;
   border-width: 0px;
-}
-
-#bluetooth {
-  background-color: transparent;
 }
 
 #waybar {
