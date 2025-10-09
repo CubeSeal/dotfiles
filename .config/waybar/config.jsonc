@@ -46,12 +46,14 @@
     "max-length": 50
   },
   "network": {
-    "format-wifi": "<span color='#00FFFF'> 󰤨 </span>{essid} ",
-    "format-ethernet": "<span color = '#6A9589'>  </span>{ipaddr}",
+    "format-wifi": " <span color='#7FB4CA'>󰤨 </span>{essid} ",
+    "format-ethernet": " <span color = '#6A9589'> </span>{ipaddr} ",
     "tooltip-format": "<span color='#D27E99'> 󰅧 </span>{bandwidthUpBits} <span color='#7E9CD8'> 󰅢  </span>{bandwidthDownBits}",
+    "tooltip-format-wifi": "<span color='#D27E99'> 󰅧 </span>{bandwidthUpBits} <span color='#7E9CD8'> 󰅢  </span>{bandwidthDownBits} <span color='#7FB4CA'> 󰒋 </span>{gwaddr}",
+    "tooltip-format-ethernet": "<span color='#D27E99'> 󰅧 </span>{bandwidthUpBits} <span color='#7E9CD8'> 󰅢  </span>{bandwidthDownBits} <span color='#6A9589'> 󰒋 </span>{gwaddr}",
     "format-linked": "<span color='#FFA500'> 󱘖 </span>{ifname} (No IP) ",
     "format-disconnected": "<span color='#FF4040'>  </span>Disconnected ",
-    "format-alt": "<span color='#00FFFF'> 󰤨 </span>{signalStrength}% ",
+    "format-alt": "<span color='#FF9E3B'> 󰩟 </span>{ipaddr} ",
     "interval": 10,
     "family": "ipv4"
   },
