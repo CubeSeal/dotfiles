@@ -231,6 +231,7 @@
                   prismlauncher
                   jujutsu
                   overskride
+                  rose-pine-hyprcursor
                 ];
 
                 # Fonts
