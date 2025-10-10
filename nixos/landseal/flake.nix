@@ -41,12 +41,13 @@
                   settings = {
                     # Flakes
                     experimental-features = [ "nix-command" "flakes" ];
-                    # Automated garbage collector
+                    # Optimise store
                     auto-optimise-store = true;
                   };
                   # GC options
                   gc = {
                     automatic = true;
+                    persistent = true;
                     dates = "weekly";
                     options = "--delete-older-than 30d";
                   };
