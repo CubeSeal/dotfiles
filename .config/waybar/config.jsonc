@@ -9,6 +9,7 @@
   ],
   "modules-center": ["hyprland/window"],
   "modules-right": [
+    "wireplumber",
     "bluetooth",
     "network",
     "clock"
@@ -46,6 +47,13 @@
   },
   "hyprland/window": {
     "max-length": 50
+  },
+  "wireplumber": {
+      "format": " <span color='#76946A'>{icon}</span> {volume}% ",
+      "format-muted": "<span color='#E82424'></span> Muted ",
+      "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+      "format-icons": ["", "", ""],
+      "scroll-step": 5
   },
   "bluetooth": {
   "on-click": "overskride",
