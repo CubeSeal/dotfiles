@@ -5,5 +5,5 @@ name = "CubeSeal"
 email = "kenndesilva1@gmail.com"
 
 [signing]
-behaviour = "own"
+behavior = "own"
 backend = "gpg"
