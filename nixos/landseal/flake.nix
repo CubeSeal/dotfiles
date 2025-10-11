@@ -233,6 +233,7 @@
                   jujutsu
                   overskride
                   rose-pine-hyprcursor
+                  tor-browser
                 ];
 
                 # Fonts
