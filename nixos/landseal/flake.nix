@@ -34,24 +34,9 @@
                 imports =
                   [ # Include the results of the hardware scan.
                     ./hosts/desktop-hardware-configuration.nix
+                    # Nix settings
+                    ./nix.nix
                   ];
-
-                # Nix settings
-                nix = {
-                  settings = {
-                    # Flakes
-                    experimental-features = [ "nix-command" "flakes" ];
-                    # Optimise store
-                    auto-optimise-store = true;
-                  };
-                  # GC options
-                  gc = {
-                    automatic = true;
-                    persistent = true;
-                    dates = "weekly";
-                    options = "--delete-older-than 30d";
-                  };
-                };
 
                 # Bootloader.
                 boot = {
