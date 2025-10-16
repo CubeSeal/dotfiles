@@ -12,9 +12,6 @@
     };
   };
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
   # Services
   services = {
     # Enable the OpenSSH daemon.
