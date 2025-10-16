@@ -23,6 +23,13 @@
     };
   };
 
+  # Autologin display manager
+  services.displayManager.autoLogin = {
+    enable = true;
+    user = "landseal";
+  };
+
+
 
   # Enable networking
   networking = {
