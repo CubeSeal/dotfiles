@@ -29,24 +29,6 @@
       nssmdns4 = true;
       openFirewall = true;
     };
-    # SDDM
-    displayManager = {
-      autoLogin = {
-        enable = true;
-        user = "landseal";
-      };
-      sddm = {
-        enable = true;
-        theme = "${pkgs.sddm-chili-theme}/share/sddm/themes/chili";
-        wayland.enable = true;
-        autoNumlock = true;
-        extraPackages = with pkgs; [
-          libsForQt5.qt5.qtquickcontrols2
-          libsForQt5.qt5.qtgraphicaleffects
-        ];
-      };
-      defaultSession = "hyprland";
-    };
     # Minidlna
     minidlna = {
       enable = true;
