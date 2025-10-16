@@ -23,6 +23,10 @@
           modules = [ ./desktop.nix ];
           specialArgs = { inherit pkgs; };
         };
+        steamos = nixpkgs.lib.nixosSystem {
+          modules = [ ./steamos.nix ];
+          specialArgs = { inherit pkgs; };
+        };
       };    
 
     };
