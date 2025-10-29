@@ -17,7 +17,7 @@
       isNormalUser = true;
       description = "steam";
       extraGroups = [ "networkmanager" "wheel" ];
-      packages = with pkgs; [];
+      packages = with pkgs; [ xwiimote ];
       shell = pkgs.zsh;
       initialPassword = "steam"; # Change this password!
     };
@@ -27,15 +27,15 @@
   services.getty.autologinUser = "steam";
 
   # Bootloader.
-  boot = {
-    loader = {
-      grub = {
-        enable = true;
-        device = "/dev/sda";
-        useOSProber = true;
-        # Crypto disk stuff in hardware-configuration.nix.
-      };
-    };
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  boot.initrd.luks.devices."luks-866f481a-b14a-4890-af74-c8f9704569a5" = {
+    device = "/dev/disk/by-uuid/866f481a-b14a-4890-af74-c8f9704569a5";
+	  allowDiscards = true;
+	  keyFileSize = 4096;
+	  keyFile = "/dev/disk/by-id/usb-Lexar_USB_Flash_Drive_AAZQ63TST2XHL4HJ-0:0";
+	  fallbackToPassword = true;
   };
 
   # XServer
@@ -83,7 +83,23 @@
   };
   # Wifi: Configure with nmtui or nmcli.
   # Bluetooth: Configure with overskride (installed below).
-  hardware.bluetooth.enable = true;
+  hardware = {
+    bluetooth = {
+      enable = true;
+      input = {
+        General = {
+          ClassicBondedOnly = false;
+        };
+      };
+    };
+    steam-hardware.enable = true;
+    graphics = {
+      enable = true;
+      enable32Bit = true;
+    };
+  };
+  
+
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
