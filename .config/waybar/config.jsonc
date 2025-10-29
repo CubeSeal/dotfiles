@@ -82,7 +82,7 @@
     "family": "ipv4"
   },
   "clock": {
-    "format": " {:%A | %d %B | %I:%M %p} ",
+    "format": " {:%y-%m-%d-%I-%M} ",
     "tooltip-format": "<tt><small>{calendar}</small></tt>",
     "format-alt": "{:%a, %d. %b  %H:%M}"
   }
