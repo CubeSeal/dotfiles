@@ -26,6 +26,10 @@
     user = "landseal";
   };
 
+  # Laptop specific settings
+  # TLP for power savings.
+  services.tlp.enable = true;
+
   # SDDM
   services.displayManager = {
     sddm = {
