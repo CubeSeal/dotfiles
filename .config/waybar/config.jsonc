@@ -9,6 +9,7 @@
   ],
   "modules-center": ["hyprland/window"],
   "modules-right": [
+    "battery",
     "wireplumber",
     "bluetooth",
     "network",
@@ -47,6 +48,10 @@
   },
   "hyprland/window": {
     "max-length": 50
+  },
+  "battery": {
+    "format": " <span color='#76946A'>{icon}</span> {capacity}% ",
+    "format-icons": ["󱊡", "󱊢", "󱊣"] 
   },
   "wireplumber": {
       "format": " <span color='#76946A'>{icon}</span> {volume}% ",
