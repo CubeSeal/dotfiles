@@ -27,6 +27,10 @@
           modules = [ ./steamos.nix ];
           specialArgs = { inherit pkgs; };
         };
+        laptop = nixpkgs.lib.nixosSystem {
+          modules = [ ./laptop.nix ];
+          specialArgs = { inherit pkgs; };
+        };
       };    
 
     };

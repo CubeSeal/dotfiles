@@ -118,6 +118,7 @@
     overskride
     rose-pine-hyprcursor
     tor-browser
+    brightnessctl
   ];
 
   # Fonts
