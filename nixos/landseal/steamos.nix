@@ -38,17 +38,19 @@
 	  fallbackToPassword = true;
   };
 
-  # XServer
-  services.xserver = {
-    enable = true;
-    videoDrivers = [ "amdgpu" ];
+  # Autologin Plasma
+  services = {
     displayManager = {
-      gdm.enable = true;
       autoLogin = {
         enable = true;
         user = "steam";
       };
+      sddm = {
+        enable = true;
+        wayland.enable = true;
+      };
     };
+    desktopManager.plasma6.enable = true;
   };
 
   # Enable Steam and Gamescope.
@@ -66,6 +68,7 @@
       promptInit = lib.mkForce "";
     };
     hyprland.enable = lib.mkForce false;
+    waybar.enable = lib.mkForce false;
   };
 
   # # Automatically start the Gamescope session on login.
