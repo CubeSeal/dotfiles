@@ -9,27 +9,20 @@
   outputs = { self, nixpkgs }:
     let
       system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-
-        config = {
-          allowUnfree = true; # Allow unfree packages
-        };
-      };
+      commonModules = [
+        { nixpkgs.config.allowUnfree = true; }
+      ];
     in
       {
       nixosConfigurations = {
         desktop = nixpkgs.lib.nixosSystem {
-          modules = [ ./desktop.nix ];
-          specialArgs = { inherit pkgs; };
+          modules = [ ./desktop.nix ] ++ commonModules;
         };
         steamos = nixpkgs.lib.nixosSystem {
-          modules = [ ./steamos.nix ];
-          specialArgs = { inherit pkgs; };
+          modules = [ ./steamos.nix ] ++ commonModules;
         };
         laptop = nixpkgs.lib.nixosSystem {
-          modules = [ ./laptop.nix ];
-          specialArgs = { inherit pkgs; };
+          modules = [ ./laptop.nix ] ++ commonModules;
         };
       };    
 
