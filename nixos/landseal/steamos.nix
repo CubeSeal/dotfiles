@@ -9,6 +9,8 @@
       ./nix.nix
       # User configuration
       ./user.nix
+      # Windows Manager
+      ./wm/kde.nix
     ];
 
   # Define a steam account. Don't forget to set a password with ‘passwd’.
@@ -50,7 +52,6 @@
         wayland.enable = true;
       };
     };
-    desktopManager.plasma6.enable = true;
   };
 
   # Enable Steam and Gamescope.
@@ -67,8 +68,6 @@
       enable = true;
       promptInit = lib.mkForce "";
     };
-    hyprland.enable = lib.mkForce false;
-    waybar.enable = lib.mkForce false;
   };
 
   # # Automatically start the Gamescope session on login.

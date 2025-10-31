@@ -51,11 +51,6 @@
   # Programs
   programs = {
     nix-ld.enable = true; # Enable dynamic linking
-    hyprland = {
-      enable = true;
-      xwayland.enable = true;
-    };
-    waybar.enable = true;
     neovim = {
       enable = true;
       defaultEditor = true;
@@ -102,7 +97,7 @@
   environment.systemPackages = with pkgs; [
     # vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
-    kitty # Required for hyprland.
+    kitty
     stow
     grimblast
     hyprpaper

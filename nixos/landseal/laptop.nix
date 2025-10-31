@@ -9,6 +9,8 @@
       ./nix.nix
       # User configuration
       ./user.nix
+      # Windows Manager
+      ./wm/hyprland.nix
     ];
 
   # Bootloader.
