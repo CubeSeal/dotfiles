@@ -1,6 +1,5 @@
 # vim: set tabstop=2 shiftwidth=2 expandtab:
 { config, pkgs, ... }:
-
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -8,7 +7,7 @@
       # Nix settings
       ./nix.nix
       # User configuration
-      ./user.nix
+      ./users/landseal.nix
       # Windows Manager
       ./wm/hyprland.nix
     ];
@@ -20,8 +19,6 @@
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # Flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # Autologin display manager
   services.displayManager.autoLogin = {
     enable = true;

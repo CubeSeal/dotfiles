@@ -66,7 +66,6 @@
     gamescope.enable = true;
     zsh = {
       enable = true;
-      promptInit = lib.mkForce "";
     };
   };
 
