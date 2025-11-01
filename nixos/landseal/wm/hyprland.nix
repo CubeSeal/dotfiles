@@ -8,4 +8,9 @@
     enable = true;
     xwayland.enable = true;
   };
+
+  environment.systemPackages = with pkgs; [
+    rose-pine-hyprcursor
+  ];
+
 }

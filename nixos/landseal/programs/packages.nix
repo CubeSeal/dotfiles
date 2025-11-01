@@ -21,7 +21,6 @@
     prismlauncher
     jujutsu
     overskride
-    rose-pine-hyprcursor
     tor-browser
     brightnessctl
   ];
