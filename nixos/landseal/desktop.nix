@@ -8,7 +8,7 @@
       # Nix settings
       ./nix.nix
       # User configuration
-      ./user.nix
+      ./user/landseal.nix
     ];
 
   # Bootloader.
@@ -28,22 +28,6 @@
     enable = true;
     user = "landseal";
   };
-
-  # SDDM
-  programs.displayManager = {
-    sddm = {
-      enable = true;
-      theme = "${pkgs.sddm-chili-theme}/share/sddm/themes/chili";
-      wayland.enable = true;
-      autoNumlock = true;
-      extraPackages = with pkgs; [
-        libsForQt5.qt5.qtquickcontrols2
-        libsForQt5.qt5.qtgraphicaleffects
-      ];
-    };
-    defaultSession = "hyprland";
-  };
-
 
   # Enable networking
   networking = {
