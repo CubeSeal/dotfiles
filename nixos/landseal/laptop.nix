@@ -10,6 +10,8 @@
       ./users/landseal.nix
       # Windows Manager
       ./wm/hyprland.nix
+      # Desktop Manager.
+      ./dm/sddm.nix
     ];
 
   # Bootloader.
@@ -28,22 +30,6 @@
   # Laptop specific settings
   # TLP for power savings.
   services.tlp.enable = true;
-
-  # SDDM
-  services.displayManager = {
-    sddm = {
-      enable = true;
-      theme = "${pkgs.sddm-chili-theme}/share/sddm/themes/chili";
-      wayland.enable = true;
-      autoNumlock = true;
-      extraPackages = with pkgs; [
-        libsForQt5.qt5.qtquickcontrols2
-        libsForQt5.qt5.qtgraphicaleffects
-      ];
-    };
-    defaultSession = "hyprland";
-  };
-
 
   # Enable networking
   networking = {
