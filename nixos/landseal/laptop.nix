@@ -21,12 +21,9 @@
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # Autologin display manager
+  # General display manager settings
+  # No auto-login since this isn't encrypted.
   services.displayManager = {
-    autoLogin = {
-      enable = true;
-      user = "landseal";
-    };
     defaultSession = "hyprland";
   };
 
