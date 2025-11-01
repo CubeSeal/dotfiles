@@ -3,11 +3,12 @@
   "layer": "top",
   "modules-left": [
     "hyprland/workspaces",
+    "niri/workspaces",
     "custom/launcher",
     "custom/reboot",
     "custom/power"
   ],
-  "modules-center": ["hyprland/window"],
+  "modules-center": [ "hyprland/window", "niri/window" ],
   "modules-right": [
     "battery",
     "wireplumber",
@@ -46,8 +47,20 @@
       "code": "󰨞"
     }
   },
+  "niri/workspaces": {
+    "format": "{value} {icon}",
+    "format-icons": {
+      // Icons by state
+      "active": "",
+      "default": ""
+    }
+  },
   "hyprland/window": {
     "max-length": 50
+  },
+  "niri/window": {
+    "icon": true,
+    "icon-size": 18
   },
   "battery": {
     "format": " <span color='#76946A'>{icon}</span> {capacity}% ",
