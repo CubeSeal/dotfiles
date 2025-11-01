@@ -22,9 +22,11 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Autologin display manager
-  services.displayManager.autoLogin = {
-    enable = true;
-    user = "landseal";
+  services.displayManager = {
+    autoLogin = {
+      enable = true;
+      user = "landseal";
+    };
     defaultSession = "hyprland";
   };
 

@@ -1,18 +1,33 @@
 # vim: set tabstop=2 shiftwidth=2 expandtab:
+# Thanks to: https://github.com/VoidKeishi/nixos-config/blob/main/modules%2Fsddm.nix#L1-L34
 { config, pkgs, ... }:
-
-{
-  # SDDM
-  services.displayManager = {
-    sddm = {
-      enable = true;
-      theme = "${pkgs.sddm-chili-theme}/share/sddm/themes/chili";
-      wayland.enable = true;
-      autoNumlock = true;
-      extraPackages = with pkgs; [
-        libsForQt5.qt5.qtquickcontrols2
-        libsForQt5.qt5.qtgraphicaleffects
-      ];
-    };
+let
+  custom-sddm-astronaut = pkgs.sddm-astronaut.override {
+    embeddedTheme = "pixel_sakura";
   };
+
+in {
+  services.displayManager.sddm = {
+    enable = true;
+    package = pkgs.kdePackages.sddm;
+    wayland.enable = true;
+    autoNumlock = true;
+    enableHidpi = true;
+    theme = "sddm-astronaut-theme";
+    settings = {
+      Theme = {
+        Current = "sddm-astronaut-theme";
+        CursorTheme = "Bibata-Modern-Ice";
+        CursorSize = 24;
+      };
+    };
+    extraPackages = with pkgs; [
+      custom-sddm-astronaut
+    ];
+  };
+
+  environment.systemPackages = with pkgs; [
+    custom-sddm-astronaut
+    kdePackages.qtmultimedia
+  ];
 }
