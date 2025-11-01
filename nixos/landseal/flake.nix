@@ -18,8 +18,8 @@
         desktop = nixpkgs.lib.nixosSystem {
           modules = [ ./desktop.nix ] ++ commonModules;
         };
-        steamos = nixpkgs.lib.nixosSystem {
-          modules = [ ./steamos.nix ] ++ commonModules;
+        steambox = nixpkgs.lib.nixosSystem {
+          modules = [ ./steambox.nix ] ++ commonModules;
         };
         laptop = nixpkgs.lib.nixosSystem {
           modules = [ ./laptop.nix ] ++ commonModules;

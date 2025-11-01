@@ -8,25 +8,13 @@
       # Nix settings
       ./nix.nix
       # User configuration
-      ./user.nix
+      ./users/landseal.nix
+      ./users/steam.nix
       # Windows Manager
       ./wm/kde.nix
+      # Display Manager
+      ./dm/sddm.nix
     ];
-
-  # Define a steam account. Don't forget to set a password with ‘passwd’.
-  users.users = {
-    steam = {
-      isNormalUser = true;
-      description = "steam";
-      extraGroups = [ "networkmanager" "wheel" ];
-      packages = with pkgs; [ xwiimote ];
-      shell = pkgs.zsh;
-      initialPassword = "steam"; # Change this password!
-    };
-  };
-
-  # Autologin with getty
-  services.getty.autologinUser = "steam";
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -41,66 +29,20 @@
   };
 
   # Autologin Plasma
-  services = {
-    displayManager = {
-      autoLogin = {
-        enable = true;
-        user = "steam";
-      };
-      sddm = {
-        enable = true;
-        wayland.enable = true;
-      };
-    };
+  services.displayManager.autoLogin = {
+    enable = true;
+    user = "steam";
   };
-
-  # Enable Steam and Gamescope.
-  programs = {
-    steam = {
-      enable = true;
-      gamescopeSession.enable = true;
-      # Open firewall ports for Steam features.
-      remotePlay.openFirewall = true;
-      localNetworkGameTransfers.openFirewall = true;
-    };
-    gamescope.enable = true;
-    zsh = {
-      enable = true;
-    };
-  };
-
-  # # Automatically start the Gamescope session on login.
-  # environment.loginShellInit = ''
-  #   if [ "$(tty)" = "/dev/tty1" ]; then
-  #     exec ${pkgs.steam-gamescope}/bin/steam-gamescope
-  #   fi
-  # '';
-  #
 
   # Enable networking
   networking = {
-    hostName = "nixos"; # Define your hostname.
+    hostName = "nixos-steambox"; # Define your hostname.
     networkmanager.enable = true;
   };
+
   # Wifi: Configure with nmtui or nmcli.
   # Bluetooth: Configure with overskride (installed below).
-  hardware = {
-    bluetooth = {
-      enable = true;
-      input = {
-        General = {
-          ClassicBondedOnly = false;
-        };
-      };
-    };
-    steam-hardware.enable = true;
-    graphics = {
-      enable = true;
-      enable32Bit = true;
-    };
-  };
-  
-
+  hardware.bluetooth.enable = true;
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
