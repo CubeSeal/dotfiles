@@ -14,6 +14,5 @@
         libsForQt5.qt5.qtgraphicaleffects
       ];
     };
-    defaultSession = "hyprland";
   };
 }

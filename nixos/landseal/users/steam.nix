@@ -23,6 +23,6 @@
     # Steam specific
     ../programs/steam.nix
     # MDLNA
-    ../programs/mdlna.nix
+    ../programs/minidlna.nix
   ];
 }

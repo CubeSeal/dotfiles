@@ -2,7 +2,7 @@
 { config, lib, pkgs, ... }:
 {
   # Minidlna
-  minidlna = {
+  services.minidlna = {
     enable = true;
     settings = {
       media_dir = [ "APV,/home/landseal/Movies/" ];

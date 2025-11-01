@@ -27,6 +27,7 @@
   services.displayManager.autoLogin = {
     enable = true;
     user = "landseal";
+    defaultSession = "hyprland";
   };
 
   # Enable networking

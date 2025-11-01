@@ -25,6 +25,7 @@
   services.displayManager.autoLogin = {
     enable = true;
     user = "landseal";
+    defaultSession = "hyprland";
   };
 
   # Laptop specific settings
