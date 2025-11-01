@@ -15,7 +15,7 @@
   # Import other modules.
   imports = [
     # Services
-    ../services/services.nix
+    ../programs/services.nix
     # Programs and Packages
     ../programs/programs.nix
     ../programs/packages.nix
