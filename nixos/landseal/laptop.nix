@@ -33,7 +33,7 @@
 
   # Enable networking
   networking = {
-    hostName = "nixos"; # Define your hostname.
+    hostName = "nixos-laptop"; # Define your hostname.
     networkmanager.enable = true;
   };
   # Wifi: Configure with nmtui or nmcli.
