@@ -9,7 +9,7 @@
       # User configuration
       ./users/landseal.nix
       # Windows Manager
-      ./wm/hyprland.nix
+      ./wm/niri.nix
       # Desktop Manager.
       ./dm/sddm.nix
     ];
@@ -24,7 +24,7 @@
   # General display manager settings
   # No auto-login since this isn't encrypted.
   services.displayManager = {
-    defaultSession = "hyprland";
+    defaultSession = "niri";
   };
 
   # Laptop specific settings
