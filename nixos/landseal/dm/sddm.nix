@@ -17,7 +17,7 @@ in {
     settings = {
       Theme = {
         Current = "sddm-astronaut-theme";
-        CursorTheme = "Bibata-Modern-Ice";
+        CursorTheme = "everforest-cursors";
         CursorSize = 24;
       };
     };
