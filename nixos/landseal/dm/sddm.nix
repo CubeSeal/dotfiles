@@ -28,6 +28,5 @@ in {
 
   environment.systemPackages = with pkgs; [
     custom-sddm-astronaut
-    kdePackages.qtmultimedia
   ];
 }
