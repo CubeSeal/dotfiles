@@ -5,5 +5,9 @@ name = "CubeSeal"
 email = "kenndesilva1@gmail.com"
 
 [signing]
-behavior = "own"
-backend = "gpg"
+behavior = "drop"
+backend = "ssh"
+key = "~/.ssh/id_ed25519-singing.pub"
+
+[git]
+sign-on-push = true
