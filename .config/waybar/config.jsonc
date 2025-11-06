@@ -64,7 +64,8 @@
   },
   "battery": {
     "format": " <span color='#76946A'>{icon}</span> {capacity}% ",
-    "format-icons": ["󱊡", "󱊢", "󱊣"] 
+    "format-icons": ["󱊡", "󱊢", "󱊣"],
+    "format-charging": " <span color='#76946A'>󰂄</span> {capacity}% " 
   },
   "wireplumber": {
       "format": " <span color='#DCA561'>{icon}</span> {volume}% ",
