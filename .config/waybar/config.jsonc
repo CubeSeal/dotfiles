@@ -60,7 +60,8 @@
   },
   "niri/window": {
     "icon": true,
-    "icon-size": 18
+    "icon-size": 18,
+    "max-length": 50
   },
   "battery": {
     "format": " <span color='#76946A'>{icon}</span> {capacity}% ",
