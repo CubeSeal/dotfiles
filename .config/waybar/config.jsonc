@@ -88,7 +88,7 @@
     "format-wifi": " <span color='#C5C9C5'>󰤨</span> ",
     "format-ethernet": " <span color = '#6A9589'> </span> ",
     "tooltip-format": "<span color='#D27E99'> 󰅧 </span>{bandwidthUpBits}\n<span color='#7E9CD8'> 󰅢 </span>{bandwidthDownBits}",
-    "tooltip-format-wifi": "<span color='#D27E99'> 󰅧 </span>{bandwidthUpBits}\n<span color='#7E9CD8'> 󰅢 </span>{bandwidthDownBits}\n<span color='#FF9E3B'> 󰩟 </span>{ipaddr} ",
+    "tooltip-format-wifi": "<span color='#C5C9C5'>󰤨 {essid}</span>\n<span color='#D27E99'> 󰅧 </span>{bandwidthUpBits}\n<span color='#7E9CD8'> 󰅢 </span>{bandwidthDownBits}\n<span color='#FF9E3B'> 󰩟 </span>{ipaddr} ",
     "tooltip-format-ethernet": "<span color='#D27E99'> 󰅧 </span>{bandwidthUpBits}\n<span color='#7E9CD8'> 󰅢 </span>{bandwidthDownBits}\n<span color='#FF9E3B'> 󰩟 </span>{ipaddr} ",
     "format-linked": "<span color='#FFA500'> 󱘖 </span>{ifname} (No IP) ",
     "format-disconnected": "<span color='#FF4040'>  </span>Disconnected ",
