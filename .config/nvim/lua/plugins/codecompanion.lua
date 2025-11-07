@@ -9,19 +9,21 @@ return {
   config = function()
   require("codecompanion").setup{
     adapters = {
-      gemini = function()
-        return require("codecompanion.adapters").extend("gemini", {
-          name = "Gemini 2.5",
-          scheme = {
-            model = {
-              default = "gemini-2.5-pro-exp-03-25",
-            }
-          },
-          env = {
-            api_key = "cmd:cat ~/gemini.apikey"
-          },
-        })
-      end,
+      http = {
+        gemini = function()
+          return require("codecompanion.adapters").extend("gemini", {
+            name = "Gemini 2.5",
+            scheme = {
+              model = {
+                default = "gemini-2.5-pro-exp-03-25",
+              }
+            },
+            env = {
+              api_key = "cmd:cat ~/gemini.apikey"
+            },
+          })
+        end,
+    }
     },
     strategies = {
       chat = {
