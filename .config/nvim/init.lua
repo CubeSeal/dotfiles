@@ -71,6 +71,8 @@ vim.diagnostic.config{virtual_lines = true}
 -- LSP Enable
 vim.lsp.enable('hls')
 vim.lsp.enable('pyright')
+vim.lsp.enable('rust_analyzer')
+vim.lsp.enable('nil_ls')
 
 -- Configs {{{1
 require("config.lazy")
