@@ -28,5 +28,6 @@ in {
 
   environment.systemPackages = with pkgs; [
     custom-sddm-astronaut
+    everforest-cursors
   ];
 }

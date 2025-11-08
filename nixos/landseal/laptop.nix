@@ -10,8 +10,6 @@
       ./users/landseal.nix
       # Windows Manager
       ./wm/niri.nix
-      # Desktop Manager.
-      ./dm/sddm.nix
     ];
 
   # Bootloader.

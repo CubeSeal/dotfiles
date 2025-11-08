@@ -3,6 +3,7 @@
 {
   imports = [
     ./waybar.nix
+    ../dm/sddm.nix
   ];
   programs.hyprland = {
     enable = true;
