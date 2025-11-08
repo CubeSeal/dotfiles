@@ -10,6 +10,8 @@
       ./users/landseal.nix
       # Windows Manager
       ./wm/niri.nix
+      # ./wm/kde.nix
+      # ./wm/hyprland.nix
     ];
 
   # Bootloader.
