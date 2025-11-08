@@ -23,6 +23,7 @@
     overskride
     tor-browser
     brightnessctl
+    chromium
   ];
 
   # Fonts
