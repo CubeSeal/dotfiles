@@ -1,4 +1,12 @@
-# Annoying files.
-github-copilot
-pulse
-dconf
+# Ignore everything by default and whitelist specific files/directories as needed.
+*
+
+!.gitignore
+!hypr
+!jj
+!kitty
+!niri
+!nvim
+!tmux
+!walker
+!waybar
