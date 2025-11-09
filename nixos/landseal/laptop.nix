@@ -40,8 +40,6 @@
 
       PLATFORM_PROFILE_ON_AC = "performance";
       PLATFORM_PROFILE_ON_BAT = "cool";
-
-      DEVICES_TO_DISABLE_ON_BAT_NOT_IN_USE="bluetooth";
     };
   };
   # Nixos power saving
