@@ -1,12 +1,25 @@
-# Ignore everything by default and whitelist specific files/directories as needed.
+# Ignore everything by default
 *
 
+# Whitelist this .gitignore file itself
 !.gitignore
-!hypr
-!jj
-!kitty
-!niri
-!nvim
-!tmux
-!walker
-!waybar
+
+# Whitelist specific directories AND THEIR CONTENTS
+!hypr/
+!hypr/**
+!jj/
+!jj/**
+!kitty/
+!kitty/**
+!niri/
+!niri/**
+!nvim/
+!nvim/**
+!tmux/
+!tmux/**
+!walker/
+!walker/**
+!waybar/
+!waybar/**
+!mako/
+!mako/**
