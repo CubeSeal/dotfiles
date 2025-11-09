@@ -33,5 +33,6 @@
       enable = true;
       enableZshIntegration = true;
     };
+    kdeconnect.enable = true;
   };
 }

@@ -24,6 +24,7 @@
     tor-browser
     brightnessctl
     chromium
+    nil
   ];
 
   # Fonts
