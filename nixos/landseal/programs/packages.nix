@@ -25,6 +25,7 @@
     brightnessctl
     chromium
     nil
+    mako
   ];
 
   # Fonts
