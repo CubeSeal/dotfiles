@@ -146,6 +146,11 @@ output "HDMI-A-1" {
 workspace "󰈹"
 workspace ""
 
+layer-rule {
+  match namespace="^hyprpaper$"
+  place-within-backdrop true
+}
+
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
 // https://yalter.github.io/niri/Configuration:-Layout
@@ -153,6 +158,7 @@ layout {
     // Set gaps around windows in logical pixels.
     gaps 10
 
+    background-color "transparent"
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
     //   or right edge of the screen.
