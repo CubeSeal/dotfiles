@@ -26,6 +26,7 @@
     chromium
     nil
     mako
+    calibre
   ];
 
   # Fonts
