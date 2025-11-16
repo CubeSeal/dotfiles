@@ -7,7 +7,6 @@
     ../dm/sddm.nix
   ];
   programs.niri.enable = true;
-  services.iio-niri.enable = true;
 
   environment.systemPackages = with pkgs; [
     everforest-cursors
