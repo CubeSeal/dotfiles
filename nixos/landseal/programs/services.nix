@@ -18,5 +18,7 @@
       nssmdns4 = true;
       openFirewall = true;
     };
+    # Enable automounting of removable media
+    udisks2.enable = true;
   };
 }
