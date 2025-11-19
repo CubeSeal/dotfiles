@@ -437,6 +437,7 @@ binds {
     // Has to be a shell script because of the theme selection.
     Mod+D hotkey-overlay-title="Run an Application: walker" { spawn-sh "walker -s 'kanagawa'"; }
 
+    Mod+A hotkey-overlay-title="Toggle animated wallpaper" { spawn-sh "${HOME}/.config/niri/toggle-wallpaper.sh"; }
     Mod+W hotkey-overlay-title="Toggle Bar: waybar" { spawn-sh "pkill waybar || exec waybar"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
