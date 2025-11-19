@@ -147,7 +147,7 @@ workspace "󰈹"
 workspace ""
 
 layer-rule {
-  match namespace="^hyprpaper$"
+  match namespace="^swww-daemon$"
   place-within-backdrop true
 }
 
@@ -314,7 +314,7 @@ layout {
 // See the binds section below for more spawn examples.
 
 spawn-at-startup "waybar"
-spawn-at-startup "hyprpaper"
+spawn-at-startup "swww-daemon"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
