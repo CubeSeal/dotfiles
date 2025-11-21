@@ -35,6 +35,23 @@
       size = 16*1024; # 16 GB
   }];
 
+  # Setup hybernatio
+  boot.kernelParams = ["resume_offset=106133504"];
+  boot.resumeDevice = "/dev/disk/by-uuid/425ea73c-1daf-4383-b1c3-3fad8343e550";
+  
+  # Lid switch behaviour
+  services.logind.settings.Login = {
+    # Suspend first then hibernate when closing the lid...
+    HandleLidSwitch = "suspend-then-hibernate";
+    # ... but only when on battery power.
+    HandleLidSwitchDocked = "ignore";
+  };
+
+  # Define time delay for hibernation
+  systemd.sleep.extraConfig = ''
+    HibernateDelaySec=30m
+  '';
+
   # TLP for power savings.
   services.tlp  = {
     enable = true;
@@ -49,6 +66,7 @@
       PLATFORM_PROFILE_ON_BAT = "cool";
     };
   };
+
   # Nixos power saving
   powerManagement.enable = true;
 
