@@ -28,6 +28,13 @@
   };
 
   # Laptop specific settings
+  # Swapfile
+  swapDevices = [{
+      device = "/var/lib/swapfile";
+      # Size in MB
+      size = 16*1024; # 16 GB
+  }];
+
   # TLP for power savings.
   services.tlp  = {
     enable = true;
