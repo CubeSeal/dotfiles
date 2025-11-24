@@ -375,6 +375,7 @@ window-rule {
 // Open Firefox on the 󰈹 workspace by default.
 window-rule {
     match app-id=r#"firefox$"#
+    default-column-width { proportion 0.66667; }
 
     open-on-workspace "󰈹"
 }
