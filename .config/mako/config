@@ -3,8 +3,8 @@ icons=1
 
 border-radius=10
 
-background-color=#1F1F28b3
-text-color=#dcd7bab3
+background-color=#1F1F28FF
+text-color=#dcd7baFF
 border-color=#dcd7bab3
 border-size=2
 progress-color=source #f38ba8
