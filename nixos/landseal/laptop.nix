@@ -56,16 +56,46 @@
   services.tlp  = {
     enable = true;
     settings = {
-      CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      # Apparently the AI says "powersave" for scaling is better than
+      # "performance". Justification: On modern Intel CPUs (using the
+      # intel_pstate driver), "Powersave" does not mean "Slow." It means
+      # "Dynamic." If you set the governor to Performance, your CPU will run at
+      # Max Turbo (4.5 GHz) constantly, even when you are just staring at a
+      # blank desktop. This creates unnecessary heat and fan noise, even if you
+      # are plugged into the wall.
+      CPU_SCALING_GOVERNOR_ON_AC = "powersave";
       CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+
+      CPU_BOOST_ON_AC = 1;
+      CPU_BOOST_ON_BAT = 0;
 
       CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
       CPU_ENERGY_PERF_POLICY_ON_BAT = "balance_power";
 
       PLATFORM_PROFILE_ON_AC = "performance";
-      PLATFORM_PROFILE_ON_BAT = "balanced";
+      PLATFORM_PROFILE_ON_BAT = "quiet";
+
+      # Allow the deepest sleep states for PCIe links
+      PCIE_ASPM_ON_AC = "default";
+      PCIE_ASPM_ON_BAT = "powersupersave";
+
+      # Force devices (Wifi, SSD, Graphics, NPU) to sleep when idle
+      RUNTIME_PM_ON_AC = "on";
+      RUNTIME_PM_ON_BAT = "auto";
+
+      # Audio: Power down the audio chip after 10 second of silence
+      # (Prevents the audio codec from keeping the bus awake)
+      SOUND_POWER_SAVE_ON_AC = 0;
+      SOUND_POWER_SAVE_ON_BAT = 10;
+      SOUND_POWER_SAVE_CONTROLLER = "Y";
+
+      # Watchdog: Disable the kernel NMI watchdog (Saves tiny % of CPU wakeups)
+      NMI_WATCHDOG = 0;
     };
   };
+
+  # Disable power-profiles-daemon to avoid conflicts with TLP.
+  services.power-profiles-daemon.enable = false;
 
   # Nixos power saving
   powerManagement.enable = true;
