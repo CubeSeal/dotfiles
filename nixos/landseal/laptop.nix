@@ -105,6 +105,42 @@
     hostName = "nixos-laptop"; # Define your hostname.
     networkmanager.enable = true;
   };
+ 
+  # Intel drivers for hardware acceleration.
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true; # Critical for some apps (Steam, Wine, etc)
+      extraPackages = with pkgs; [
+      intel-media-driver   # LIBVA_DRIVER_NAME=iHD
+        intel-compute-runtime # OpenCL support
+        vpl-gpu-rt           # Video Processing Library (Gen12+)
+      ];
+  };
+
+  # Force the system to use the iHD driver
+  environment.sessionVariables = { 
+    LIBVA_DRIVER_NAME = "iHD"; 
+  };
+
+  # Driver support in firefox
+  programs.firefox = {
+    
+    # "Policies" are the enterprise way to manage Firefox. 
+    # These settings will be LOCKED (you cannot change them in about:config)
+    # and will show "Your browser is being managed by your organization".
+    policies = {
+      DisableTelemetry = true;
+      DisableFirefoxStudies = true;
+      
+      # This section sets about:config preferences
+      Preferences = {
+        # Force Hardware Acceleration
+        "media.ffmpeg.vaapi.enabled" = true;
+        "media.rdd-ffmpeg.enabled" = true;
+      };
+    };
+  };  
+
   # Wifi: Configure with nmtui or nmcli.
   # Bluetooth: Configure with overskride (installed below).
   hardware.bluetooth.enable = true;
