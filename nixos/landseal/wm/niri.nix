@@ -1,5 +1,5 @@
 # vim: set tabstop=2 shiftwidth=2 expandtab:
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 {
   imports = [
     ./waybar.nix
@@ -13,7 +13,39 @@
     xwayland-satellite
     swayidle  # The "manager" that tracks how long you've been inactive.
     hyprlock  # The "visuals" that lock the screen.
+    iio-niri  # Allows for autorotation based on sensors.
   ];
+
+  nixpkgs.overlays = [
+    (final: prev: {
+      linux-firmware = prev.linux-firmware.overrideAttrs (old: {
+        # 1. Add 7zip to the build tools so we can extract the exe
+        nativeBuildInputs = (old.nativeBuildInputs or []) ++ [ final.p7zip ];
+
+        # 2. Define the source of the driver
+
+        # 3. Extract and copy
+        postInstall = ''
+          ${old.postInstall or ""}
+          
+          # Extract the specific bin file from the exe into a temp folder
+          7z -y e ${inputs.hp_iio_driver} -o_driver_temp
+
+          # Copy it to the destination
+          cp _driver_temp/ishS_SI_5.8.0.7718.bin $out/lib/firmware/intel/ish/ish_lnlm_12128606.bin
+        '';
+      });
+    })
+  ];
+
+  boot.kernelModules = [
+    "intel_ishtp_hid"
+    "hid-sensor-hub"
+  ];
+
+  hardware.enableRedistributableFirmware = true;
+  hardware.firmware = [ pkgs.linux-firmware ];
+  hardware.sensor.iio.enable = true;
 
   # Configure swayidle to manage idle behavior.
   systemd.user.services = {

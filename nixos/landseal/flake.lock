@@ -1,5 +1,17 @@
 {
   "nodes": {
+    "hp_iio_driver": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-mh9YSXtdUV3FEElKm28ZQkfsRH8ByHFv0GE2WgwJjhQ=",
+        "type": "file",
+        "url": "https://ftp.hp.com/pub/softpaq/sp165501-166000/sp165754.exe"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://ftp.hp.com/pub/softpaq/sp165501-166000/sp165754.exe"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1761672384,
@@ -18,6 +30,7 @@
     },
     "root": {
       "inputs": {
+        "hp_iio_driver": "hp_iio_driver",
         "nixpkgs": "nixpkgs"
       }
     }

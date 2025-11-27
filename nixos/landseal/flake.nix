@@ -4,9 +4,13 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    hp_iio_driver = {
+      url = "https://ftp.hp.com/pub/softpaq/sp165501-166000/sp165754.exe";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs }:
+  outputs = { self, nixpkgs, ... }@inputs:
     let
       system = "x86_64-linux";
       commonModules = [
@@ -16,12 +20,16 @@
       {
       nixosConfigurations = {
         desktop = nixpkgs.lib.nixosSystem {
+          inherit system;
           modules = [ ./desktop.nix ] ++ commonModules;
         };
         steambox = nixpkgs.lib.nixosSystem {
+          inherit system;
           modules = [ ./steambox.nix ] ++ commonModules;
         };
         laptop = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs; };
           modules = [ ./laptop.nix ] ++ commonModules;
         };
       };    
