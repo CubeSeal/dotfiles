@@ -75,7 +75,7 @@
         ExecStart = ''
           ${pkgs.swayidle}/bin/swayidle -w \
             timeout 300 '${pkgs.niri}/bin/niri msg action power-off-monitors' \
-            timeout 550 '${pkgs.hyprlock}/bin/hyprlock &' \
+            timeout 595 '${pkgs.hyprlock}/bin/hyprlock &' \
             timeout 600 'systemctl suspend'
         '';
       };
