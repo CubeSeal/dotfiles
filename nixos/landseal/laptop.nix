@@ -47,6 +47,13 @@
     HandleLidSwitchDocked = "ignore";
   };
 
+  powerManagement.powerDownCommands = ''
+    ${pkgs.util-linux}/bin/rfkill block bluetooth
+  '';
+  
+  powerManagement.resumeCommands = ''
+    ${pkgs.util-linux}/bin/rfkill unblock bluetooth
+  '';
   # Define time delay for hibernation
   systemd.sleep.extraConfig = ''
     HibernateDelaySec=30m
