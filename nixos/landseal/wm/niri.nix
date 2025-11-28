@@ -39,6 +39,7 @@
   ];
 
   boot.kernelModules = [
+    "intel-hid"
     "intel_ishtp_hid"
     "hid-sensor-hub"
   ];
