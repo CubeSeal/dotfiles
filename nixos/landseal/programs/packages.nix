@@ -27,6 +27,7 @@
     nil
     mako
     calibre
+    libnotify
   ];
 
   # Fonts
