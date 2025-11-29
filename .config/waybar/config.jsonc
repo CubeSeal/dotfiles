@@ -4,6 +4,7 @@
   "modules-left": [
     "hyprland/workspaces",
     "niri/workspaces",
+    "custom/autorotate",
     "custom/launcher",
     "custom/reboot",
     "custom/power"
@@ -16,11 +17,17 @@
     "network",
     "clock"
   ],
+  "custom/autorotate": {
+    "on-click": "~/.config/waybar/toggle-auto-rotation.sh",
+    "format": "<span color='#C5C9C5'> 󰑸 </span>",
+    "tooltip": true,
+    "tooltip-format": "Rotation Lock"
+  },
   "custom/launcher": {
-  "format": "<span color='#A3D4D5'> 󱓞 </span>",
-  "on-click": "walker -s 'kanagawa'",
-  "tooltip": true,
-  "tooltip-format": "Walker"
+    "format": "<span color='#A3D4D5'> 󱓞 </span>",
+    "on-click": "walker -s 'kanagawa'",
+    "tooltip": true,
+    "tooltip-format": "Walker"
   },
   "custom/reboot": {
     "format": "<span color='#DCA561'>  </span>",
@@ -69,20 +76,20 @@
     "format-charging": " <span color='#76946A'>󰂄</span> {capacity}% " 
   },
   "wireplumber": {
-      "format": " <span color='#DCA561'>{icon}</span> {volume}% ",
-      "format-muted": "<span color='#E82424'></span> Muted ",
-      "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
-      "format-icons": ["", "", ""],
-      "scroll-step": 5
+    "format": " <span color='#DCA561'>{icon}</span> {volume}% ",
+    "format-muted": "<span color='#E82424'></span> Muted ",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "format-icons": ["", "", ""],
+    "scroll-step": 5
   },
   "bluetooth": {
-  "on-click": "overskride",
-	"format": " <span color='#7FB4CA'></span> ",
-	"format-connected": " <span color='#7FB4CA'> </span>{device_alias} ",
-	"format-connected-battery": " <span color='#7FB4CA'> </span>{device_battery_percentage}%",
-	"tooltip-format-connected": "{num_connections} connected\n{device_enumerate}",
-	"tooltip-format-enumerate-connected": "{device_alias}\t",
-	"tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_battery_percentage}%"
+    "on-click": "overskride",
+    "format": " <span color='#7FB4CA'></span> ",
+    "format-connected": " <span color='#7FB4CA'> </span>{device_alias} ",
+    "format-connected-battery": " <span color='#7FB4CA'> </span>{device_battery_percentage}%",
+    "tooltip-format-connected": "{num_connections} connected\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t",
+    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_battery_percentage}%"
   },
   "network": {
     "format-wifi": " <span color='#C5C9C5'>󰤨</span> ",

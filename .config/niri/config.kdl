@@ -686,8 +686,3 @@ binds {
     // moving the mouse or pressing any other key.
     Mod+Shift+P { power-off-monitors; }
 }
-
-switch-events {
-    tablet-mode-on { spawn "iio-niri"; }
-    tablet-mode-off { spawn "pkill" "-f" "iio-niri"; }
-}
