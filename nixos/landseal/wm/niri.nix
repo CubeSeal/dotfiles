@@ -5,6 +5,7 @@
     ./waybar.nix
     # Desktop Manager.
     ../dm/sddm.nix
+    ./wallpaper.nix
   ];
   programs.niri.enable = true;
 

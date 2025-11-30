@@ -10,7 +10,6 @@
     kitty
     stow
     grimblast
-    swww
     nodejs
     qbittorrent
     walker 
