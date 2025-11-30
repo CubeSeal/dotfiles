@@ -28,6 +28,7 @@
     mako
     calibre
     libnotify
+    jjui
   ];
 
   # Fonts
