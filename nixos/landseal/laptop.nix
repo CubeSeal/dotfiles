@@ -48,11 +48,24 @@
   };
 
   powerManagement.powerDownCommands = ''
-    ${pkgs.util-linux}/bin/rfkill block bluetooth
+    # Stop the service first to release control of the hardware
+    ${pkgs.systemd}/bin/systemctl stop bluetooth.service
+    
+    # Unload the driver. This guarantees it cannot block hibernation.
+    # We use 'modprobe -r' to remove it.
+    ${pkgs.kmod}/bin/modprobe -r btusb
   '';
   
   powerManagement.resumeCommands = ''
-    ${pkgs.util-linux}/bin/rfkill unblock bluetooth
+    # Reload the driver. This forces the kernel to re-detect the hardware
+    # as if you just plugged it in.
+    ${pkgs.kmod}/bin/modprobe btusb
+    
+    # Give the hardware a split second to initialize before starting the service
+    sleep 1
+    
+    # Start the service back up
+    ${pkgs.systemd}/bin/systemctl start bluetooth.service
   '';
   # Define time delay for hibernation
   systemd.sleep.extraConfig = ''
