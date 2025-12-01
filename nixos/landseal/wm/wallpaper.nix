@@ -3,6 +3,8 @@
 {
    environment.systemPackages = with pkgs; [ 
     mpvpaper
+    swww
+    ffmpeg
     socat
   ];
 }

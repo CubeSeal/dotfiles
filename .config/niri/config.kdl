@@ -147,7 +147,7 @@ workspace "󰈹"
 workspace ""
 
 layer-rule {
-  match namespace="^mpvpaper$"
+  match namespace="mpvpaper|swww"
   place-within-backdrop true
 }
 
