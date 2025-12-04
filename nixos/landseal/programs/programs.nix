@@ -26,7 +26,23 @@
       enableZshIntegration = true;
     };
     steam.enable = true;
-    firefox.enable = true;
+    firefox = {
+      enable = true;
+      # Driver support in firefox
+      # "Policies" are the enterprise way to manage Firefox. 
+      # These settings will be LOCKED (you cannot change them in about:config)
+      # and will show "Your browser is being managed by your organization".
+      policies = {
+        DisableTelemetry = true;
+        DisableFirefoxStudies = true;
+      };
+      # This section sets about:config preferences
+      preferences = {
+      # Force Hardware Acceleration
+          "media.ffmpeg.vaapi.enabled" = true;
+          "media.rdd-ffmpeg.enabled" = true;
+      };
+    };
     git.enable = true;
     lazygit.enable = true;
     zoxide = {
