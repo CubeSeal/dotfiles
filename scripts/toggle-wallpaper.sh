@@ -11,6 +11,7 @@ function start_swww_daemon {
     if ! pgrep -x "swww-daemon" > /dev/null; then
         printf "swww is not running. Starting swww...\n"
         swww-daemon &
+        swww img -a "$STATIC_PATH" -t "none" > /dev/null 2>&1
         sleep 1
     fi
 }
