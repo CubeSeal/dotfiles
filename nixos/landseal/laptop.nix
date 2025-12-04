@@ -1,5 +1,5 @@
 # vim: set tabstop=2 shiftwidth=2 expandtab:
-{ config, pkgs, ... }@inputs:
+{ config, pkgs, inputs, ... }:
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -171,52 +171,65 @@
   hardware.sensor.iio.enable = true;
 
   # Configure swayidle to manage idle and locking behavior.
-  systemd.user.services = {
-    swayidle = {
+  systemd.user.services.swayidle = let
+    # 1. A robust script to check if we are plugged in.
+    # Returns exit code 0 if on AC, 1 if on Battery.
+    # We check for any power_supply starting with AC or ADP that is "online".
+    checkAC = pkgs.writeShellScript "check-ac" ''
+      if grep -q "1" /sys/class/power_supply/AC*/online 2>/dev/null; then
+        exit 0 # We are on AC
+      else
+        exit 1 # We are on Battery
+      fi
+    '';
+
+    # 2. Helper to run a command ONLY if on Battery
+    runOnBattery = cmd: "${checkAC} || ${cmd}";
+    
+    # 3. Helper to run a command ONLY if on AC
+    runOnAC = cmd: "${checkAC} && ${cmd}";
+
+    # 4. Your standard commands
+    niriMsg = "${pkgs.niri}/bin/niri msg action";
+    hyprlock = "${pkgs.hyprlock}/bin/hyprlock";
+    systemctl = "systemctl";
+
+    in {
       description = "Idle Manager for Niri";
-      
-      # Start this service automatically whenever Niri starts.
       wantedBy = [ "graphical-session.target" ];
-      # If Niri stops (you logout), stop this service too.
       partOf = [ "graphical-session.target" ];
-      # 3. CRITICAL FIX: Wait until Niri has officially started before launching
       after = [ "graphical-session.target" ];
 
       serviceConfig = {
-        # 4. CRITICAL FIX: If it crashes (because Niri wasn't ready yet), try again.
-        # This handles the split-second race condition where Niri is "active" 
-        # but the socket isn't writable yet.
         Restart = "on-failure";
         RestartSec = "1s";
-        # The command setup. 
-        # We use ${pkgs...} to guarantee Nix finds the correct binary path.
-        # EVENT 1: Turn off screen after 5 minutes (300 seconds)
-        # EVENT 2: Sleep the PC after 10 minutes (600 seconds)
-        # Note: This triggers the "suspend-then-hibernate" logic we set up earlier.
-        # EVENT 3: Lock the screen before sleeping
-        # This runs immediately if you close the lid OR if the 10min timer hits.
         ExecStart = ''
           ${pkgs.swayidle}/bin/swayidle -w \
-            timeout 30 '${pkgs.niri}/bin/niri msg action power-off-monitors' \
-            timeout 115 '${pkgs.hyprlock}/bin/hyprlock &' \
-            timeout 120 'systemctl suspend'
-            before-sleep '${pkgs.hyprlock}/bin/hyprlock'
+            \
+            /* --- BATTERY BEHAVIOR (Aggressive) --- */ \
+            timeout 30   '${runOnBattery "${niriMsg} power-off-monitors"}' \
+            timeout 120  '${runOnBattery "${systemctl} suspend"}' \
+            \
+            /* --- AC BEHAVIOR (Relaxed) --- */ \
+            timeout 600  '${runOnAC "${niriMsg} power-off-monitors"}' \
+            /* Optional: Auto-suspend on AC after 1 hour? Remove if you want never-sleep on AC */ \
+            timeout 3600 '${runOnAC "${systemctl} suspend"}' \
+            \
+            /* --- UNIVERSAL BEHAVIOR (Locking) --- */ \
+            /* We want to lock regardless of AC/Bat, but we time it based on the Battery sleep (115s) */ \
+            /* or the AC sleep (say, 595s) to avoid the "wake up flash" glitch. */ \
+            \
+            timeout 115 '${runOnBattery "${hyprlock}"}' \
+            timeout 595 '${runOnAC      "${hyprlock}"}' \
+            \
+            /* Ensures screen turns back on if you wiggle mouse before sleep hits */ \
+            resume '${niriMsg} power-on-monitors' \
+            \
+            /* Ensures we lock if the Lid closes or you press Hibernate button manually */ \
+            before-sleep '${hyprlock}'
         '';
       };
     };
-    # This tool listens for audio playback. If audio is playing,
-    # it tells swayidle to STOP counting down.
-    sway-audio-idle-inhibit = {
-      description = "Prevent sleep while audio is playing";
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
-
-      serviceConfig = {
-        ExecStart = "${pkgs.sway-audio-idle-inhibit}/bin/sway-audio-idle-inhibit";
-        Restart = "on-failure";
-      };
-    };
-  };
 
   # Wifi: Configure with nmtui or nmcli.
   # Bluetooth: Configure with overskride (installed below).
@@ -258,5 +271,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05"; # Did you read the comment?
-
 }
