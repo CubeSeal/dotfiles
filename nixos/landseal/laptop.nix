@@ -1,5 +1,5 @@
 # vim: set tabstop=2 shiftwidth=2 expandtab:
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, ... }:
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -149,34 +149,6 @@
   environment.sessionVariables = { 
     LIBVA_DRIVER_NAME = "iHD"; 
   };
-
-  # Intel IIO Sensor Hub drivers and firmware
-  boot.kernelModules = [
-    "intel-hid"
-    "intel_ishtp_hid"
-    "hid-sensor-hub"
-  ];
-
-  hardware.enableRedistributableFirmware = true;
-  nixpkgs.overlays = [
-    (final: prev: {
-     linux-firmware = prev.linux-firmware.overrideAttrs (old: {
-        # 1. Add 7zip to the build tools so we can extract the exe
-       nativeBuildInputs = (old.nativeBuildInputs or []) ++ [ final.p7zip ];
-        # 2. Extract and copy
-         postInstall = ''
-           ${old.postInstall or ""}
-           # Extract the specific bin file from the exe into a temp folder
-           7z -y e ${inputs.hp_iio_driver} -o_driver_temp
-
-            # Copy it to the destination
-            cp _driver_temp/ishS_SI_5.8.0.7718.bin $out/lib/firmware/intel/ish/ish_lnlm_12128606.bin
-         '';
-         });
-     })
-  ];
-  hardware.firmware = [ pkgs.linux-firmware ];
-  hardware.sensor.iio.enable = true;
 
   # Configure swayidle to manage idle and locking behavior.
   systemd.user.services.swayidle = let

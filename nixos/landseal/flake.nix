@@ -4,10 +4,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    hp_iio_driver = {
-      url = "https://ftp.hp.com/pub/softpaq/sp165501-166000/sp165754.exe";
-      flake = false;
-    };
   };
 
   outputs = { self, nixpkgs, ... }@inputs:

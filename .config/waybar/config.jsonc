@@ -18,10 +18,10 @@
     "clock"
   ],
   "custom/autorotate": {
-    "on-click": "~/.config/waybar/toggle-auto-rotation.sh",
-    "format": "<span color='#C5C9C5'> 󰑸 </span>",
+    "on-click": "~/.config/waybar/toggle-rotation.sh",
+    "format": "<span color='#C5C9C5'></span>",
     "tooltip": true,
-    "tooltip-format": "Rotation Lock"
+    "tooltip-format": "Rotate screen left"
   },
   "custom/launcher": {
     "format": "<span color='#A3D4D5'> 󱓞 </span>",
