@@ -86,14 +86,22 @@
       CPU_SCALING_GOVERNOR_ON_AC = "powersave";
       CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
 
+      # Force the scaling limit to the CPU's theoretical max (4.5GHz)
+      CPU_SCALING_MIN_FREQ_ON_AC = 400000;
+      CPU_SCALING_MAX_FREQ_ON_AC = 4500000;
+
+      # Do the same for battery if you want boost on battery
+      CPU_SCALING_MIN_FREQ_ON_BAT = 400000;
+      CPU_SCALING_MAX_FREQ_ON_BAT = 4500000;
+
       CPU_BOOST_ON_AC = 1;
       CPU_BOOST_ON_BAT = 0;
 
       CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
       CPU_ENERGY_PERF_POLICY_ON_BAT = "balance_power";
 
-      PLATFORM_PROFILE_ON_AC = "performance";
-      PLATFORM_PROFILE_ON_BAT = "quiet";
+      # PLATFORM_PROFILE_ON_AC = "performance";
+      # PLATFORM_PROFILE_ON_BAT = "quiet";
 
       # Allow the deepest sleep states for PCIe links
       PCIE_ASPM_ON_AC = "default";
