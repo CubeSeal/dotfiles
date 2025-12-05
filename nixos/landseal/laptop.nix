@@ -184,7 +184,7 @@
     # Returns exit code 0 if on AC, 1 if on Battery.
     # We check for any power_supply starting with AC or ADP that is "online".
     checkAC = pkgs.writeShellScript "check-ac" ''
-      if grep -q "1" /sys/class/power_supply/AC*/online 2>/dev/null; then
+      if grep -q "1" /sys/class/power_supply/ADP*/online 2>/dev/null; then
         exit 0 # We are on AC
       else
         exit 1 # We are on Battery
@@ -213,27 +213,13 @@
         RestartSec = "1s";
         ExecStart = ''
           ${pkgs.swayidle}/bin/swayidle -w \
-            \
-            /* --- BATTERY BEHAVIOR (Aggressive) --- */ \
             timeout 30   '${runOnBattery "${niriMsg} power-off-monitors"}' \
-            timeout 120  '${runOnBattery "${systemctl} suspend"}' \
-            \
-            /* --- AC BEHAVIOR (Relaxed) --- */ \
-            timeout 600  '${runOnAC "${niriMsg} power-off-monitors"}' \
-            /* Optional: Auto-suspend on AC after 1 hour? Remove if you want never-sleep on AC */ \
-            timeout 3600 '${runOnAC "${systemctl} suspend"}' \
-            \
-            /* --- UNIVERSAL BEHAVIOR (Locking) --- */ \
-            /* We want to lock regardless of AC/Bat, but we time it based on the Battery sleep (115s) */ \
-            /* or the AC sleep (say, 595s) to avoid the "wake up flash" glitch. */ \
-            \
             timeout 115 '${runOnBattery "${hyprlock}"}' \
+            timeout 120  '${runOnBattery "${systemctl} suspend"}' \
             timeout 595 '${runOnAC      "${hyprlock}"}' \
-            \
-            /* Ensures screen turns back on if you wiggle mouse before sleep hits */ \
+            timeout 600  '${runOnAC "${niriMsg} power-off-monitors"}' \
+            timeout 3600 '${runOnAC "${systemctl} suspend"}' \
             resume '${niriMsg} power-on-monitors' \
-            \
-            /* Ensures we lock if the Lid closes or you press Hibernate button manually */ \
             before-sleep '${hyprlock}'
         '';
       };
