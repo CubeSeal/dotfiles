@@ -186,9 +186,7 @@
         ExecStart = ''
           ${pkgs.swayidle}/bin/swayidle -w \
             timeout 30   '${runOnBattery "${niriMsg} power-off-monitors"}' \
-            timeout 115 '${runOnBattery "${hyprlock}"}' \
             timeout 120  '${runOnBattery "${systemctl} suspend"}' \
-            timeout 595 '${runOnAC      "${hyprlock}"}' \
             timeout 600  '${runOnAC "${niriMsg} power-off-monitors"}' \
             timeout 3600 '${runOnAC "${systemctl} suspend"}' \
             resume '${niriMsg} power-on-monitors' \
