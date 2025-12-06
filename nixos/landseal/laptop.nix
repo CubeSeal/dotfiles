@@ -171,7 +171,7 @@
 
     # 4. Your standard commands
     niriMsg = "${pkgs.niri}/bin/niri msg action";
-    hyprlock = "${pkgs.hyprlock}/bin/hyprlock";
+    hyprlock = "pgrep hyprlock || ${pkgs.hyprlock}/bin/hyprlock &";
     systemctl = "systemctl";
 
     in {
@@ -185,10 +185,10 @@
         RestartSec = "1s";
         ExecStart = ''
           ${pkgs.swayidle}/bin/swayidle -w \
-            timeout 30   '${runOnBattery "${niriMsg} power-off-monitors"}' \
-            timeout 120  '${runOnBattery "${systemctl} suspend"}' \
-            timeout 600  '${runOnAC "${niriMsg} power-off-monitors"}' \
-            timeout 3600 '${runOnAC "${systemctl} suspend"}' \
+            timeout 60   '${runOnBattery "${niriMsg} power-off-monitors"}' \
+            timeout 300  '${runOnBattery "${systemctl} suspend"}' \
+            timeout 300  '${runOnAC "${niriMsg} power-off-monitors"}' \
+            timeout 900 '${runOnAC "${systemctl} suspend"}' \
             resume '${niriMsg} power-on-monitors' \
             before-sleep '${hyprlock}'
         '';
