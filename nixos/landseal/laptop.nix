@@ -173,7 +173,7 @@
     niriMsg = "${pkgs.niri}/bin/niri msg action";
     hyprlock = "pgrep hyprlock || ${pkgs.hyprlock}/bin/hyprlock &";
     systemctl = "systemctl";
-
+    suspend_cmd = "suspend-then-hibernate";
     in {
       description = "Idle Manager for Niri";
       wantedBy = [ "graphical-session.target" ];
@@ -186,9 +186,9 @@
         ExecStart = ''
           ${pkgs.swayidle}/bin/swayidle -w \
             timeout 60   '${runOnBattery "${niriMsg} power-off-monitors"}' \
-            timeout 300  '${runOnBattery "${systemctl} suspend"}' \
+            timeout 300  '${runOnBattery "${systemctl} ${suspend_cmd}"}' \
             timeout 300  '${runOnAC "${niriMsg} power-off-monitors"}' \
-            timeout 900 '${runOnAC "${systemctl} suspend"}' \
+            timeout 900 '${runOnAC "${systemctl} ${suspend_cmd}"}' \
             resume '${niriMsg} power-on-monitors' \
             before-sleep '${hyprlock}'
         '';
