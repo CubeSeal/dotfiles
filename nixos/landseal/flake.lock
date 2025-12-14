@@ -58,69 +58,25 @@
         "type": "github"
       }
     },
+    "nixpkgs-2511": {
+      "locked": {
+        "lastModified": 1765311797,
+        "narHash": "sha256-mSD5Ob7a+T2RNjvPvOA1dkJHGVrNVl8ZOrAwBjKBDQo=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "09eb77e94fa25202af8f3e81ddc7353d9970ac1b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-25.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
-        "firefox-addons": "firefox-addons",
-        "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs",
-        "silentSDDM": "silentSDDM",
-        "wallpaper": "wallpaper",
-        "zen-browser": "zen-browser"
-      }
-    },
-    "silentSDDM": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1775652648,
-        "narHash": "sha256-mLE7i9r9qenayJ8adWm22SbqUwLuopvRhyoizuZTtyo=",
-        "owner": "uiriansan",
-        "repo": "SilentSDDM",
-        "rev": "a0fb8a48de772c0340dd6639b331ebf6ec2eb554",
-        "type": "github"
-      },
-      "original": {
-        "owner": "uiriansan",
-        "repo": "SilentSDDM",
-        "type": "github"
-      }
-    },
-    "wallpaper": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-u+Z1NHRvkGiAuHutiDirYMivxRz5hxF/dEGJoVbFLIE=",
-        "type": "file",
-        "url": "https://www.desktophut.com/files/ieMNgswbJB-Wallpaper12Prob4.mp4"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://www.desktophut.com/files/ieMNgswbJB-Wallpaper12Prob4.mp4"
-      }
-    },
-    "zen-browser": {
-      "inputs": {
-        "home-manager": [
-          "home-manager"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1776144279,
-        "narHash": "sha256-eX3u6wJ34+qu7ZR1qWOaToGWmudYQSOEStZZm6goP+8=",
-        "owner": "0xc000022070",
-        "repo": "zen-browser-flake",
-        "rev": "727de8a44c85e90f899c540cf3ffa0d5d3344f9c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "0xc000022070",
-        "repo": "zen-browser-flake",
-        "type": "github"
+        "nixpkgs": "nixpkgs"
       }
     }
   },

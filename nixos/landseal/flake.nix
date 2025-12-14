@@ -25,14 +25,13 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixpkgs-2511.url = "github:nixos/nixpkgs/nixos-25.11";
   };
 
-  outputs = { self, nixpkgs, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-2511, ... }@inputs:
     let
       system = "x86_64-linux";
-      commonModules = [
-        { nixpkgs.config.allowUnfree = true; }
-      ];
+      commonModules = [ { nixpkgs.config.allowUnfree = true; } ];
     in
       {
       nixosConfigurations = {
@@ -40,7 +39,7 @@
           inherit system;
           modules = [ ./desktop.nix ] ++ commonModules;
         };
-        steambox = nixpkgs.lib.nixosSystem {
+        steambox = nixpkgs-2511.lib.nixosSystem {
           inherit system;
           modules = [ ./steambox.nix ] ++ commonModules;
         };
@@ -49,6 +48,5 @@
           modules = [ ./laptop.nix ] ++ commonModules;
         };
       };    
-
     };
 }

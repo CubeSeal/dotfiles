@@ -12,8 +12,6 @@
       ./users/steam.nix
       # Windows Manager
       ./wm/kde.nix
-      # Display Manager
-      ./dm/sddm.nix
     ];
 
   # Bootloader.
