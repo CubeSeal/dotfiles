@@ -46,7 +46,6 @@
         };
         laptop = nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit inputs; };
           modules = [ ./laptop.nix ] ++ commonModules;
         };
       };    
