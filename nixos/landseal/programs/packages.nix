@@ -28,6 +28,7 @@
     calibre
     libnotify
     jjui
+    sunsetr
   ];
 
   # Fonts
