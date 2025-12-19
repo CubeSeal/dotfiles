@@ -36,8 +36,10 @@
   }];
 
   # Setup hibernation
-  boot.kernelParams = ["resume_offset=106133504"];
-  boot.resumeDevice = "/dev/disk/by-uuid/425ea73c-1daf-4383-b1c3-3fad8343e550";
+  boot = {
+    kernelParams = ["resume_offset=106133504"];
+    resumeDevice = "/dev/disk/by-uuid/425ea73c-1daf-4383-b1c3-3fad8343e550";
+  };
   
   # Lid switch behaviour
   services.logind.settings.Login = {
