@@ -3,7 +3,7 @@
 
 # === CONFIGURATION ===
 # IMPORTANT: Use an MP4 for the animation to save CPU/Battery
-WALLPAPER_PATH="$HOME/Wallpapers/rainy-night-city.3840x2160.mp4"
+WALLPAPER_PATH="$HOME/Wallpapers/Mountain-Dweller-CozyFire.mp4"
 # Using robust extension stripping (works for .mp4, .mkv, etc)
 STATIC_PATH="${WALLPAPER_PATH%.*}.png"
 
@@ -22,7 +22,6 @@ if [ ! -f "$WALLPAPER_PATH" ]; then
 fi
 
 if [[ $1 == '--start' ]]; then
-
 
     if [ ! -f "$STATIC_PATH" ]; then
         printf "Creating static wallpaper image from video...\n"
