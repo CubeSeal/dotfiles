@@ -8,5 +8,6 @@
     atkinson-hyperlegible-mono
     eb-garamond
     gelasio
+    corefonts
   ];
 }
