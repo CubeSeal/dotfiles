@@ -19,5 +19,7 @@
     # Programs and Packages
     ../programs/programs.nix
     ../programs/packages.nix
+    # Fonts
+    ../programs/fonts.nix
   ];
 }

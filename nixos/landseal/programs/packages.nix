@@ -30,13 +30,4 @@
     jjui
     sunsetr
   ];
-
-  # Fonts
-  fonts.packages = with pkgs; [
-    nerd-fonts.symbols-only
-    atkinson-hyperlegible-next
-    atkinson-hyperlegible-mono
-    eb-garamond
-    gelasio
-  ];
 }
