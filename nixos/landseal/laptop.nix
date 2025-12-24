@@ -12,6 +12,7 @@
       ./wm/niri.nix
       # ./wm/kde.nix
       # ./wm/hyprland.nix
+      ./boot/splash.nix
     ];
 
   # Bootloader.
