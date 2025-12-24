@@ -143,9 +143,6 @@ output "HDMI-A-1" {
     position x=0 y=0
 }
 
-workspace "󰈹"
-workspace ""
-
 layer-rule {
   match namespace="mpvpaper|swww"
   place-within-backdrop true
@@ -368,16 +365,12 @@ window-rule {
 window-rule {
     match app-id=r#"kitty$"#
     default-column-width { proportion 0.66667; }
-
-    open-on-workspace ""
 }
 
 // Open Firefox on the 󰈹 workspace by default.
 window-rule {
     match app-id=r#"firefox$"#
     default-column-width { proportion 0.66667; }
-
-    open-on-workspace "󰈹"
 }
 
 // Open the Firefox picture-in-picture player as floating by default.
