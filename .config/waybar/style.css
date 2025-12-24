@@ -2,7 +2,7 @@
  font-family: "EB Garamond 08", "Symbols Nerd Font", sans-serif;
  font-weight: normal;
  font-size: 18px;
- color: #dcd7ba;
+ color: #D1CEC4;
 }
 
 #custom-launcher,
@@ -16,7 +16,7 @@
 #wireplumber,
 #bluetooth,
 #clock {
-  background-color: #1F1F28;
+  background-color: #271D20;
   margin: 4px 4px 0px;
   padding: 0px 6px;
   border-radius: 10px;

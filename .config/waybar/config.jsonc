@@ -19,24 +19,24 @@
   ],
   "custom/autorotate": {
     "on-click": "~/.config/waybar/toggle-rotation.sh",
-    "format": "<span color='#C5C9C5'></span>",
+    "format": "",
     "tooltip": true,
     "tooltip-format": "Rotate screen left"
   },
   "custom/launcher": {
-    "format": "<span color='#A3D4D5'> 󱓞 </span>",
+    "format": "<span color='#3F64D3'> 󱓞 </span>",
     "on-click": "walker -s 'kanagawa'",
     "tooltip": true,
     "tooltip-format": "Walker"
   },
   "custom/reboot": {
-    "format": "<span color='#DCA561'>  </span>",
+    "format": "<span color='#A6783F'>  </span>",
     "on-click": "systemctl reboot",
     "tooltip": true,
     "tooltip-format": "Reboot"
   },
   "custom/power": {
-    "format": "<span color='#E82424'>  </span>",
+    "format": "<span color='#608E76'>  </span>",
     "on-click": "systemctl poweroff",
     "tooltip": true,
     "tooltip-format": "Poweroff" 
@@ -71,12 +71,12 @@
     "max-length": 50
   },
   "battery": {
-    "format": " <span color='#76946A'>{icon}</span> {capacity}% ",
+    "format": " <span color='#608E76'>{icon}</span> {capacity}/100 ",
     "format-icons": ["󱊡", "󱊢", "󱊣"],
-    "format-charging": " <span color='#76946A'>󰂄</span> {capacity}% " 
+    "format-charging": " <span color='#76946A'>󰂄</span> {capacity}/100 " 
   },
   "wireplumber": {
-    "format": " <span color='#DCA561'>{icon}</span> {volume}% ",
+    "format": " <span color='#A6783F'>{icon}</span> {volume}/100 ",
     "format-muted": "<span color='#E82424'></span> Muted ",
     "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
     "format-icons": ["", "", ""],
@@ -84,12 +84,12 @@
   },
   "bluetooth": {
     "on-click": "overskride",
-    "format": " <span color='#7FB4CA'></span> ",
-    "format-connected": " <span color='#7FB4CA'> </span>{device_alias} ",
-    "format-connected-battery": " <span color='#7FB4CA'> </span>{device_battery_percentage}%",
+    "format": " <span color='#3F64D3'></span> ",
+    "format-connected": " <span color='#3F64D3'> </span>{device_alias} ",
+    "format-connected-battery": " <span color='#3F64D3'> </span>{device_battery_percentage}/100",
     "tooltip-format-connected": "{num_connections} connected\n{device_enumerate}",
     "tooltip-format-enumerate-connected": "{device_alias}\t",
-    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_battery_percentage}%"
+    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_battery_percentage}/100"
   },
   "network": {
     "format-wifi": " <span color='#C5C9C5'>󰤨</span> ",
@@ -104,7 +104,7 @@
     "family": "ipv4"
   },
   "clock": {
-    "format": " {:%y-%m-%d-%I-%M} ",
+    "format": " {:%I:%M %p, %a. %d %b.} ",
     "tooltip-format": "<tt><small>{calendar}</small></tt>",
     "format-alt": "{:%a, %d. %b  %H:%M}"
   }
