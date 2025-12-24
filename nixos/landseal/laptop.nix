@@ -69,6 +69,7 @@
     # Start the service back up
     ${pkgs.systemd}/bin/systemctl start bluetooth.service
   '';
+
   # Define time delay for hibernation
   systemd.sleep.extraConfig = ''
     HibernateDelaySec=30m
@@ -173,7 +174,7 @@
 
     # 4. Your standard commands
     niriMsg = "${pkgs.niri}/bin/niri msg action";
-    hyprlock = "pgrep hyprlock || ${pkgs.hyprlock}/bin/hyprlock &";
+    hyprlock = "pkill hyprlock || ${pkgs.hyprlock}/bin/hyprlock &";
     systemctl = "systemctl";
     suspend_cmd = "suspend-then-hibernate";
     in {
@@ -190,7 +191,7 @@
             timeout 60   '${runOnBattery "${niriMsg} power-off-monitors"}' \
             timeout 300  '${runOnBattery "${systemctl} ${suspend_cmd}"}' \
             timeout 300  '${runOnAC "${niriMsg} power-off-monitors"}' \
-            timeout 900 '${runOnAC "${systemctl} ${suspend_cmd}"}' \
+            timeout 900  '${runOnAC "${systemctl} ${suspend_cmd}"}' \
             resume '${niriMsg} power-on-monitors' \
             before-sleep '${hyprlock}'
         '';
