@@ -66,9 +66,8 @@
     "max-length": 50
   },
   "niri/window": {
-    "icon": true,
-    "icon-size": 18,
-    "max-length": 50
+    "format":"{app_id}",
+    "max-length": 15
   },
   "battery": {
     "format": " <span color='#608E76'>{icon}</span> {capacity}/100 ",
