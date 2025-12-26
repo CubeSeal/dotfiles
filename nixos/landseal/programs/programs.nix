@@ -41,6 +41,7 @@
       # Force Hardware Acceleration
           "media.ffmpeg.vaapi.enabled" = true;
           "media.rdd-ffmpeg.enabled" = true;
+          "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
       };
     };
     git.enable = true;
