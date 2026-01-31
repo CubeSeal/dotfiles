@@ -3,7 +3,7 @@
 
 # === CONFIGURATION ===
 # IMPORTANT: Use an MP4 for the animation to save CPU/Battery
-WALLPAPER_PATH="$HOME/Wallpapers/Mountain-Dweller-CozyFire.mp4"
+WALLPAPER_PATH="$HOME/Wallpapers/snowfall-in-forest.3840x2160.mp4"
 # Using robust extension stripping (works for .mp4, .mkv, etc)
 STATIC_PATH="${WALLPAPER_PATH%.*}.png"
 
