@@ -1,9 +1,20 @@
 * {
- font-family: "EB Garamond 08", "Symbols Nerd Font", sans-serif;
- font-weight: normal;
- font-size: 18px;
- color: #D1CEC4;
+  font-family: "EB Garamond 08", "Symbols Nerd Font", sans-serif;
+  font-weight: normal;
+  font-size: 18px;
+  color: #D1CEC4;
+  border-radius: 5px;
 }
+
+.modules-left,
+.modules-center,
+.modules-right {
+  background-image: linear-gradient(to bottom, #271D20, #271D20, #422d20);
+  margin: 4px 8px 0px;
+  padding: 2px 6px;
+  border-width: 0px;
+}
+
 
 #custom-launcher,
 #custom-autorotate,
@@ -16,11 +27,7 @@
 #wireplumber,
 #bluetooth,
 #clock {
-  background-color: #271D20;
-  margin: 4px 4px 0px;
-  padding: 0px 6px;
-  border-radius: 10px;
-  border-width: 0px;
+  margin: 0px 4px;
 }
 
 #waybar {
@@ -34,28 +41,24 @@
 }
 
 #workspaces {
-  margin: 4px 4px 0 10px;
-}
-
-#clock {
-  margin: 4px 10px 0 4px;
+  margin: 0px 15px 0px 0px;
 }
 
 #workspaces button {
   background: transparent;
   border: none;
   color: #888888;
-  padding: 0px 8px;
+  padding: 0px 3px;
   font-weight: bold;
 }
 
 #workspaces button:hover{
   background-color: rgba(97, 175, 239, 0.2);
   padding: 4px 8px;
-  border-radius: 0px;
 }
 
 #window {
   font-weight: 200;
   font-style: italic;
+  padding: 0px 10px;
 }

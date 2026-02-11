@@ -58,8 +58,8 @@
     "format": "{value} {icon}",
     "format-icons": {
       // Icons by state
-      "active": "",
-      "default": "󰡳"
+      "active": "",
+      "default": ""
     }
   },
   "hyprland/window": {
