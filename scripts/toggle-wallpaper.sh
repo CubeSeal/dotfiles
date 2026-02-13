@@ -3,7 +3,7 @@
 
 # === CONFIGURATION ===
 # IMPORTANT: Use an MP4 for the animation to save CPU/Battery
-WALLPAPER_PATH="$HOME/Wallpapers/snowfall-in-forest.3840x2160.mp4"
+WALLPAPER_PATH="$HOME/Wallpapers/silent-snowfall-winter-forest-path-live-wallpaper-wallsflow-com.mp4"
 # Using robust extension stripping (works for .mp4, .mkv, etc)
 STATIC_PATH="${WALLPAPER_PATH%.*}.png"
 
@@ -22,6 +22,9 @@ if [ ! -f "$WALLPAPER_PATH" ]; then
 fi
 
 if [[ $1 == '--start' ]]; then
+
+    pkill mpvpaper > /dev/null
+    pkill swww-daemon > /dev/null
 
     if [ ! -f "$STATIC_PATH" ]; then
         printf "Creating static wallpaper image from video...\n"
