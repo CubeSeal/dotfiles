@@ -8,6 +8,10 @@
       url = "github:uiriansan/SilentSDDM";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    wallpaper = {
+      url = "https://www.desktophut.com/files/ieMNgswbJB-Wallpaper12Prob4.mp4";
+      flake = false;
+    };
   };
 
   outputs = { self, nixpkgs, ... }@inputs:

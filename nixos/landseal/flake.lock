@@ -19,7 +19,8 @@
     "root": {
       "inputs": {
         "nixpkgs": "nixpkgs",
-        "silentSDDM": "silentSDDM"
+        "silentSDDM": "silentSDDM",
+        "wallpaper": "wallpaper"
       }
     },
     "silentSDDM": {
@@ -40,6 +41,18 @@
         "owner": "uiriansan",
         "repo": "SilentSDDM",
         "type": "github"
+      }
+    },
+    "wallpaper": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-u+Z1NHRvkGiAuHutiDirYMivxRz5hxF/dEGJoVbFLIE=",
+        "type": "file",
+        "url": "https://www.desktophut.com/files/ieMNgswbJB-Wallpaper12Prob4.mp4"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://www.desktophut.com/files/ieMNgswbJB-Wallpaper12Prob4.mp4"
       }
     }
   },

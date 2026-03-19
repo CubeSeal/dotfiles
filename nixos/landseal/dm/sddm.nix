@@ -1,6 +1,12 @@
 # vim: set tabstop=2 shiftwidth=2 expandtab:
 # Thanks to: https://github.com/VoidKeishi/nixos-config/blob/main/modules%2Fsddm.nix#L1-L34
 { config, pkgs, inputs, ... }:
+let
+  wallpaperName = "wallpaper.mp4";
+  wallpaper = pkgs.runCommand wallpaperName {} ''
+    cp ${inputs.wallpaper} $out
+      '';
+in
 {
   services.displayManager.sddm = {
     enable = true;
@@ -25,19 +31,13 @@
   programs.silentSDDM = {
     enable = true;
     theme = "default";
-    backgrounds = {
-      forest = pkgs.fetchurl {
-        name = "wallpaper.mp4";
-        url = "https://go.moewalls.com/download.php?video=PfJbjX0KEuoI91r5npEdSFrGxKRdlPgOFh80qrO%2Fr2MauWDMVtbF9%2FYMUbDKS5tvojdnWsfLMQV%2BBojC";
-        hash = "sha256-jCa8bVspeOsAMcUne3DQS+g8rj0byHCA9WQWHXNLccI=";
-      };
-    };
+    backgrounds.wallpaper = wallpaper;
     settings = {
         "LoginScreen" = {
-          background = "wallpaper.mp4";
+          background = wallpaperName;
         };
         "LockScreen" = {
-          background = "wallpaper.mp4";
+          background = wallpaperName;
         };
     };
   };
