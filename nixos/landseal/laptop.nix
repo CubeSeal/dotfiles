@@ -13,6 +13,8 @@
       # ./wm/kde.nix
       # ./wm/hyprland.nix
       ./boot/splash.nix
+      # Audio/Pipewire settings
+      ./audio/audio.nix
     ];
 
   # Bootloader.
