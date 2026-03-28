@@ -3,7 +3,7 @@
 
 # === CONFIGURATION ===
 # IMPORTANT: Use an MP4 for the animation to save CPU/Battery
-WALLPAPER_PATH="$HOME/Wallpapers/silent-snowfall-winter-forest-path-live-wallpaper-wallsflow-com.mp4"
+WALLPAPER_PATH="$HOME/Wallpapers/ieMNgswbJB-Wallpaper12Prob4.mp4"
 # Using robust extension stripping (works for .mp4, .mkv, etc)
 STATIC_PATH="${WALLPAPER_PATH%.*}.png"
 

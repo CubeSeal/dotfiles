@@ -58,15 +58,16 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 -- Diagnostics {{{2
-vim.diagnostic.config{virtual_lines = true}
+-- vim.diagnostic.config{virtual_lines = true}
+
 -- Diagnostic Floating window:
 -- You will likely want to reduce updatetime which affects CursorHold
--- vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
---   group = vim.api.nvim_create_augroup("float_diagnostic", { clear = true }),
---   callback = function ()
---     vim.diagnostic.open_float(nil, {focus=false})
---   end
--- })
+vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+  group = vim.api.nvim_create_augroup("float_diagnostic", { clear = true }),
+  callback = function ()
+    vim.diagnostic.open_float(nil, {focus=false})
+  end
+})
 
 -- LSP Enable
 vim.lsp.enable('hls')
