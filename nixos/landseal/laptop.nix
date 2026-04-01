@@ -162,11 +162,8 @@
     LIBVA_DRIVER_NAME = "iHD"; 
   };
 
-  # Configure swayidle to manage idle and locking behavior.
   systemd.user.services.swayidle = let
-    # 1. A robust script to check if we are plugged in.
-    # Returns exit code 0 if on AC, 1 if on Battery.
-    # We check for any power_supply starting with AC or ADP that is "online".
+    # 1. Check AC status
     checkAC = pkgs.writeShellScript "check-ac" ''
       if grep -q "1" /sys/class/power_supply/ADP*/online 2>/dev/null; then
         exit 0 # We are on AC
@@ -175,37 +172,40 @@
       fi
     '';
 
-    # 2. Helper to run a command ONLY if on Battery
+    # 2. Helpers
     runOnBattery = cmd: "${checkAC} || ${cmd}";
-    
-    # 3. Helper to run a command ONLY if on AC
     runOnAC = cmd: "${checkAC} && ${cmd}";
 
-    # 4. Your standard commands
+    # 3. Commands
     niriMsg = "${pkgs.niri}/bin/niri msg action";
-    hyprlock = "pkill hyprlock || ${pkgs.hyprlock}/bin/hyprlock &";
+    hyprlock = "${pkgs.hyprlock}/bin/hyprlock";
+    loginctl = "${pkgs.systemd}/bin/loginctl";
     systemctl = "systemctl";
     suspend_cmd = "suspend-then-hibernate";
-    in {
-      description = "Idle Manager for Niri";
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
+  in {
+    description = "Idle Manager for Niri";
+    wantedBy = [ "graphical-session.target" ];
+    partOf = [ "graphical-session.target" ];
+    after = [ "graphical-session.target" ];
 
-      serviceConfig = {
-        Restart = "on-failure";
-        RestartSec = "1s";
-        ExecStart = ''
-          ${pkgs.swayidle}/bin/swayidle -w \
-            timeout 60   '${runOnBattery "${niriMsg} power-off-monitors"}' \
-            timeout 300  '${runOnBattery "${systemctl} ${suspend_cmd}"}' \
-            timeout 300  '${runOnAC "${niriMsg} power-off-monitors"}' \
-            timeout 900  '${runOnAC "${systemctl} ${suspend_cmd}"}' \
-            resume '${niriMsg} power-on-monitors' \
-            before-sleep '${hyprlock}'
+    serviceConfig = {
+      Restart = "on-failure";
+      RestartSec = "1s";
+      ExecStart = ''
+        ${pkgs.swayidle}/bin/swayidle -w \
+        timeout 60   '${runOnBattery "${loginctl} lock-sessions"}' \
+        timeout 65   '${runOnBattery "${niriMsg} power-off-monitors"}' \
+        resume   '${niriMsg} power-on-monitors' \
+        timeout 300  '${runOnBattery "${systemctl} ${suspend_cmd}"}' \
+        timeout 300  '${runOnAC "${loginctl} lock-sessions"}' \
+        timeout 305  '${runOnAC "${niriMsg} power-off-monitors"}' \
+        resume   '${niriMsg} power-on-monitors' \
+        timeout 900  '${runOnAC "${systemctl} ${suspend_cmd}"}' \
+        lock         '${hyprlock}' \
+        before-sleep '${loginctl} lock-sessions'
         '';
-      };
     };
+  };
 
   # Wifi: Configure with nmtui or nmcli.
   # Bluetooth: Configure with overskride (installed below).
