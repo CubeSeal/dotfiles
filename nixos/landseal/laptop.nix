@@ -14,7 +14,9 @@
       # ./wm/hyprland.nix
       ./boot/splash.nix
       # Audio/Pipewire settings
-      ./audio/audio.nix
+      ./audio.nix
+      # Android adb ccomputer settings
+      ./android.nix
     ];
 
   # Bootloader.
