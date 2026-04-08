@@ -144,7 +144,7 @@ output "HDMI-A-1" {
 }
 
 layer-rule {
-  match namespace="mpvpaper|swww"
+  match namespace="mpvpaper|awww"
   place-within-backdrop true
 }
 

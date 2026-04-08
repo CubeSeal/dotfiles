@@ -2,6 +2,11 @@
 # Thanks to Claude I guess.
 { config, pkgs, inputs, ... }:
 {
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+
   services.pipewire = {
     enable = true;
 
