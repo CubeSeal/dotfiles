@@ -429,7 +429,7 @@ binds {
     // Super+Alt+S allow-when-locked=true hotkey-overlay-title=null { spawn-sh "pkill orca || exec orca"; }
 
     // Has to be a shell script because of the theme selection.
-    Mod+D hotkey-overlay-title="Run an Application: walker" { spawn-sh "walker -s 'kanagawa'"; }
+    Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn-sh "fuzzel"; }
 
     Mod+A hotkey-overlay-title="Toggle animated wallpaper" { spawn-sh "$HOME/scripts/toggle-wallpaper.sh --toggle"; }
     Mod+W hotkey-overlay-title="Toggle Bar: waybar" { spawn-sh "pkill waybar || exec waybar"; }

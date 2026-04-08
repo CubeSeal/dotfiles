@@ -12,7 +12,7 @@
     grimblast
     nodejs
     qbittorrent
-    walker 
+    fuzzel 
     wl-clipboard
     fastfetch
     ripgrep

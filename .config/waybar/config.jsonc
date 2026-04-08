@@ -25,9 +25,9 @@
   },
   "custom/launcher": {
     "format": "<span color='#3F64D3'> 󱓞 </span>",
-    "on-click": "walker -s 'kanagawa'",
+    "on-click": "fuzzel",
     "tooltip": true,
-    "tooltip-format": "Walker"
+    "tooltip-format": "Fuzzel"
   },
   "custom/reboot": {
     "format": "<span color='#A6783F'>  </span>",
