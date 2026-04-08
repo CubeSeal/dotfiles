@@ -3,10 +3,10 @@
 { ... }:
 {
 # Enable the ADB daemon and udev rules
-  programs.adb.enable = true;
-
-# Add your user to the adbusers group
-# REPLACE "your_username" WITH YOUR ACTUAL LINUX USERNAME
-  users.users.landseal.extraGroups = [ "adbusers" ];
+#   programs.adb.enable = true;
+#
+# # Add your user to the adbusers group
+# # REPLACE "your_username" WITH YOUR ACTUAL LINUX USERNAME
+#   users.users.landseal.extraGroups = [ "adbusers" ];
 }
 

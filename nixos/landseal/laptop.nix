@@ -76,9 +76,9 @@
   '';
 
   # Define time delay for hibernation
-  systemd.sleep.extraConfig = ''
-    HibernateDelaySec=30m
-  '';
+  systemd.sleep.settings.Sleep = {
+    HibernateDelaySec = "30m";
+  };
 
   # Thermald
   services.thermald.enable = true;
