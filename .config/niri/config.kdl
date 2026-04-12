@@ -367,11 +367,12 @@ window-rule {
     default-column-width { proportion 0.66667; }
 }
 
-// Open Firefox on the 󰈹 workspace by default.
+// Open Firefox with default width.
 window-rule {
     match app-id=r#"firefox$"#
     default-column-width { proportion 0.66667; }
 }
+
 
 // Open the Firefox picture-in-picture player as floating by default.
 window-rule {
@@ -381,6 +382,21 @@ window-rule {
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
     open-floating true
 }
+
+// Open zen with default width.
+window-rule {
+    match app-id=r#"zen$"#
+    default-column-width { proportion 0.66667; }
+}
+
+// Open the zen picture-in-picture player as floating by default.
+window-rule {
+    // This app-id regular expression will work for both:
+    // - host zen (app-id is "zen")
+    match app-id=r#"zen$"# title="^Picture-in-Picture$"
+    open-floating true
+}
+
 
 // Example: block out two password managers from screen capture.
 // (This example rule is commented out with a "/-" in front.)
@@ -420,7 +436,7 @@ binds {
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
-    Mod+B hotkey-overlay-title="Run an Application: firefox" { spawn "firefox"; }
+    Mod+B hotkey-overlay-title="Open Default Browser" { spawn "sh" "-c" "$BROWSER"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: loginctl" { spawn "loginctl" "lock-session"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
