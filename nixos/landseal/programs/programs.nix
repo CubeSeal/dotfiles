@@ -1,5 +1,5 @@
 # vim: set tabstop=2 shiftwidth=2 expandtab:
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 {
   # Import other modules for specific apps.
   imports = [
@@ -57,5 +57,56 @@
       enableZshIntegration = true;
     };
     kdeconnect.enable = true;
+  };
+
+  # Packages
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
+  environment.systemPackages = with pkgs; [
+    # vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    wget
+    kitty
+    stow
+    grimblast
+    nodejs
+    qbittorrent
+    fuzzel 
+    wl-clipboard
+    fastfetch
+    ripgrep
+    mpv
+    prismlauncher
+    jujutsu
+    overskride
+    tor-browser
+    brightnessctl
+    chromium
+    nil
+    mako
+    calibre
+    libnotify
+    jjui
+    sunsetr
+  ];
+
+  # Services
+  services = {
+    # Enable the OpenSSH daemon.
+    openssh.enable = true;
+    # Configure keymap in X11
+    xserver.xkb = {
+      layout = "au";
+      variant = "";
+    };
+    # Printing
+    printing.enable = true;
+    # Printer Auto-Discovery
+    avahi = {
+      enable = true;
+      nssmdns4 = true;
+      openFirewall = true;
+    };
+    # Enable automounting of removable media
+    udisks2.enable = true;
   };
 }

@@ -14,11 +14,8 @@
 
   # Import other modules.
   imports = [
-    # Services
-    ../programs/services.nix
     # Programs and Packages
     ../programs/programs.nix
-    ../programs/packages.nix
     # Fonts
     ../programs/fonts.nix
   ];
