@@ -20,7 +20,8 @@
       "inputs": {
         "nixpkgs": "nixpkgs",
         "silentSDDM": "silentSDDM",
-        "wallpaper": "wallpaper"
+        "wallpaper": "wallpaper",
+        "zen-browser": "zen-browser"
       }
     },
     "silentSDDM": {
@@ -53,6 +54,26 @@
       "original": {
         "type": "file",
         "url": "https://www.desktophut.com/files/ieMNgswbJB-Wallpaper12Prob4.mp4"
+      }
+    },
+    "zen-browser": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1775710180,
+        "narHash": "sha256-sCokvdNvl8zIzsnjgG0TN5h3RUI7GJyWW9ErfmEj0rM=",
+        "owner": "youwen5",
+        "repo": "zen-browser-flake",
+        "rev": "2c138beb648d1cbbfae76695a8230ee04e4db25a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "youwen5",
+        "repo": "zen-browser-flake",
+        "type": "github"
       }
     }
   },

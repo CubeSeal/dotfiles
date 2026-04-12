@@ -12,6 +12,10 @@
       url = "https://www.desktophut.com/files/ieMNgswbJB-Wallpaper12Prob4.mp4";
       flake = false;
     };
+    zen-browser = {
+      url = "github:youwen5/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, ... }@inputs:

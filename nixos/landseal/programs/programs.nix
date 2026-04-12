@@ -1,6 +1,12 @@
 # vim: set tabstop=2 shiftwidth=2 expandtab:
 { config, lib, pkgs, ... }:
 {
+  # Import other modules for specific apps.
+  imports = [
+    # Zen browser
+    ./zen.nix
+  ];
+
   # Programs
   programs = {
     nix-ld.enable = true; # Enable dynamic linking
