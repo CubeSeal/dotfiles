@@ -15,7 +15,6 @@ in
   # plain files is through 'home.file'.
   home.file = {
     ".bashrc" = dotfile ".bashrc";
-    ".zshrc" = dotfile ".zshrc";
     ".vimrc" = dotfile ".vimrc";
     ".p10k.zsh" = dotfile ".p10k.zsh";
     "scripts" = dotfile "scripts";
@@ -37,6 +36,11 @@ in
   home.sessionVariables = {
     # EDITOR = "emacs";
   };
+
+  home.sessionPath = [
+    "$HOME/.local/bin"
+  ];
+
 
 # Custom user programs
   programs = {
@@ -68,13 +72,35 @@ in
       enableCompletion = true;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
+      defaultKeymap = "viins";
+      shellAliases = {
+        vi = "nvim";
+        vim = "nvim";
+      };
       oh-my-zsh = {
         enable = true;
         plugins = [ "git" ];
       };
+       plugins = [
+          {
+            name = "zsh-vi-mode";
+            src = pkgs.zsh-vi-mode;
+            file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
+          }
+        ];
       initContent = ''
+        # p10k instant prompt
+        if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+          source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
+        fi
+
         source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-        '';
+
+        export KEYTIMEOUT=1
+        bindkey '^H' backward-kill-word
+
+        [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+      '';
     };
 
     tmux.enable = true;
