@@ -1,5 +1,10 @@
 { config, pkgs, ... }:
-
+let
+  dots = ../../../..;
+  conf = "${dots}/.config";
+  dotfile = name: { source = "${dots}/${name}"; };
+  confdir = name: { source = "${conf}/${name}"; };
+in
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -39,6 +44,11 @@
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
+    ".bashrc" = dotfile ".bashrc";
+    ".zshrc" = dotfile ".zshrc";
+    ".vimrc" = dotfile ".vimrc";
+    ".p10k.zsh" = dotfile ".p10k.zsh";
+    "scripts" = dotfile "scripts";
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
@@ -49,6 +59,19 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
+  };
+
+  xdg.configFile = {
+    "hypr" = confdir "hypr";
+    "jj" = confdir "jj";
+    "kitty" = confdir "kitty";
+    "niri" = confdir "niri";
+    "nvim" = confdir "nvim";
+    "tmux" = confdir "tmux";
+    "walker" = confdir "walker";
+    "waybar" = confdir "waybar";
+    "mako" = confdir "mako";
+    "sunsetr" = confdir "sunsetr";
   };
 
   # Home Manager can also manage your environment variables through
