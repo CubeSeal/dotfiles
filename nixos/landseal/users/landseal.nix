@@ -45,6 +45,7 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "bak";
+    extraSpecialArgs = { inherit inputs; };
     users.landseal = ../home-manager/landseal.nix;
   };
  

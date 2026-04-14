@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 let
   dots = ../../..;
   conf = "${dots}/.config";
@@ -43,6 +43,10 @@ in
 
 
 # Custom user programs
+  imports = [
+    ./programs/zen.nix
+  ];
+
   programs = {
     home-manager.enable = true;
 
