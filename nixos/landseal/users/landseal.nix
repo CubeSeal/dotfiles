@@ -1,5 +1,5 @@
 # vim: set tabstop=2 shiftwidth=2 expandtab:
-{ config, lib, pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users = {
@@ -7,7 +7,6 @@
       isNormalUser = true;
       description = "landseal";
       extraGroups = [ "networkmanager" "wheel" ];
-      packages = with pkgs; [];
       shell = pkgs.zsh;
     };
   };
@@ -18,6 +17,7 @@
     ../programs/programs.nix
     # Fonts
     ../programs/fonts.nix
+    inputs.home-manager.nixosModules.home-manager
   ];
 
   # Set your time zone.
@@ -40,4 +40,11 @@
       LC_TIME = "en_AU.UTF-8";
     };
   };
+  
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.landseal = ./home-manager/home.nix;
+  };
+ 
 }
