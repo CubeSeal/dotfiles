@@ -44,7 +44,7 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    users.landseal = ./home-manager/home.nix;
+    users.landseal = ../home-manager/landseal.nix;
   };
  
 }
