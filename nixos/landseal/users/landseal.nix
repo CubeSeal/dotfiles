@@ -44,6 +44,7 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
+    backupFileExtension = "bak";
     users.landseal = ../home-manager/landseal.nix;
   };
  
