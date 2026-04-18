@@ -22,24 +22,27 @@
       ];
       settings = {
         "media.ffmpeg.vaapi.enabled" = true;
+        # Allow sideloading extensions:
+        "extensions.autoDisableScopes" = 0;
+
+        # Remove already seen welcome screen:
         "zen.welcome-screen.seen" = true;
-        # Enable compact mode (hides sidebar and toolbar)
-        "zen.view.compact.hide-tabbar" = true;
-        "zen.view.compact.hide-toolbar" = true;
 
-        # Floating sidebar — show on hover in compact mode
-        "zen.view.compact.show-sidebar-and-toolbar-on-hover" = true;
-
-        # Remove the border around the browser window
+        # Theme
         "zen.theme.content-element-separation" = 0;
 
-        # Other compact mode tweaks you might want
+        # Compact mode
+        "zen.view.compact.enable-at-startup" = true;
+        "zen.view.compact.hide-tabbar" = true;
+        "zen.view.compact.hide-toolbar" = true;
+        "zen.view.compact.show-sidebar-and-toolbar-on-hover" = true;
         "zen.view.compact.animate-sidebar" = true;
         "zen.view.compact.color-sidebar" = true;
         "zen.view.compact.color-toolbar" = true;
+        "zen.view.compact.toolbar-flash-popup" = true;
 
-        # Allow sideloading extensions:
-        "extensions.autoDisableScopes" = 0;
+        # Window behaviour
+        "zen.window-sync.sync-only-pinned-tabs" = true;
       };
     };
   };
