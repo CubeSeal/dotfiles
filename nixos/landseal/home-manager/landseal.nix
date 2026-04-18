@@ -4,6 +4,8 @@ let
   conf = "${dots}/.config";
   dotfile = name: { source = "${dots}/${name}"; };
   confdir = name: { source = "${conf}/${name}"; };
+  gitUser = "CubeSeal";
+  gitEmail = "kenndesilva1@gmail.com";
 in
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -22,7 +24,6 @@ in
 
   xdg.configFile = {
     "hypr" = confdir "hypr";
-    "jj" = confdir "jj";
     "kitty" = confdir "kitty";
     "niri" = confdir "niri";
     "nvim" = confdir "nvim";
@@ -58,10 +59,26 @@ in
       };
       settings = {
         user = {
-          name = "CubeSeal";
-          email = "kenndesilva1@gmail.com";
+          name = gitUser;
+          email = gitEmail;
         };
         gpg.format = "ssh";
+      };
+    };
+
+    jujutsu = {
+      enable = true;
+      settings = {
+        user = {
+          name = gitUser;
+          email = gitEmail;
+        };
+        signing = {
+          behavior = "drop";
+          backend = "ssh";
+          key = "~/.ssh/id_ed25519-singing.pub";
+        };
+        git.sign-on-push = true;
       };
     };
 
@@ -151,7 +168,6 @@ in
     ripgrep
     mpv
     prismlauncher
-    jujutsu
     jjui
     overskride
     tor-browser
