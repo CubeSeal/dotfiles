@@ -1,6 +1,6 @@
 # vim: set tabstop=2 shiftwidth=2 expandtab:
 # Thanks to: https://github.com/VoidKeishi/nixos-config/blob/main/modules%2Fsddm.nix#L1-L34
-{ config, pkgs, inputs, ... }:
+{ lib, pkgs, inputs, ... }:
 let
   wallpaperName = "wallpaper.mp4";
   wallpaper = pkgs.runCommand wallpaperName {} ''
@@ -10,7 +10,7 @@ in
 {
   services.displayManager.sddm = {
     enable = true;
-    package = pkgs.kdePackages.sddm;
+    package = lib.mkForce pkgs.kdePackages.sddm;
     wayland.enable = true;
     autoNumlock = true;
     enableHidpi = true;

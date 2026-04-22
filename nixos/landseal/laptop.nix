@@ -10,7 +10,7 @@
       ./users/landseal.nix
       # Windows Manager
       ./wm/niri.nix
-      # ./wm/kde.nix
+      ./wm/kde.nix
       # ./wm/hyprland.nix
       ./boot/splash.nix
       # Audio/Pipewire settings
