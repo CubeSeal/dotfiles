@@ -46,82 +46,19 @@ in
 # Custom user programs
   imports = [
     ./programs/zen.nix
+    ./programs/firefox.nix
+    ./programs/zsh.nix
+    (import ./programs/git.nix {gitUser=gitUser; gitEmail=gitEmail;})
+    (import ./programs/jj.nix {gitUser=gitUser; gitEmail=gitEmail;})
   ];
 
   programs = {
     home-manager.enable = true;
 
-    git = {
-      enable = true;
-      signing = {
-        key = "~/.ssh/id_ed25519-singing.pub";
-        signByDefault = true;
-      };
-      settings = {
-        user = {
-          name = gitUser;
-          email = gitEmail;
-        };
-        gpg.format = "ssh";
-      };
-    };
-
-    jujutsu = {
-      enable = true;
-      settings = {
-        user = {
-          name = gitUser;
-          email = gitEmail;
-        };
-        signing = {
-          behavior = "drop";
-          backend = "ssh";
-          key = "~/.ssh/id_ed25519-singing.pub";
-        };
-        git.sign-on-push = true;
-      };
-    };
-
     neovim = {
       enable = true;
       defaultEditor = true;
       vimAlias = true;
-    };
-
-    zsh = {
-      enable = true;
-      enableCompletion = true;
-      autosuggestion.enable = true;
-      syntaxHighlighting.enable = true;
-      defaultKeymap = "viins";
-      shellAliases = {
-        vi = "nvim";
-        vim = "nvim";
-      };
-      oh-my-zsh = {
-        enable = true;
-        plugins = [ "git" ];
-      };
-       plugins = [
-          {
-            name = "zsh-vi-mode";
-            src = pkgs.zsh-vi-mode;
-            file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
-          }
-        ];
-      initContent = ''
-        # p10k instant prompt
-        if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-          source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
-        fi
-
-        source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-
-        export KEYTIMEOUT=1
-        bindkey '^H' backward-kill-word
-
-        [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-      '';
     };
 
     tmux.enable = true;
@@ -137,23 +74,6 @@ in
     zoxide = {
       enable = true;
       enableZshIntegration = true;
-    };
-
-    firefox = {
-      enable = true;
-# policies and preferences live under profiles in HM
-      profiles.default = {
-        isDefault = true;
-        settings = {
-          "media.ffmpeg.vaapi.enabled" = true;
-          "media.rdd-ffmpeg.enabled" = true;
-          "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-        };
-      };
-      policies = {
-        DisableTelemetry = true;
-        DisableFirefoxStudies = true;
-      };
     };
   };
 
