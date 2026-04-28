@@ -74,7 +74,7 @@ vim.lsp.enable('hls')
 vim.lsp.enable('pyright')
 vim.lsp.enable('rust_analyzer')
 vim.lsp.enable('nil_ls')
-vim.lsp.enable('kotlin_ls')
+vim.lsp.enable("kotlin_language_server")
 
 -- Configs {{{1
 require("config.lazy")
