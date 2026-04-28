@@ -164,51 +164,6 @@
     LIBVA_DRIVER_NAME = "iHD"; 
   };
 
-  systemd.user.services.swayidle = let
-    # 1. Check AC status
-    checkAC = pkgs.writeShellScript "check-ac" ''
-      if grep -q "1" /sys/class/power_supply/ADP*/online 2>/dev/null; then
-        exit 0 # We are on AC
-      else
-        exit 1 # We are on Battery
-      fi
-    '';
-
-    # 2. Helpers
-    runOnBattery = cmd: "${checkAC} || ${cmd}";
-    runOnAC = cmd: "${checkAC} && ${cmd}";
-
-    # 3. Commands
-    niriMsg = "${pkgs.niri}/bin/niri msg action";
-    hyprlock = "${pkgs.hyprlock}/bin/hyprlock";
-    loginctl = "${pkgs.systemd}/bin/loginctl";
-    systemctl = "systemctl";
-    suspend_cmd = "suspend-then-hibernate";
-  in {
-    description = "Idle Manager for Niri";
-    wantedBy = [ "graphical-session.target" ];
-    partOf = [ "graphical-session.target" ];
-    after = [ "graphical-session.target" ];
-
-    serviceConfig = {
-      Restart = "on-failure";
-      RestartSec = "1s";
-      ExecStart = ''
-        ${pkgs.swayidle}/bin/swayidle -w \
-        timeout 60   '${runOnBattery "${loginctl} lock-sessions"}' \
-        timeout 65   '${runOnBattery "${niriMsg} power-off-monitors"}' \
-        resume   '${niriMsg} power-on-monitors' \
-        timeout 300  '${runOnBattery "${systemctl} ${suspend_cmd}"}' \
-        timeout 300  '${runOnAC "${loginctl} lock-sessions"}' \
-        timeout 305  '${runOnAC "${niriMsg} power-off-monitors"}' \
-        resume   '${niriMsg} power-on-monitors' \
-        timeout 900  '${runOnAC "${systemctl} ${suspend_cmd}"}' \
-        lock         '${hyprlock}' \
-        before-sleep '${loginctl} lock-sessions'
-        '';
-    };
-  };
-
   # Wifi: Configure with nmtui or nmcli.
   # Bluetooth: Configure with overskride (installed below).
   hardware.bluetooth.enable = true;
