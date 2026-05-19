@@ -19,6 +19,7 @@
         cookie-autodelete
         user-agent-string-switcher
         sponsorblock
+        dearrow
       ];
       settings = {
         "media.ffmpeg.vaapi.enabled" = true;
