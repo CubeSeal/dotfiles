@@ -48,14 +48,12 @@ in {
 
       ExecStart = ''
         ${pkgs.swayidle}/bin/swayidle -w \
-          timeout 60   '${niriMsg} power-off-monitors' \
+          timeout 60   '${runOnBattery "${niriMsg} power-off-monitors"}' \
           timeout 180  '${runOnBattery "${lock}"}' \
           timeout 185  '${runOnBattery "${niriMsg} power-off-monitors"}' \
             resume     '${niriMsg} power-on-monitors' \
           timeout 300  '${runOnBattery "${systemctl} ${suspend_cmd}"}' \
           timeout 300  '${runOnAC "${lock}"}' \
-          timeout 305  '${runOnAC "${niriMsg} power-off-monitors"}' \
-            resume     '${niriMsg} power-on-monitors' \
           timeout 900  '${runOnAC "${systemctl} ${suspend_cmd}"}' \
           lock         '${lock}' \
           before-sleep '${lock}'
