@@ -26,6 +26,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs-2511.url = "github:nixos/nixpkgs/nixos-25.11";
+    claude-code.url = "github:sadjow/claude-code-nix";
   };
 
   outputs = { self, nixpkgs, nixpkgs-2511, ... }@inputs:
@@ -37,14 +38,17 @@
       nixosConfigurations = {
         desktop = nixpkgs.lib.nixosSystem {
           inherit system;
+          specialArgs = { inherit inputs; };
           modules = [ ./desktop.nix ] ++ commonModules;
         };
         steambox = nixpkgs-2511.lib.nixosSystem {
           inherit system;
+          specialArgs = { inherit inputs; };
           modules = [ ./steambox.nix ] ++ commonModules;
         };
         laptop = nixpkgs.lib.nixosSystem {
           inherit system;
+          specialArgs = { inherit inputs; };
           modules = [ ./laptop.nix ] ++ commonModules;
         };
       };    

@@ -17,6 +17,7 @@
     ../programs/programs.nix
     # Fonts
     ../programs/fonts.nix
+    ../programs/claude-code.nix
     inputs.home-manager.nixosModules.home-manager
   ];
 
