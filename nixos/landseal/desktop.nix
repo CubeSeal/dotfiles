@@ -8,7 +8,7 @@
       # Nix settings
       ./nix.nix
       # User configuration
-      ./user/landseal.nix
+      ./users/landseal.nix
     ];
 
   # Bootloader.
@@ -42,25 +42,8 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Set your time zone.
-  time.timeZone = "Australia/Sydney";
-
-  # Select internationalisation properties.
-  i18n = {
-    defaultLocale = "en_AU.UTF-8";
-    extraLocaleSettings = {
-      LC_ADDRESS = "en_AU.UTF-8";
-      LC_IDENTIFICATION = "en_AU.UTF-8";
-      LC_MEASUREMENT = "en_AU.UTF-8";
-      LC_MONETARY = "en_AU.UTF-8";
-      LC_NAME = "en_AU.UTF-8";
-      LC_NUMERIC = "en_AU.UTF-8";
-      LC_PAPER = "en_AU.UTF-8";
-      LC_TELEPHONE = "en_AU.UTF-8";
-      LC_TIME = "en_AU.UTF-8";
-    };
-  };
-
+  # Time zone and locale are managed in users/landseal.nix
+  # (services.automatic-timezoned + i18n).
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
