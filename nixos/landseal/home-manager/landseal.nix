@@ -50,6 +50,7 @@ in
     ./programs/zsh.nix
     (import ./programs/git.nix {gitUser=gitUser; gitEmail=gitEmail;})
     (import ./programs/jj.nix {gitUser=gitUser; gitEmail=gitEmail;})
+    ./programs/claude-code.nix
   ];
 
   programs = {

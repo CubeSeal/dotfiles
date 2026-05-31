@@ -17,6 +17,8 @@
       ./audio.nix
       # Android adb ccomputer settings
       ./android.nix
+      # Caches
+      ./cache/claude.nix
     ];
 
   # Bootloader.
