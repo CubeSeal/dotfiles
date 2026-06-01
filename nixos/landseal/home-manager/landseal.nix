@@ -19,7 +19,6 @@ in
     ".bashrc" = dotfile ".bashrc";
     ".vimrc" = dotfile ".vimrc";
     ".p10k.zsh" = dotfile ".p10k.zsh";
-    "scripts" = dotfile "scripts";
   };
 
   xdg.configFile = {
