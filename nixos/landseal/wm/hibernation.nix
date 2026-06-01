@@ -15,6 +15,15 @@ let
     fi
   '';
 
+  # SAFE ROLLOUT: the automatic lock paths (idle timeout, before-sleep, and the
+  # logind `lock` event) stay on the proven hyprlock so the laptop always locks.
+  # The new quickshell lock is wired only to the niri Super+Alt+L keybind
+  # (`qs ipc call lock lock`) for manual testing. Once the quickshell lock is
+  # verified, flip `lock` below to:
+  #   lock = pkgs.writeShellScript "lock-with-qs" ''
+  #     ${pkgs.quickshell}/bin/qs ipc call lock lock
+  #   '';
+  # (and optionally drop hyprlock from systemPackages / its PAM service).
   lock = pkgs.writeShellScript "lock-with-hyprlock" ''
     if ! ${pidof} hyprlock >/dev/null 2>&1; then
       ${hyprlockBin} >/tmp/hyprlock-swayidle.log 2>&1 &
@@ -34,7 +43,10 @@ in {
     procps
   ];
 
+  # hyprlock is the active auto-locker; quickshell is the one being trialled via
+  # Super+Alt+L. Both PAM services are present so either can authenticate.
   security.pam.services.hyprlock = {};
+  security.pam.services.quickshell = {};
 
   systemd.user.services.swayidle = {
     description = "Idle Manager for Niri";

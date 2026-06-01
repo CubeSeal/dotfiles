@@ -27,10 +27,11 @@ in
     "niri" = confdir "niri";
     "nvim" = confdir "nvim";
     "tmux" = confdir "tmux";
-    "walker" = confdir "walker";
-    "waybar" = confdir "waybar";
-    "mako" = confdir "mako";
     "sunsetr" = confdir "sunsetr";
+    "quickshell" = confdir "quickshell";
+    # waybar / walker / mako are now superseded by the quickshell config above.
+    # Their dotfiles are kept under .config/ as a fallback but are no longer
+    # symlinked into place. Re-add the corresponding entries here to revert.
   };
 
   home.sessionVariables = {
@@ -50,6 +51,7 @@ in
     (import ./programs/git.nix {gitUser=gitUser; gitEmail=gitEmail;})
     (import ./programs/jj.nix {gitUser=gitUser; gitEmail=gitEmail;})
     ./programs/claude-code.nix
+    ./programs/quickshell.nix
   ];
 
   programs = {
