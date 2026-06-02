@@ -36,7 +36,7 @@ Variants {
 
             RowLayout {
                 spacing: 10
-                Workspaces {}
+                Workspaces { output: bar.screen ? bar.screen.name : "" }
                 IconButton {
                     glyph: ""
                     tooltip: "Rotate screen left"

@@ -6,10 +6,22 @@ import "../services"
 
 // niri/workspaces: "{value} {icon}", focused icon "", default "".
 RowLayout {
+    id: root
     spacing: 8
 
+    // The output (connector name) this bar is on. niri numbers workspaces
+    // per-output from 1, so showing every output's workspaces on every bar
+    // produces duplicate numbers ("1 1 2"). Filter to this bar's output; fall
+    // back to showing all if the name doesn't match any (name-scheme mismatch).
+    property string output: ""
+    readonly property var shown: {
+        if (output === "") return Niri.workspaces;
+        const m = Niri.workspaces.filter(w => w.output === output);
+        return m.length > 0 ? m : Niri.workspaces;
+    }
+
     Repeater {
-        model: Niri.workspaces
+        model: root.shown
 
         Text {
             required property var modelData

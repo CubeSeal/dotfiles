@@ -1,10 +1,15 @@
 import QtQuick
-import QtQuick.Controls
 
 import "../theme"
 
 // A single clickable glyph (the waybar custom/* modules: launcher, reboot,
 // power, autorotate).
+//
+// NOTE: we deliberately do NOT use QtQuick.Controls ToolTip here. On a
+// layer-shell bar its popup grabs the pointer and its press-outside-close
+// swallows the first click, so the button appears dead (you hover -> tooltip
+// shows -> click is consumed closing the popup instead of reaching the
+// MouseArea). The `tooltip` property is kept for callers / future use.
 Text {
     id: root
     property string glyph: ""
@@ -17,10 +22,10 @@ Text {
     font.family: Theme.symbolFont
     font.pixelSize: Theme.barFontSize
     verticalAlignment: Text.AlignVCenter
-
-    HoverHandler { id: hover }
-    ToolTip.visible: root.tooltip.length > 0 && hover.hovered
-    ToolTip.text: root.tooltip
+    // waybar padded each custom module ("  ", " 󱓞 "); give the bare glyphs the
+    // same breathing room so they aren't squished together.
+    leftPadding: 4
+    rightPadding: 4
 
     MouseArea {
         anchors.fill: parent
