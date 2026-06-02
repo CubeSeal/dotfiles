@@ -30,9 +30,8 @@ Variants {
         // --- left: workspaces + the custom buttons ---
         Pill {
             anchors.left: parent.left
-            anchors.top: parent.top
+            anchors.verticalCenter: parent.verticalCenter
             anchors.leftMargin: 8
-            anchors.topMargin: 4
 
             RowLayout {
                 spacing: 10
@@ -66,17 +65,15 @@ Variants {
         // --- centre: focused window ---
         Pill {
             anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: parent.top
-            anchors.topMargin: 4
+            anchors.verticalCenter: parent.verticalCenter
             WindowTitle {}
         }
 
         // --- right: status ---
         Pill {
             anchors.right: parent.right
-            anchors.top: parent.top
+            anchors.verticalCenter: parent.verticalCenter
             anchors.rightMargin: 8
-            anchors.topMargin: 4
 
             RowLayout {
                 spacing: 10

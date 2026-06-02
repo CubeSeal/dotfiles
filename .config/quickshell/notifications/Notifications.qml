@@ -60,7 +60,7 @@ Scope {
                     // they don't render as empty (clickable-but-dead) pills.
                     readonly property var shownActions:
                         modelData.actions.filter(a => a.identifier !== "default"
-                                                      && a.text.length > 0)
+                                                      && a.text.trim().length > 0)
                     readonly property var defaultAction: {
                         const d = modelData.actions.filter(a => a.identifier === "default");
                         return d.length > 0 ? d[0] : null;
@@ -109,7 +109,7 @@ Scope {
                             font.family: Theme.uiFont
                             font.pixelSize: 14
                             wrapMode: Text.WordWrap
-                            textFormat: Text.MarkupText
+                            textFormat: Text.StyledText
                         }
 
                         // Action buttons (from the sender) + Reply trigger.

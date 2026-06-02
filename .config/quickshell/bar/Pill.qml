@@ -5,14 +5,17 @@ import "../theme"
 // A rounded gradient container matching waybar's per-section background
 // (linear-gradient #271D20 -> #422d20, radius 5, padding 2px 6px).
 // Put a single laid-out child (e.g. a RowLayout) inside.
+//
+// Height is fixed to Theme.pillHeight (not content-driven) so all three bar
+// sections match even though their content differs in natural height; content
+// stays vertically centred via holder's anchors.centerIn.
 Rectangle {
     default property alias data: holder.data
     property int hpad: 6
-    property int vpad: 2
 
     radius: Theme.barRadius
     implicitWidth: holder.implicitWidth + hpad * 2
-    implicitHeight: holder.implicitHeight + vpad * 2
+    implicitHeight: Theme.pillHeight
 
     gradient: Gradient {
         GradientStop { position: 0.0; color: Theme.barGradientTop }

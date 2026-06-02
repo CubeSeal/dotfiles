@@ -84,6 +84,7 @@ in
   home.packages = with pkgs; [
     kitty
     grimblast
+    grim          # used by the quickshell lock screen to grab a pre-lock screenshot
     fuzzel
     wl-clipboard
     fastfetch

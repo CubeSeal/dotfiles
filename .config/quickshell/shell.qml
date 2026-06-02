@@ -32,8 +32,9 @@ ShellRoot {
     }
 
     // niri Super+Alt+L and swayidle (wm/hibernation.nix) -> `qs ipc call lock lock`
+    // lock() grabs a screenshot first, then engages the lock (see LockScreen).
     IpcHandler {
         target: "lock"
-        function lock(): void { lockScreen.locked = true; }
+        function lock(): void { lockScreen.lock(); }
     }
 }

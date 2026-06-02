@@ -13,7 +13,10 @@ Singleton {
     readonly property color barGradientTop: "#271D20"
     readonly property color barGradientBottom: "#422d20"
     readonly property int   barRadius: 5
-    readonly property int   barHeight: 34
+    readonly property int   barHeight: 38
+    // Fixed height for every bar pill so the three sections match regardless of
+    // their content (icon glyphs vs text differ in natural height).
+    readonly property int   pillHeight: 28
     readonly property string barFont: "EB Garamond 08"
     readonly property string symbolFont: "Symbols Nerd Font"
     readonly property int   barFontSize: 18
