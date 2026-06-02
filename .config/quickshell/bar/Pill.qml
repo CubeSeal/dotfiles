@@ -12,24 +12,12 @@ Rectangle {
 
     radius: Theme.barRadius
     implicitWidth: holder.implicitWidth + hpad * 2
-    // Pills that hold only EB Garamond text (e.g. the centre window title) are
-    // shorter than ones holding Nerd Font symbol glyphs, which made the three
-    // sections look unevenly padded. Floor every pill's height at the symbol
-    // line height so they match regardless of content.
-    implicitHeight: Math.max(holder.implicitHeight, symbolMetrics.height) + vpad * 2
+    implicitHeight: holder.implicitHeight + vpad * 2
 
     gradient: Gradient {
         GradientStop { position: 0.0; color: Theme.barGradientTop }
         GradientStop { position: 0.6; color: Theme.barGradientTop }
         GradientStop { position: 1.0; color: Theme.barGradientBottom }
-    }
-
-    // Symbol-font line height, used as the common height floor above so a
-    // text-only pill matches glyph-bearing ones.
-    FontMetrics {
-        id: symbolMetrics
-        font.family: Theme.symbolFont
-        font.pixelSize: Theme.barFontSize
     }
 
     Item {

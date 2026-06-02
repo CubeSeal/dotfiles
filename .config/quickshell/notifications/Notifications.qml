@@ -55,6 +55,17 @@ Scope {
                     required property var modelData
                     property bool replying: false
 
+                    // The "default" action is invoked by clicking the body, not
+                    // shown as a button; drop it and any label-less actions so
+                    // they don't render as empty (clickable-but-dead) pills.
+                    readonly property var shownActions:
+                        modelData.actions.filter(a => a.identifier !== "default"
+                                                      && a.text.length > 0)
+                    readonly property var defaultAction: {
+                        const d = modelData.actions.filter(a => a.identifier === "default");
+                        return d.length > 0 ? d[0] : null;
+                    }
+
                     Layout.fillWidth: true
                     implicitHeight: content.implicitHeight + 20
                     radius: Theme.panelRadius
@@ -62,11 +73,17 @@ Scope {
                     border.width: Theme.panelBorder
                     border.color: Qt.rgba(Theme.border.r, Theme.border.g, Theme.border.b, 0.7)
 
-                    // Click-to-dismiss, behind the content so action/reply
-                    // controls stay clickable (plain text passes clicks through).
+                    // Click the body to invoke the default action (e.g. focus
+                    // the app) if there is one, else just dismiss. Sits behind
+                    // the content so action/reply controls stay clickable (plain
+                    // text passes clicks through).
                     MouseArea {
                         anchors.fill: parent
-                        onClicked: toast.modelData.dismiss()
+                        onClicked: {
+                            if (toast.defaultAction)
+                                toast.defaultAction.invoke();
+                            toast.modelData.dismiss();
+                        }
                     }
 
                     ColumnLayout {
@@ -99,11 +116,11 @@ Scope {
                         RowLayout {
                             Layout.fillWidth: true
                             spacing: 6
-                            visible: toast.modelData.actions.length > 0
+                            visible: toast.shownActions.length > 0
                                      || toast.modelData.hasInlineReply
 
                             Repeater {
-                                model: toast.modelData.actions
+                                model: toast.shownActions
                                 PillButton {
                                     required property var modelData
                                     label: modelData.text

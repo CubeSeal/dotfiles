@@ -4,7 +4,7 @@ import QtQuick.Layouts
 import "../theme"
 import "../services"
 
-// niri/workspaces: "{value} {icon}", focused icon "", default "".
+// niri/workspaces: "{value} {icon}", focused/default icons are book glyphs.
 RowLayout {
     id: root
     spacing: 8
@@ -23,19 +23,44 @@ RowLayout {
     Repeater {
         model: root.shown
 
-        Text {
+        // Number (EB Garamond) and book glyph (Symbols Nerd Font) are separate
+        // Text items: QML's font.family is a single family, so the old
+        // "EB Garamond 08, Symbols Nerd Font" string didn't resolve — it fell
+        // back to a default font that was both taller (25px vs 18px, throwing
+        // off the pill heights) and missing the Nerd book glyphs. The delegate
+        // is a MouseArea (a plain Row inside) so it isn't a layout-managed item
+        // carrying anchors.
+        MouseArea {
+            id: ws
             required property var modelData
-            text: (modelData.name ? modelData.name : modelData.idx)
-                  + "  " + (modelData.isFocused ? "" : "")
-            color: modelData.isFocused ? Theme.barFg : Theme.workspaceInactive
-            font.family: Theme.barFont + ", " + Theme.symbolFont
-            font.pixelSize: Theme.barFontSize
-            font.bold: true
+            readonly property color tint: modelData.isFocused ? Theme.barFg
+                                                              : Theme.workspaceInactive
+            implicitWidth: row.implicitWidth
+            implicitHeight: row.implicitHeight
+            cursorShape: Qt.PointingHandCursor
+            onClicked: Niri.focusWorkspace(ws.modelData.idx)
 
-            MouseArea {
-                anchors.fill: parent
-                cursorShape: Qt.PointingHandCursor
-                onClicked: Niri.focusWorkspace(modelData.idx)
+            Row {
+                id: row
+                spacing: 4
+
+                Text {
+                    text: ws.modelData.name ? ws.modelData.name : ws.modelData.idx
+                    color: ws.tint
+                    font.family: Theme.barFont
+                    font.pixelSize: Theme.barFontSize
+                    font.bold: true
+                }
+                Text {
+                    // open book U+EDE2 (focused) / closed book U+F02D (default).
+                    // fromCharCode keeps the source pure-ASCII so the glyphs
+                    // can't be dropped by tooling.
+                    text: ws.modelData.isFocused ? String.fromCharCode(0xEDE2)
+                                                 : String.fromCharCode(0xF02D)
+                    color: ws.tint
+                    font.family: Theme.symbolFont
+                    font.pixelSize: Theme.barFontSize
+                }
             }
         }
     }
