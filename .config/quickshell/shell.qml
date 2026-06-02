@@ -6,6 +6,8 @@ import "bar"
 import "notifications"
 import "launcher"
 import "lock"
+import "network"
+import "bluetooth"
 
 // Root of the quickshell session shell. Replaces waybar (Bar), mako
 // (Notifications) and walker (Launcher), and provides the lock screen
@@ -14,6 +16,8 @@ ShellRoot {
     Bar {}
     Notifications {}
     Launcher {}
+    WifiPanel {}
+    BluetoothPanel {}
 
     LockScreen {
         id: lockScreen
@@ -29,6 +33,16 @@ ShellRoot {
     IpcHandler {
         target: "launcher"
         function toggle(): void { Globals.toggleLauncher(); }
+    }
+
+    // Optional niri keybinds -> `qs ipc call wifi toggle` / `bluetooth toggle`.
+    IpcHandler {
+        target: "wifi"
+        function toggle(): void { Globals.toggleWifi(); }
+    }
+    IpcHandler {
+        target: "bluetooth"
+        function toggle(): void { Globals.toggleBluetooth(); }
     }
 
     // niri Super+Alt+L and swayidle (wm/hibernation.nix) -> `qs ipc call lock lock`

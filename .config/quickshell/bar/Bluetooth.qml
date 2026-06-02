@@ -3,10 +3,11 @@ import Quickshell
 import Quickshell.Bluetooth
 
 import "../theme"
+import "../state"
 
 // waybar bluetooth: icon only when idle; icon + battery "{pct}/100" for a
 // connected device that reports battery; icon + device name otherwise.
-// On-click opens overskride.
+// On-click toggles the Bluetooth quick-connect dropdown.
 Item {
     id: root
     implicitWidth: row.implicitWidth
@@ -47,6 +48,6 @@ Item {
     MouseArea {
         anchors.fill: parent
         cursorShape: Qt.PointingHandCursor
-        onClicked: Quickshell.execDetached(["overskride"])
+        onClicked: Globals.toggleBluetooth()
     }
 }

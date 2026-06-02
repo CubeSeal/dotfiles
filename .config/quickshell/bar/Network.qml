@@ -1,9 +1,9 @@
 import QtQuick
-import QtQuick.Controls
 import Quickshell
 import Quickshell.Io
 
 import "../theme"
+import "../state"
 
 // waybar network module. Quickshell has no NetworkManager binding, so we poll
 // nmcli every 10s (waybar's interval). Live up/down bandwidth that waybar put
@@ -29,9 +29,16 @@ Item {
         font.pixelSize: Theme.barFontSize
     }
 
-    HoverHandler { id: hover }
-    ToolTip.visible: hover.hovered && root.label.length > 0
-    ToolTip.text: root.label
+    // No hover ToolTip: a QtQuick.Controls ToolTip popup grabs the pointer on a
+    // layer-shell surface and swallows the click. The SSID is shown in the
+    // dropdown the click opens, so the tooltip is redundant anyway.
+
+    // Click toggles the Wi-Fi quick-connect dropdown.
+    MouseArea {
+        anchors.fill: parent
+        cursorShape: Qt.PointingHandCursor
+        onClicked: Globals.toggleWifi()
+    }
 
     Process {
         id: proc
