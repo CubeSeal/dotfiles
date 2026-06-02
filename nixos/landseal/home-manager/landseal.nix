@@ -95,7 +95,6 @@ in
     tor-browser
     brightnessctl
     chromium
-    mako
     calibre
     libnotify
     sunsetr
