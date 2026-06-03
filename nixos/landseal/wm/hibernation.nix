@@ -2,9 +2,9 @@
 { pkgs, ... }:
 
 let
-  pidof = "${pkgs.procps}/bin/pidof";
   niriMsg = "${pkgs.niri}/bin/niri msg action";
   hyprlockBin = "${pkgs.hyprlock}/bin/hyprlock";
+  qsBin = "${pkgs.quickshell}/bin/qs";
   systemctl = "${pkgs.systemd}/bin/systemctl";
 
   checkAC = pkgs.writeShellScript "check-ac" ''
@@ -15,20 +15,18 @@ let
     fi
   '';
 
-  # SAFE ROLLOUT: the automatic lock paths (idle timeout, before-sleep, and the
-  # logind `lock` event) stay on the proven hyprlock so the laptop always locks.
-  # The new quickshell lock is wired only to the niri Super+Alt+L keybind
-  # (`qs ipc call lock lock`) for manual testing. Once the quickshell lock is
-  # verified, flip `lock` below to:
-  #   lock = pkgs.writeShellScript "lock-with-qs" ''
-  #     ${pkgs.quickshell}/bin/qs ipc call lock lock
-  #   '';
-  # (and optionally drop hyprlock from systemPackages / its PAM service).
-  lock = pkgs.writeShellScript "lock-with-hyprlock" ''
-    if ! ${pidof} hyprlock >/dev/null 2>&1; then
-      ${hyprlockBin} >/tmp/hyprlock-swayidle.log 2>&1 &
-      sleep 0.5
-    fi
+  # The quickshell lock is now the active auto-locker for every path (idle
+  # timeout, before-sleep, and the logind `lock` event) as well as the niri
+  # Super+Alt+L keybind. `qs ipc call lock lock` only sends the IPC and returns
+  # immediately; the QML lock() grabs a screenshot with grim asynchronously and
+  # engages the ext-session-lock in grim's onExited callback. The `sleep 0.5`
+  # (mirroring the guard hyprlock used) keeps swayidle's `-w` sleep inhibitor held
+  # until the lock surface is mapped, so before-sleep can't suspend a beat early
+  # and flash the desktop on resume. hyprlock (${hyprlockBin}) is left installed
+  # as a manual fallback.
+  lock = pkgs.writeShellScript "lock-with-qs" ''
+    ${qsBin} ipc call lock lock
+    sleep 0.5
   '';
 
   runOnBattery = cmd: "${checkAC} || ${cmd}";
