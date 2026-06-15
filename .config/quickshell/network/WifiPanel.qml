@@ -23,8 +23,10 @@ PanelWindow {
     anchors { top: true; bottom: true; left: true; right: true }
     exclusiveZone: 0
     WlrLayershell.layer: WlrLayer.Overlay
-    // Click-driven, no text entry — don't steal focus from the focused app.
-    WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
+    // Mouse-only, no text entry: never take keyboard focus. This also lets a
+    // click on the bar icon close the pane on the first click (with OnDemand,
+    // niri eats the first click just to focus the surface).
+    WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
 
     onVisibleChanged: if (visible) { Wifi.refresh(); Wifi.rescan(); }
 
@@ -38,7 +40,7 @@ PanelWindow {
         id: panel
         anchors.top: parent.top
         anchors.right: parent.right
-        anchors.topMargin: Theme.barHeight + 8
+        anchors.topMargin: Theme.barHeight + 2
         anchors.rightMargin: 12
         width: 320
         implicitHeight: col.implicitHeight + 24

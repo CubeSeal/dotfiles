@@ -26,6 +26,7 @@ Scope {
     }
 
     PanelWindow {
+        id: notifWin
         // Show on the primary screen (mako showed on the focused output; this
         // is a faithful-enough simplification).
         screen: Quickshell.screens.length > 0 ? Quickshell.screens[0] : null
@@ -37,10 +38,12 @@ Scope {
         exclusiveZone: 0
         visible: server.trackedNotifications.values.length > 0
 
-        // Take keyboard focus only when the surface is clicked (e.g. tapping
-        // Reply), so the reply field can receive typing without stealing focus
-        // from the focused app just by appearing.
-        WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
+        // Never take keyboard focus just by appearing or on a normal click; grab
+        // it only while an inline reply field is open (so the reply can be typed),
+        // then release it. replyingCount tracks how many toasts have reply open.
+        property int replyingCount: 0
+        WlrLayershell.keyboardFocus: replyingCount > 0
+            ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
 
         ColumnLayout {
             id: column
@@ -54,6 +57,13 @@ Scope {
                     id: toast
                     required property var modelData
                     property bool replying: false
+
+                    // Keep the pane's reply counter in sync so it only holds
+                    // keyboard focus while a reply is open. The destruction guard
+                    // covers the onAccepted path, which dismisses (destroying the
+                    // delegate) without first clearing `replying`.
+                    onReplyingChanged: notifWin.replyingCount += replying ? 1 : -1
+                    Component.onDestruction: if (replying) notifWin.replyingCount -= 1
 
                     // The "default" action is invoked by clicking the body, not
                     // shown as a button; drop it and any label-less actions so
