@@ -87,12 +87,10 @@ PanelWindow {
         }
     }
 
-    // Dim background; click outside the panel closes.
-    Rectangle {
+    // Transparent click-catcher so clicking outside the panel closes the launcher.
+    MouseArea {
         anchors.fill: parent
-        color: "#000000"
-        opacity: 0.35
-        MouseArea { anchors.fill: parent; onClicked: launcher.close() }
+        onClicked: launcher.close()
     }
 
     Rectangle {
@@ -115,6 +113,7 @@ PanelWindow {
                 Layout.fillWidth: true
                 placeholderText: "Search…"
                 color: Theme.fg
+                placeholderTextColor: Qt.rgba(Theme.fg.r, Theme.fg.g, Theme.fg.b, 0.5)
                 font.family: Theme.uiFont
                 font.pixelSize: 18
                 background: Rectangle {
