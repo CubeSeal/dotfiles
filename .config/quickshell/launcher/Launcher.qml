@@ -12,7 +12,10 @@ import "../state"
 // Kanagawa-themed, Atkinson font, 2px border, 10px radius, cyan selection.
 PanelWindow {
     id: launcher
-    visible: Globals.launcherOpen
+    // Keep the surface mapped while the panel fades out so the exit animation
+    // can play (visible bound straight to the flag would unmap instantly).
+    property bool shouldShow: Globals.launcherOpen
+    visible: shouldShow || panel.opacity > 0
     color: "transparent"
 
     // Full-screen overlay so we can dim + catch click-outside, and take
@@ -102,6 +105,12 @@ PanelWindow {
         color: Theme.bg
         border.width: Theme.panelBorder
         border.color: Theme.fg
+
+        // Fade + slight scale-up on open, reversed on close.
+        opacity: launcher.shouldShow ? 1 : 0
+        scale:   launcher.shouldShow ? 1 : 0.96
+        Behavior on opacity { NumberAnimation { duration: Theme.animDuration; easing.type: Theme.animEasing } }
+        Behavior on scale   { NumberAnimation { duration: Theme.animDuration; easing.type: Theme.animEasing } }
 
         ColumnLayout {
             anchors.fill: parent

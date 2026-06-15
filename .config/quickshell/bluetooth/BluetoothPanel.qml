@@ -14,7 +14,9 @@ import "../notifications"   // PillButton
 // device is out of scope and hands off to overskride.
 PanelWindow {
     id: win
-    visible: Globals.bluetoothOpen
+    // Stay mapped through the fade-out so the exit animation can play.
+    property bool shouldShow: Globals.bluetoothOpen
+    visible: shouldShow || panel.opacity > 0
     color: "transparent"
 
     anchors { top: true; bottom: true; left: true; right: true }
@@ -45,6 +47,14 @@ PanelWindow {
         color: Theme.bg
         border.width: Theme.panelBorder
         border.color: Qt.rgba(Theme.border.r, Theme.border.g, Theme.border.b, 0.7)
+
+        // Fade + slide-down on open, reversed on close.
+        opacity: win.shouldShow ? 1 : 0
+        Behavior on opacity { NumberAnimation { duration: Theme.animDuration; easing.type: Theme.animEasing } }
+        transform: Translate {
+            y: win.shouldShow ? 0 : -8
+            Behavior on y { NumberAnimation { duration: Theme.animDuration; easing.type: Theme.animEasing } }
+        }
 
         MouseArea { anchors.fill: parent }
 

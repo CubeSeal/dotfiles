@@ -41,6 +41,10 @@ Singleton {
     readonly property int   panelRadius: 10
     readonly property int   panelBorder: 2
 
+    // --- Motion (shared so every surface animates with one feel) ---
+    readonly property int   animDuration: 150
+    readonly property int   animEasing:   Easing.OutCubic   // assignable to easing.type
+
     // --- Lock screen (was hyprlock.conf) ---
     readonly property color lockFg:      "#D1CEC4"
     readonly property color lockInner:   "#1F1F28"   // used at b3 (~70%) alpha

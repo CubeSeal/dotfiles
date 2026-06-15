@@ -124,10 +124,18 @@ Scope {
                 }
             }
 
+            // Gentle rise of the clock/field group as the lock fades in. The
+            // Column is outside the cached blur layer, so this composites cheaply.
+            property real contentY: 12
+            Behavior on contentY {
+                NumberAnimation { duration: 500; easing.type: Easing.OutCubic }
+            }
+
             Column {
                 anchors.centerIn: parent
                 spacing: 24
                 opacity: surface.bgOpacity
+                transform: Translate { y: surface.contentY }
 
                 SystemClock { id: clock; precision: SystemClock.Seconds }
 
@@ -189,6 +197,7 @@ Scope {
 
             Component.onCompleted: {
                 bgOpacity = 1;
+                contentY = 0;
                 passwordField.forceActiveFocus();
             }
         }
