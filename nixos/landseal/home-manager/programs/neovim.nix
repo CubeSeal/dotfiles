@@ -34,19 +34,8 @@ in
           oil-nvim            # author advises against lazy-loading
           mini-icons          # lib used by oil + render-markdown
           plenary-nvim        # lib used by telescope + codecompanion
-        ];
-      };
-
-      # packadd-ed on demand by lze
-      optionalPlugins = {
-        general = with pkgs.vimPlugins; [
-          telescope-nvim
-          nvim-cmp
-          cmp-nvim-lsp
-          cmp-buffer
-          cmp-path
-          render-markdown-nvim
-          codecompanion-nvim
+          # nvim-treesitter (main branch) does not support lazy-loading, so it
+          # is eager. Grammars + queries are bundled here by Nix.
           (nvim-treesitter.withPlugins (p: with p; [
             haskell
             python
@@ -61,6 +50,19 @@ in
             vimdoc
             query
           ]))
+        ];
+      };
+
+      # packadd-ed on demand by lze
+      optionalPlugins = {
+        general = with pkgs.vimPlugins; [
+          telescope-nvim
+          nvim-cmp
+          cmp-nvim-lsp
+          cmp-buffer
+          cmp-path
+          render-markdown-nvim
+          codecompanion-nvim
         ];
       };
     });

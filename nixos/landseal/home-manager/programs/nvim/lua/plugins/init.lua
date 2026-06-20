@@ -8,10 +8,10 @@
 require('plugins.kanagawa')   -- colorscheme
 require('plugins.oil')        -- file explorer (author advises against lazy-loading)
 require('mini.icons').setup() -- icon library used by oil + render-markdown
+require('plugins.treesitter') -- main branch does not support lazy-loading
 
 -- Lazy-loaded via lze {{{1
 require('lze').load {
-  { import = 'plugins.treesitter' },
   { import = 'plugins.telescope' },
   { import = 'plugins.completion' },
   { import = 'plugins.render-markdown' },

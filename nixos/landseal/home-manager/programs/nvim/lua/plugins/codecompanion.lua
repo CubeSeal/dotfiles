@@ -1,4 +1,5 @@
--- codecompanion.nvim (lze spec). plenary is eager; treesitter is packadd-ed in load.
+-- codecompanion.nvim (lze spec). plenary + treesitter are eager, so the default
+-- loader (packadd of the spec name) is all that's needed.
 return {
   "codecompanion.nvim",
   cmd = { "CodeCompanion", "CodeCompanionActions", "CodeCompanionChat" },
@@ -7,10 +8,6 @@ return {
     { "<LocalLeader>a", "<cmd>CodeCompanionChat Toggle<cr>", mode = { "n", "v" }, desc = "CodeCompanion chat toggle" },
     { "ga", "<cmd>CodeCompanionChat Add<cr>", mode = "v", desc = "CodeCompanion chat add" },
   },
-  load = function(name)
-    vim.cmd.packadd(name)
-    vim.cmd.packadd("nvim-treesitter")
-  end,
   after = function()
     require("codecompanion").setup{
       adapters = {
