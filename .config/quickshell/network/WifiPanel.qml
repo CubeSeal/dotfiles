@@ -40,7 +40,9 @@ PanelWindow {
         id: panel
         anchors.top: parent.top
         anchors.right: parent.right
-        anchors.topMargin: Theme.barHeight + 2
+        // The bar's exclusive zone already shrinks this overlay to start below
+        // the bar, so this is just the small gap under it (not the bar height).
+        anchors.topMargin: 2
         anchors.rightMargin: 12
         width: 320
         implicitHeight: col.implicitHeight + 24
