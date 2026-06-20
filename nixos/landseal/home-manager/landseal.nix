@@ -17,7 +17,6 @@ in
   # plain files is through 'home.file'.
   home.file = {
     ".bashrc" = dotfile ".bashrc";
-    ".vimrc" = dotfile ".vimrc";
     ".p10k.zsh" = dotfile ".p10k.zsh";
   };
 
