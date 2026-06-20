@@ -77,4 +77,4 @@ vim.lsp.enable('nil_ls')
 vim.lsp.enable("kotlin_language_server")
 
 -- Configs {{{1
-require("config.lazy")
+require("plugins")
