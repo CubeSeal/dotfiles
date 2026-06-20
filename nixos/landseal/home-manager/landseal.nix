@@ -25,7 +25,6 @@ in
     "hypr" = confdir "hypr";
     "kitty" = confdir "kitty";
     "niri" = confdir "niri";
-    "nvim" = confdir "nvim";
     "tmux" = confdir "tmux";
     "sunsetr" = confdir "sunsetr";
     "quickshell" = confdir "quickshell";
@@ -35,7 +34,7 @@ in
   };
 
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    EDITOR = "nvim";
   };
 
   home.sessionPath = [
@@ -52,16 +51,11 @@ in
     (import ./programs/jj.nix {gitUser=gitUser; gitEmail=gitEmail;})
     ./programs/claude-code.nix
     ./programs/quickshell.nix
+    ./programs/neovim.nix
   ];
 
   programs = {
     home-manager.enable = true;
-
-    neovim = {
-      enable = true;
-      defaultEditor = true;
-      vimAlias = true;
-    };
 
     tmux.enable = true;
 
