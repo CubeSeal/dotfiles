@@ -74,6 +74,16 @@ vim.lsp.enable('hls')
 vim.lsp.enable('pyright')
 vim.lsp.enable('rust_analyzer')
 vim.lsp.enable('nil_ls')
+
+-- kotlin-language-server crashes on init when storagePath resolves to nil
+-- (no project root found): init_options becomes an empty Lua table, which
+-- serializes to a JSON array `[]` instead of an object. Always give it a
+-- concrete cache directory so initializationOptions is a non-empty object.
+vim.lsp.config('kotlin_language_server', {
+  init_options = {
+    storagePath = vim.fn.stdpath('cache'),
+  },
+})
 vim.lsp.enable("kotlin_language_server")
 
 -- Configs {{{1
