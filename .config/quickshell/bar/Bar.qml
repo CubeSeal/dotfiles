@@ -66,6 +66,7 @@ Variants {
         Pill {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
+            visible: Niri.focusedAppId.length > 0
             WindowTitle {}
         }
 
