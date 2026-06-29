@@ -1,5 +1,4 @@
 # vim: set tabstop=2 shiftwidth=2 expandtab:
-# Thanks to Claude I guess.
 { config, pkgs, inputs, ... }:
 {
   hardware.bluetooth = {
@@ -9,40 +8,43 @@
 
   services.pipewire = {
     enable = true;
-
-    # Compatibility layer so apps that speak PulseAudio (Firefox, Discord, etc.)
-    # work without modification.
+    # PulseAudio compatibility layer. Firefox/Zen, Discord, and most
+    # desktop apps talk PulseAudio, so this is what they actually use.
     pulse.enable = true;
-
-    # Low-level ALSA support — lets ALSA-native apps go through PipeWire too.
+    # ALSA compatibility, for apps that talk ALSA directly.
     alsa.enable = true;
 
     wireplumber = {
       enable = true;
-
       extraConfig.bluetoothEnhancements = {
         "monitor.bluez.properties" = {
-          # mSBC: wideband speech codec for the mic (16kHz vs 8kHz narrowband).
-          # Required for the mic to sound intelligible.
+          # mSBC: 16kHz wideband speech codec for HFP (the mic profile).
+          # Without it the mic falls back to 8kHz CVSD and sounds like
+          # a phone call from 1995.
           "bluez5.enable-msbc" = true;
-
-          # SBC-XQ: higher quality variant of the standard SBC audio codec.
-          # Improves A2DP playback quality slightly.
+          # SBC-XQ: higher-bitrate SBC for A2DP playback. Playback only,
+          # no effect on the mic.
           "bluez5.enable-sbc-xq" = true;
-
-          # Let the headphones control their own hardware volume
-          # rather than doing it in software.
+          # Let the headphones handle volume in hardware instead of
+          # scaling in software.
           "bluez5.enable-hw-volume" = true;
 
-          # Advertise all headset roles so the system can negotiate
-          # HFP (Hands-Free Profile) which is what activates the mic.
-          # Without this, it defaults to A2DP-only (playback, no mic).
-          "bluez5.headset-roles" = [ "hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag" ];
+          # No roles line. The old "bluez5.headset-roles" property was
+          # renamed to "bluez5.roles" in WirePlumber 0.5, so the previous
+          # line here was ignored. The default roles already include
+          # hfp_hf, which is what provides the mic. Upstream deliberately
+          # excludes hsp_ag because Sony WH-1000XM3/XM4 misbehave when
+          # hsp_ag and hfp_ag are both enabled. Do not re-add it.
         };
       };
     };
   };
 
   environment.systemPackages = with pkgs; [
-    pwvucontrol   # GUI for switching audio profiles (A2DP ↔ Headset Head Unit)
-  ];}
+    # GUI for switching the card profile between A2DP (playback only)
+    # and Headset Head Unit (playback + mic). WirePlumber auto-switches
+    # when an app opens the mic, but manual switching here is the first
+    # debugging step when a call app can't see the mic.
+    pwvucontrol
+  ];
+}
