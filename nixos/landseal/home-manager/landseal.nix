@@ -25,7 +25,6 @@ in
     "kitty" = confdir "kitty";
     "niri" = confdir "niri";
     "tmux" = confdir "tmux";
-    "sunsetr" = confdir "sunsetr";
     "quickshell" = confdir "quickshell";
     # waybar / walker / mako are now superseded by the quickshell config above.
     # Their dotfiles are kept under .config/ as a fallback but are no longer
@@ -91,7 +90,6 @@ in
     chromium
     calibre
     libnotify
-    sunsetr
     nodejs
     qbittorrent
   ];
