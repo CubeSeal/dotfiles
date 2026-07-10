@@ -24,12 +24,14 @@ Signing is configured in Nix (`signing.behavior = "drop"` in jj, SSH key in git)
 Rebuild a host from the flake (run from anywhere; adjust the `#host`):
 
 ```sh
-sudo nixos-rebuild switch --flake /home/landseal/dotfiles/nixos/landseal#desktop
+sudo nixos-rebuild switch --flake /home/landseal/dotfiles/nixos/landseal#laptop
 ```
 
-Hosts (flake outputs in `nixos/landseal/flake.nix`): `desktop`, `laptop`,
-`steambox`. `desktop`/`laptop` track `nixpkgs-unstable`; **`steambox` is pinned to
-`nixpkgs-2511`** (NixOS 25.11) via a separate `lib.nixosSystem`.
+Hosts (flake outputs in `nixos/landseal/flake.nix`): `laptop`, `steambox`.
+`laptop` tracks `nixpkgs-unstable`; **`steambox` is pinned to `nixpkgs-2605`**
+(NixOS 26.05) via a separate `lib.nixosSystem`. `steambox` runs on the *desktop*
+hardware, so it imports `hosts/desktop-hardware-configuration.nix` — that
+"desktop"-named file is kept even though there is no longer a `desktop` host.
 
 Other common commands:
 - `nix flake update` (in `nixos/landseal/`) — bump all inputs
@@ -41,9 +43,21 @@ Other common commands:
 
 Module layering, top down:
 
-- **`flake.nix`** defines the three `nixosConfigurations` and injects `inputs`
+- **`flake.nix`** defines the two `nixosConfigurations` and injects `inputs`
   through `specialArgs`. `allowUnfree` is set once in `commonModules`.
-- **`desktop.nix` / `laptop.nix` / `steambox.nix`** are the per-host entry points.
+  - **Per-host input pinning.** `laptop` gets the plain (unstable) `inputs`.
+    `steambox` is pinned-stable (26.05), so it gets `steamboxInputs` instead — the
+    same attrset with every unstable-following input swapped for a `*-2605` variant
+    (`nixpkgs`, `home-manager`, `zen-browser`, `firefox-addons`, `silentSDDM`;
+    `nixCats` is shared — it has no `nixpkgs` input to pin and builds its plugins
+    against the host `nixpkgs` via `nixpkgs_version`). Because the shared modules
+    reference these *by name*
+    (`inputs.home-manager`, `inputs.zen-browser`, …), the whole `landseal`
+    home-manager tree flavors to 26.05 for steambox with **no per-module changes**.
+    When adding a flake input that the shared HM tree consumes, add a matching
+    `*-2605` variant and thread it through `steamboxInputs`, or steambox breaks on a
+    home-manager/nixpkgs version mismatch.
+- **`laptop.nix` / `steambox.nix`** are the per-host entry points.
   Each imports its `hosts/*-hardware-configuration.nix`, `nix.nix`,
   `users/landseal.nix`, and a host-specific set of feature modules (window
   managers, power, audio, etc.). Host-only concerns (bootloader, hibernation,
@@ -78,6 +92,15 @@ with explicit `(import ./programs/git.nix { ... })` so the identity is set in on
 ## Conventions
 
 - Nix files use 2-space indent (see the `# vim: set tabstop=2 ...` modeline atop most files).
+- **Per-host boilerplate is intentionally repeated, not hoisted.** Each host entry
+  file (`laptop.nix`, `steambox.nix`) declares its own `networking`,
+  `hardware.bluetooth.enable`, and `system.stateVersion` rather than sharing a common
+  module. This is deliberate: every machine explicitly states its hardware assumptions,
+  and Nix surfaces conflicts per-host (e.g. a machine with no bluetooth). Do not "DRY"
+  these into a shared module. Likewise a value set both inline and by a feature module
+  (e.g. `hardware.bluetooth.enable` in both `steambox.nix` and `audio.nix`) is fine when
+  they agree — leave the explicit per-host declaration in place.
+- `hosts/*-hardware-configuration.nix` are the original hardware scans — never edit them.
 - Wifi via `nmtui`/`nmcli`; Bluetooth via `overskride`. These are intentionally not declarative.
 - `claude-code` is installed via the `claude-code` flake input (user-level in
   `home-manager/programs/claude-code.nix`); `cache/claude.nix` adds its cachix

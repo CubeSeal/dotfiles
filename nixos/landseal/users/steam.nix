@@ -15,11 +15,8 @@
 
   # Import other modules.
   imports = [
-    # Services
-    ../programs/services.nix
-    # Programs and Packages
+    # Programs, packages, and services (all folded into programs.nix)
     ../programs/programs.nix
-    ../programs/packages.nix
     # Steam specific
     ../programs/steam.nix
     # MDLNA

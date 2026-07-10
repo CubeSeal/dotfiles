@@ -12,6 +12,11 @@
       ./users/steam.nix
       # Windows Manager
       ./wm/kde.nix
+      # Display manager (Plasma6 does not enable one on its own; autoLogin below
+      # needs it).
+      ./dm/sddm.nix
+      # Audio/Pipewire settings
+      ./audio.nix
     ];
 
   # Bootloader.
@@ -25,6 +30,13 @@
 	  keyFile = "/dev/disk/by-id/usb-Lexar_USB_Flash_Drive_AAZQ63TST2XHL4HJ-0:0";
 	  fallbackToPassword = true;
   };
+
+  # Use the scripted (non-systemd) stage-1 initrd. NixOS 26.05 would otherwise
+  # use the systemd stage-1 initrd, under which `fallbackToPassword` is implied
+  # and setting it is an error — and the root device's fallbackToPassword lives
+  # in the untouchable hardware scan (hosts/desktop-hardware-configuration.nix).
+  # Keeping scripted stage 1 preserves the original keyfile+password unlock.
+  boot.initrd.systemd.enable = false;
 
   # Autologin Plasma
   services.displayManager.autoLogin = {
