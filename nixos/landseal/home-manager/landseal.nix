@@ -69,6 +69,10 @@ in
       enable = true;
       enableZshIntegration = true;
     };
+    chromium = {
+      enable = true;
+      package = pkgs.chromium.override { enableWideVine = true; };
+    };
   };
 
   # The home.packages option allows you to install Nix packages into your
@@ -87,7 +91,6 @@ in
     overskride
     tor-browser
     brightnessctl
-    chromium
     calibre
     libnotify
     nodejs
