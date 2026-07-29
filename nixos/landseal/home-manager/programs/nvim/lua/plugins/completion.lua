@@ -4,7 +4,6 @@ return {
   event = "InsertEnter",
   load = function(name)
     vim.cmd.packadd(name)
-    vim.cmd.packadd("cmp-nvim-lsp")
     vim.cmd.packadd("cmp-buffer")
     vim.cmd.packadd("cmp-path")
   end,
@@ -13,6 +12,11 @@ return {
     local select_opts = { behavior = cmp.SelectBehavior.Select }
 
     cmp.setup({
+      snippet = {
+        expand = function(args)
+          vim.snippet.expand(args.body)
+        end,
+      },
       sources = cmp.config.sources {
         { name = 'nvim_lsp' },
         { name = 'render-markdown' },

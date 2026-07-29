@@ -31,6 +31,7 @@ in
           lze                 # lazy-loading library (not a manager)
           kanagawa-nvim       # colorscheme
           nvim-lspconfig      # consumed by vim.lsp.enable(...)
+          cmp-nvim-lsp        # must be eager so capabilities reach LSPs on init
           oil-nvim            # author advises against lazy-loading
           mini-icons          # lib used by oil + render-markdown
           plenary-nvim        # lib used by telescope + codecompanion
@@ -58,7 +59,6 @@ in
         general = with pkgs.vimPlugins; [
           telescope-nvim
           nvim-cmp
-          cmp-nvim-lsp
           cmp-buffer
           cmp-path
           render-markdown-nvim
