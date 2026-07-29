@@ -20,7 +20,7 @@ in
         general = with pkgs; [ ripgrep fd ];          # telescope find/grep
         haskell = with pkgs; [ haskell-language-server ];
         python  = with pkgs; [ pyright ];
-        rust    = with pkgs; [ rust-analyzer ];
+        rust    = with pkgs; [ rust-analyzer rustc rustfmt ];
         nix     = with pkgs; [ nil ];
         kotlin  = with pkgs; [ kotlin-language-server ];
       };

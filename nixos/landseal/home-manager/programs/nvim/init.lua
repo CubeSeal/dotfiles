@@ -70,9 +70,23 @@ vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 })
 
 -- LSP Enable
+vim.lsp.config('*', {
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+})
 vim.lsp.enable('hls')
 vim.lsp.enable('pyright')
+
+-- Add full buffer formatting on grq for rust_analyzer.
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client:supports_method('textDocument/formatting') then
+      map('n', 'grq', function() vim.lsp.buf.format() end, { buffer = args.buf })
+    end
+  end,
+})
 vim.lsp.enable('rust_analyzer')
+
 vim.lsp.enable('nil_ls')
 
 -- kotlin-language-server crashes on init when storagePath resolves to nil
