@@ -95,6 +95,7 @@ in
     libnotify
     nodejs
     qbittorrent
+    obsidian
   ];
 
   # This value determines the Home Manager release that your configuration is
