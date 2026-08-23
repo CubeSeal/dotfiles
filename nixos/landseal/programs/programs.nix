@@ -5,6 +5,7 @@
   programs = {
     nix-ld.enable = true; # Enable dynamic linking
     zsh.enable = true;
+    nushell.enable = true;
     steam.enable = true;
     kdeconnect.enable = true;
   };

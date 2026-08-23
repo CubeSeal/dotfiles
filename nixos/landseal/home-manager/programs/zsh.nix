@@ -1,4 +1,5 @@
-{ pkgs, ... }:
+{ dotfile }:
+{ config, lib, pkgs, ... }:
 {
   programs.zsh = {
     enable = true;
@@ -15,11 +16,11 @@
       plugins = [ "git" ];
     };
     plugins = [
-    {
-      name = "zsh-vi-mode";
-      src = pkgs.zsh-vi-mode;
-      file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
-    }
+      {
+        name = "zsh-vi-mode";
+        src = pkgs.zsh-vi-mode;
+        file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
+      }
     ];
     initContent = ''
 # p10k instant prompt
@@ -33,6 +34,11 @@
           bindkey '^H' backward-kill-word
 
           [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-          '';
+    '';
   };
+
+  # Other programs integrations
+  programs.direnv.enableZshIntegration = true; 
+  programs.zoxide.enableZshIntegration = true;
+  home.file.".p10k.zsh" = dotfile ".p10k.zsh";
 }

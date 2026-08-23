@@ -7,7 +7,7 @@ let
   gitUser = "CubeSeal";
   gitEmail = "kenndesilva1@gmail.com";
 in
-{
+  {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "landseal";
@@ -17,7 +17,6 @@ in
   # plain files is through 'home.file'.
   home.file = {
     ".bashrc" = dotfile ".bashrc";
-    ".p10k.zsh" = dotfile ".p10k.zsh";
   };
 
   xdg.configFile = {
@@ -40,11 +39,12 @@ in
   ];
 
 
-# Custom user programs
+  # Custom user programs
   imports = [
     ./programs/zen.nix
     ./programs/firefox.nix
-    ./programs/zsh.nix
+    ./programs/nushell.nix
+    (import ./programs/zsh.nix {dotfile=dotfile;})
     (import ./programs/git.nix {gitUser=gitUser; gitEmail=gitEmail;})
     (import ./programs/jj.nix {gitUser=gitUser; gitEmail=gitEmail;})
     ./programs/claude-code.nix
@@ -54,20 +54,14 @@ in
 
   programs = {
     home-manager.enable = true;
-
     tmux.enable = true;
-
     direnv = {
       enable = true;
-      enableZshIntegration = true;
       nix-direnv.enable = true;
     };
-
     lazygit.enable = true;
-
     zoxide = {
       enable = true;
-      enableZshIntegration = true;
     };
     chromium = {
       enable = true;

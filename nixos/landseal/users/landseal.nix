@@ -7,7 +7,7 @@
       isNormalUser = true;
       description = "landseal";
       extraGroups = [ "networkmanager" "wheel" ];
-      shell = pkgs.zsh;
+      shell = pkgs.nushell;
     };
   };
 
