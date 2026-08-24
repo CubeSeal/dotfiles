@@ -72,7 +72,12 @@ in
 
   programs = {
     home-manager.enable = true;
-    tmux.enable = true;
+    tmux = {
+      enable = true;
+      # tmux takes default-shell from $SHELL, which is zsh (the login shell --
+      # see users/landseal.nix). Point it at nushell so panes match kitty.
+      shell = "${config.programs.nushell.package}/bin/nu";
+    };
     direnv = {
       enable = true;
       nix-direnv.enable = true;
