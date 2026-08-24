@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 let
   dots = ../../..;
   conf = "${dots}/.config";
@@ -33,6 +33,24 @@ in
   home.sessionVariables = {
     EDITOR = "nvim";
   };
+
+  # home.sessionVariables only reach a process that sourced hm-session-vars.sh,
+  # i.e. one started from a login shell. That is fragile for the graphical
+  # session: whether niri inherits them depends on sddm/niri-session re-execing
+  # through $SHELL, which silently stops happening for a non-POSIX login shell.
+  # Mirror them into ~/.config/environment.d instead, which the user systemd
+  # manager reads at startup -- niri runs as niri.service, so it and everything
+  # it spawns (e.g. the Mod+B browser bind, which runs `sh -c "$BROWSER"`)
+  # inherit these regardless of shell.
+  #
+  # Values containing `$` are dropped: environment.d does not run a shell, so a
+  # POSIX snippet like tmux's ${XDG_RUNTIME_DIR:-...} would be set verbatim.
+  #
+  # environment.d is read when the user manager starts, so a rebuild alone does
+  # not update a running session -- re-login to pick up changes.
+  systemd.user.sessionVariables = lib.filterAttrs (
+    _: v: !(lib.hasInfix "$" (toString v))
+  ) config.home.sessionVariables;
 
   home.sessionPath = [
     "$HOME/.local/bin"
