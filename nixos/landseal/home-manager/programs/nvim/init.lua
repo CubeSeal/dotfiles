@@ -19,6 +19,17 @@ vim.wo.relativenumber = true
 vim.g.netrw_bufsettings = 'noma nomod nu rnu nobl nowrap ro'
 opt.completeopt = {'menu', 'menuone', 'noselect'}
 
+-- Shell {{{1
+
+-- Tell Neovim to use nushell for shell commands and terminal buffers
+if vim.fn.executable('nu') == 1 then
+    vim.o.shell = 'nu'
+    -- This handles how vim passes commands to the shell
+    vim.o.shellcmdflag = '-c'
+    vim.o.shellquote = ''
+    vim.o.shellxquote = ''
+end
+
 -- Remaps {{{1
 
 -- Split navigation with Alt + hjkl
