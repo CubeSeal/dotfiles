@@ -64,7 +64,8 @@ in {
             resume     '${niriMsg} power-on-monitors' \
           timeout 300  '${runOnBattery "${systemctl} ${suspend_cmd}"}' \
           timeout 300  '${runOnAC "${lock}"}' \
-          timeout 900  '${runOnAC "${systemctl} ${suspend_cmd}"}' \
+          timeout 305  '${runOnAC "${niriMsg} power-off-monitors"}' \
+            resume     '${niriMsg} power-on-monitors' \
           lock         '${lock}' \
           before-sleep '${lock}'
       '';
