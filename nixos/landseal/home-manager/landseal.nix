@@ -60,6 +60,7 @@ in
   # Custom user programs
   imports = [
     ./programs/zen.nix
+    ./programs/helium.nix
     ./programs/firefox.nix
     ./programs/nushell.nix
     (import ./programs/zsh.nix {dotfile=dotfile;})

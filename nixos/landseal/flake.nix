@@ -31,6 +31,10 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    helium-flake = {
+      url = "github:oxcl/nix-flake-helium-browser";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     
     # Pinned Nixpkgs for Steambox
 
@@ -52,12 +56,19 @@
       url = "github:uiriansan/SilentSDDM";
       inputs.nixpkgs.follows = "nixpkgs-2605";
     };
+    helium-flake-2605 = {
+      url = "github:oxcl/nix-flake-helium-browser";
+      inputs.nixpkgs.follows = "nixpkgs-2605";
+    };
   };
 
   outputs = { self, nixpkgs, nixpkgs-2605, ... }@inputs:
     let
       system = "x86_64-linux";
-      commonModules = [ { nixpkgs.config.allowUnfree = true; } ];
+      commonModules = [
+        # Allow unfree packages
+        { nixpkgs.config.allowUnfree = true; }
+      ];
       # '//' merges 2 attribute sets with the right overriding the left.
       steamboxInputs = inputs // {
         nixpkgs        = inputs.nixpkgs-2605;
@@ -65,6 +76,7 @@
         zen-browser    = inputs.zen-browser-2605;
         firefox-addons = inputs.firefox-addons-2605;
         silentSDDM     = inputs.silentSDDM-2605;
+        helium-flake   = inputs.helium-flake-2605;
       };
     in
       {
