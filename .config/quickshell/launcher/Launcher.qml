@@ -4,6 +4,7 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
 import Quickshell.Wayland
+import Quickshell.Widgets
 
 import "../theme"
 import "../state"
@@ -34,19 +35,20 @@ PanelWindow {
     readonly property var results: {
         const out = [];
         if (calcResult.length > 0)
-            out.push({ kind: "calc", label: query + " = " + calcResult, payload: calcResult });
+            out.push({ kind: "calc", label: query + " = " + calcResult, payload: calcResult,
+                       icon: "accessories-calculator" });
 
         const q = query.trim().toLowerCase();
         const apps = DesktopEntries.applications.values
             .filter(a => !a.noDisplay
                 && (q.length === 0 || a.name.toLowerCase().includes(q)))
-            .sort((a, b) => a.name.localeCompare(b.name))
-            .slice(0, 8);
+            .sort((a, b) => a.name.localeCompare(b.name));
         for (const a of apps)
-            out.push({ kind: "app", label: a.name, payload: a });
+            out.push({ kind: "app", label: a.name, payload: a, icon: a.icon });
 
         if (apps.length === 0 && q.length > 0)
-            out.push({ kind: "run", label: "Run: " + query, payload: query });
+            out.push({ kind: "run", label: "Run: " + query, payload: query,
+                       icon: "system-run" });
         return out;
     }
 
@@ -99,7 +101,7 @@ PanelWindow {
     Rectangle {
         id: panel
         anchors.centerIn: parent
-        width: 600
+        width: 460
         height: 420
         radius: Theme.panelRadius
         color: Theme.bg
@@ -149,8 +151,15 @@ PanelWindow {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 clip: true
+                boundsBehavior: Flickable.StopAtBounds
                 model: launcher.results
                 currentIndex: launcher.selected
+                // Keyboard focus stays on the TextField, so the view never
+                // scrolls on its own — keep the selected row in sight.
+                onCurrentIndexChanged: {
+                    if (currentIndex >= 0)
+                        positionViewAtIndex(currentIndex, ListView.Contain);
+                }
 
                 delegate: Rectangle {
                     required property int index
@@ -162,16 +171,27 @@ PanelWindow {
                            ? Qt.rgba(Theme.cyan.r, Theme.cyan.g, Theme.cyan.b, 0.4)
                            : "transparent"
 
-                    Text {
+                    IconImage {
+                        id: rowIcon
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.left
-                        anchors.leftMargin: 12
+                        anchors.leftMargin: 10
+                        implicitSize: 22
+                        source: modelData.icon ? Quickshell.iconPath(modelData.icon, true) : ""
+                        visible: source.toString().length > 0
+                    }
+
+                    Text {
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.left: rowIcon.right
+                        anchors.leftMargin: 10
+                        anchors.right: parent.right
+                        anchors.rightMargin: 12
                         text: modelData.label
                         color: Theme.fg
                         font.family: Theme.uiFont
                         font.pixelSize: 16
                         elide: Text.ElideRight
-                        width: parent.width - 24
                     }
 
                     MouseArea {
