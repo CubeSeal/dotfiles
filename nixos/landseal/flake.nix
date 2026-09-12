@@ -3,6 +3,12 @@
   description = "NixOS System Config";
 
   inputs = {
+    # Generic Inputs
+    claude-code.url = "github:sadjow/claude-code-nix";
+    nixCats.url = "github:BirdeeHub/nixCats-nvim";
+
+    # Unstable Nixpkgs and derivatives
+
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -25,13 +31,9 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    claude-code.url = "github:sadjow/claude-code-nix";
-    nixCats.url = "github:BirdeeHub/nixCats-nvim";
+    
+    # Pinned Nixpkgs for Steambox
 
-    # --- steambox (pinned-stable) input set ---
-    # steambox is pinned to NixOS 26.05. Every unstable-following input its
-    # shared home-manager tree consumes gets a 26.05-matched variant here, wired
-    # in per-host via `steamboxInputs` below. See CLAUDE.md.
     nixpkgs-2605.url = "github:nixos/nixpkgs/nixos-26.05";
     home-manager-2605 = {
       url = "github:nix-community/home-manager/release-26.05";
@@ -46,10 +48,6 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs-2605";
     };
-    # No nixCats-2605: nixCats exposes no `nixpkgs` input to follow, so a variant
-    # would just duplicate the base input. steambox shares `nixCats`; its neovim
-    # plugins are already built against nixpkgs-2605 via `nixpkgs_version =
-    # inputs.nixpkgs` in home-manager/programs/neovim.nix.
     silentSDDM-2605 = {
       url = "github:uiriansan/SilentSDDM";
       inputs.nixpkgs.follows = "nixpkgs-2605";
@@ -60,11 +58,7 @@
     let
       system = "x86_64-linux";
       commonModules = [ { nixpkgs.config.allowUnfree = true; } ];
-      # steambox's view of `inputs`: the same attrset, but with every
-      # unstable-following input replaced by its 26.05-matched variant. Because
-      # every shared module references these by name (inputs.home-manager,
-      # inputs.zen-browser, ...), the whole tree flavors to 26.05 for steambox
-      # with no per-module changes; laptop keeps the plain unstable `inputs`.
+      # '//' merges 2 attribute sets with the right overriding the left.
       steamboxInputs = inputs // {
         nixpkgs        = inputs.nixpkgs-2605;
         home-manager   = inputs.home-manager-2605;
