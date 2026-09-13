@@ -38,31 +38,31 @@
     
     # Pinned Nixpkgs for Steambox
 
-    nixpkgs-2605.url = "github:nixos/nixpkgs/nixos-26.05";
-    home-manager-2605 = {
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
+    home-manager-stable = {
       url = "github:nix-community/home-manager/release-26.05";
-      inputs.nixpkgs.follows = "nixpkgs-2605";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
-    zen-browser-2605 = {
+    zen-browser-stable = {
       url = "github:0xc000022070/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs-2605";
-      inputs.home-manager.follows = "home-manager-2605";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.home-manager.follows = "home-manager-stable";
     };
-    firefox-addons-2605 = {
+    firefox-addons-stable = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-      inputs.nixpkgs.follows = "nixpkgs-2605";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
-    silentSDDM-2605 = {
+    silentSDDM-stable = {
       url = "github:uiriansan/SilentSDDM";
-      inputs.nixpkgs.follows = "nixpkgs-2605";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
-    helium-flake-2605 = {
+    helium-flake-stable = {
       url = "github:oxcl/nix-flake-helium-browser";
-      inputs.nixpkgs.follows = "nixpkgs-2605";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-2605, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-stable, ... }@inputs:
     let
       system = "x86_64-linux";
       commonModules = [
@@ -71,17 +71,17 @@
       ];
       # '//' merges 2 attribute sets with the right overriding the left.
       steamboxInputs = inputs // {
-        nixpkgs        = inputs.nixpkgs-2605;
-        home-manager   = inputs.home-manager-2605;
-        zen-browser    = inputs.zen-browser-2605;
-        firefox-addons = inputs.firefox-addons-2605;
-        silentSDDM     = inputs.silentSDDM-2605;
-        helium-flake   = inputs.helium-flake-2605;
+        nixpkgs        = inputs.nixpkgs-stable;
+        home-manager   = inputs.home-manager-stable;
+        zen-browser    = inputs.zen-browser-stable;
+        firefox-addons = inputs.firefox-addons-stable;
+        silentSDDM     = inputs.silentSDDM-stable;
+        helium-flake   = inputs.helium-flake-stable;
       };
     in
       {
       nixosConfigurations = {
-        steambox = nixpkgs-2605.lib.nixosSystem {
+        steambox = nixpkgs-stable.lib.nixosSystem {
           inherit system;
           specialArgs = { inputs = steamboxInputs; };
           modules = [ ./steambox.nix ] ++ commonModules;
