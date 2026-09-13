@@ -11,6 +11,7 @@
       ./users/landseal.nix
       ./users/steam.nix
       # Windows Manager
+      ./wm/niri.nix
       ./wm/kde.nix
       # Display manager (Plasma6 does not enable one on its own; autoLogin below
       # needs it).
