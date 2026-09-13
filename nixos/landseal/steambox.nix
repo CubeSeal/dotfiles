@@ -20,35 +20,59 @@
       ./audio.nix
     ];
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  boot.initrd.luks.devices."luks-866f481a-b14a-4890-af74-c8f9704569a5" = {
-    device = "/dev/disk/by-uuid/866f481a-b14a-4890-af74-c8f9704569a5";
-	  allowDiscards = true;
-	  keyFileSize = 4096;
-	  keyFile = "/dev/disk/by-id/usb-Lexar_USB_Flash_Drive_AAZQ63TST2XHL4HJ-0:0";
-	  fallbackToPassword = true;
+  # Bootloader:
+  boot = {
+    loader = {
+      efi.canTouchEfiVariables = true;
+    };
+    initrd = {
+      enable = true;
+      luks.devices."luks-866f481a-b14a-4890-af74-c8f9704569a5" = {
+        device = "/dev/disk/by-uuid/866f481a-b14a-4890-af74-c8f9704569a5";
+        allowDiscards = true;
+        keyFileSize = 4096;
+        keyFile = "/dev/disk/by-id/usb-Lexar_USB_Flash_Drive_AAZQ63TST2XHL4HJ-0:0";
+        fallbackToPassword = true;
+      };
+      # Use the scripted (non-systemd) stage-1 initrd. NixOS 26.05 would otherwise
+      # use the systemd stage-1 initrd, under which `fallbackToPassword` is implied
+      # and setting it is an error — and the root device's fallbackToPassword lives
+      # in the untouchable hardware scan (hosts/desktop-hardware-configuration.nix).
+      # Keeping scripted stage 1 preserves the original keyfile+password unlock.
+      systemd.enable = false;
+    };
   };
 
-  # Use the scripted (non-systemd) stage-1 initrd. NixOS 26.05 would otherwise
-  # use the systemd stage-1 initrd, under which `fallbackToPassword` is implied
-  # and setting it is an error — and the root device's fallbackToPassword lives
-  # in the untouchable hardware scan (hosts/desktop-hardware-configuration.nix).
-  # Keeping scripted stage 1 preserves the original keyfile+password unlock.
-  boot.initrd.systemd.enable = false;
-
-  # Autologin Plasma
-  services.displayManager.autoLogin = {
-    enable = true;
-    user = "steam";
+  # Display Manager Default
+  services.displayManager = {
+    # Default KDE
+    defaultSession = "plasma";
+    # Autologin Plasma
+    autoLogin = {
+      enable = true;
+      user = "steam";
+    };
   };
 
   # Enable networking
   networking = {
     hostName = "nixos-steambox"; # Define your hostname.
     networkmanager.enable = true;
+  };
+
+  # Hibernation settings
+  systemd.sleep = {
+    settings.Sleep = {
+      AllowSuspend = "no";
+      AllowHibernation = "no";
+      AllowHybridSleep = "no";
+      AllowSuspendThenHibernate = "no";
+    };
+  };
+
+  # Make power events do nothing
+  services.logind.settings.Login = {
+    HandlePowerKey = "poweroff";
   };
 
   # Wifi: Configure with nmtui or nmcli.
@@ -74,6 +98,5 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05"; # Did you read the comment?
-
 }
 
