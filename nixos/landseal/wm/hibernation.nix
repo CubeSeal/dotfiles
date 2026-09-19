@@ -3,7 +3,6 @@
 
 let
   niriMsg = "${pkgs.niri}/bin/niri msg action";
-  hyprlockBin = "${pkgs.hyprlock}/bin/hyprlock";
   qsBin = "${pkgs.quickshell}/bin/qs";
   systemctl = "${pkgs.systemd}/bin/systemctl";
 
