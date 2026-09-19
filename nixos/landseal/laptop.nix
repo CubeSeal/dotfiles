@@ -48,11 +48,15 @@
     resumeDevice = "/dev/disk/by-uuid/425ea73c-1daf-4383-b1c3-3fad8343e550";
   };
   
-  # Lid switch behaviour
+  # Lid switch behaviour lives in wm/hibernation.nix, dispatched by acpid.
+  # logind evaluates HandleLidSwitchDocked before it ever looks at power, so it
+  # cannot give docked-on-AC and docked-on-battery different actions. All three
+  # lid keys are set to "ignore" to keep logind out of the decision entirely --
+  # that also removes its udev-drm re-evaluation of the lid, which fires when an
+  # output is powered off and its `enabled` sysattr flips to "disabled".
   services.logind.settings.Login = {
-    # Suspend first then hibernate when closing the lid...
-    HandleLidSwitch = "suspend-then-hibernate";
-    # ... but only when on battery power.
+    HandleLidSwitch = "ignore";
+    HandleLidSwitchExternalPower = "ignore";
     HandleLidSwitchDocked = "ignore";
   };
 
