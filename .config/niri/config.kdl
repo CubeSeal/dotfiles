@@ -317,10 +317,17 @@ spawn-at-startup "sunsetr"
 spawn-at-startup "qs"
 spawn-sh-at-startup "toggle-wallpaper --start"
 
-// On-screen keyboard. --auto shows/hides it from text-input-v3 focus; --hidden
-// so it does not flash at login. -H is portrait height, -L landscape; mobintl
-// swaps to its own landscape layer set on rotation.
-spawn-at-startup "wvkbd-mobintl" "--auto" "--hidden" "-H" "600" "-L" "300"
+// On-screen keyboard. Starts in laptop mode: no --auto, so focusing a text
+// field with the physical keyboard never summons it. switch-events below turns
+// --auto on when the lid flips to tablet mode. Mod+G and the bottom-edge swipe
+// work in both modes. Heights live in wm/tablet.nix (switch-events can only
+// spawn a command, not pass flags).
+spawn-at-startup "osk-mode" "off"
+
+switch-events {
+    tablet-mode-on  { spawn "osk-mode" "on"; }
+    tablet-mode-off { spawn "osk-mode" "off"; }
+}
 
 hotkey-overlay {
     // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
@@ -722,7 +729,7 @@ gestures {
         horizontal-swipe "resize-column"
 
         tap          { maximize-column; }
-        tap-4        { toggle-overview; }
+        tap-4        { fullscreen-window; }                    // same as Mod+Shift+F
         swipe-4-down { close-window; }
         swipe-4-up   { spawn-sh "toggle-osk"; }
 

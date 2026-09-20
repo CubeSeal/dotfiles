@@ -6,6 +6,13 @@
     # Generic Inputs
     claude-code.url = "github:sadjow/claude-code-nix";
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
+    # Touchscreen gesture patches for niri (wm/tablet.nix). Source only, so it
+    # has no nixpkgs input to pin and needs no *-stable variant; steambox never
+    # imports wm/niri.nix anyway.
+    niri-tablet = {
+      url = "github:GGEZUS/niri-tablet/v26.04.18";
+      flake = false;
+    };
 
     # Unstable Nixpkgs and derivatives
 

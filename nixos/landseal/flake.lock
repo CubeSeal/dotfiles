@@ -144,6 +144,23 @@
         "type": "github"
       }
     },
+    "niri-tablet": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788867018,
+        "narHash": "sha256-yceNeLKcv7HNc2UxkP+Ka1oa9Zx96OhYUvlESzYVI3s=",
+        "owner": "GGEZUS",
+        "repo": "niri-tablet",
+        "rev": "e53c788056f1a74952ec4b33202095a7f0efb36e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "GGEZUS",
+        "ref": "v26.04.18",
+        "repo": "niri-tablet",
+        "type": "github"
+      }
+    },
     "nixCats": {
       "locked": {
         "lastModified": 1777273601,
@@ -216,6 +233,7 @@
         "helium-flake-stable": "helium-flake-stable",
         "home-manager": "home-manager",
         "home-manager-stable": "home-manager-stable",
+        "niri-tablet": "niri-tablet",
         "nixCats": "nixCats",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-stable": "nixpkgs-stable",
