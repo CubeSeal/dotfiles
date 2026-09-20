@@ -317,6 +317,11 @@ spawn-at-startup "sunsetr"
 spawn-at-startup "qs"
 spawn-sh-at-startup "toggle-wallpaper --start"
 
+// On-screen keyboard. --auto shows/hides it from text-input-v3 focus; --hidden
+// so it does not flash at login. -H is portrait height, -L landscape; mobintl
+// swaps to its own landscape layer set on rotation.
+spawn-at-startup "wvkbd-mobintl" "--auto" "--hidden" "-H" "600" "-L" "300"
+
 hotkey-overlay {
     // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
     // skip-at-startup
@@ -448,6 +453,7 @@ binds {
 
     Mod+A hotkey-overlay-title="Toggle animated wallpaper" { spawn-sh "toggle-wallpaper --toggle"; }
     Mod+W hotkey-overlay-title="Toggle Bar: quickshell" { spawn-sh "qs ipc call bar toggle"; }
+    Mod+G hotkey-overlay-title="Toggle On-Screen Keyboard" { spawn-sh "toggle-osk"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
@@ -695,3 +701,46 @@ binds {
     // moving the mouse or pressing any other key.
     Mod+Shift+P { power-off-monitors; }
 }
+
+// ===== BEGIN niri-tablet gestures =====
+// Touchscreen gestures from the GGEZUS/niri-tablet patch series, applied to
+// niri in nixos/landseal/wm/tablet.nix.
+//
+// THIS BLOCK ONLY PARSES ON THE PATCHED NIRI. If programs.niri.package is ever
+// reverted to stock nixpkgs niri, delete this whole block in one go or niri
+// will refuse to start.
+gestures {
+    // Dots following the fingers, only during a multi-finger gesture.
+    // "all" shows every finger; remove the line to disable.
+    show-touch-points "gestures"
+
+    touchscreen-swipe {
+        fingers 3
+
+        // Horizontal 3-finger drag resizes the focused column live.
+        // "move-view" (the default) scrolls across columns instead.
+        horizontal-swipe "resize-column"
+
+        tap          { maximize-column; }
+        tap-4        { toggle-overview; }
+        swipe-4-down { close-window; }
+        swipe-4-up   { spawn-sh "toggle-osk"; }
+
+        // Press, hold ~400ms, then swipe: moves the focused window.
+        hold {
+            left { move-column-left; }
+            right { move-column-right; }
+            up { move-window-to-workspace-up; }
+            down { move-window-to-workspace-down; }
+        }
+    }
+
+    // One finger swiping inward from a screen edge.
+    touchscreen-edge-swipe {
+        bottom { spawn-sh "toggle-osk"; }
+        top { toggle-overview; }
+        left { focus-column-left; }
+        right { focus-column-right; }
+    }
+}
+// ===== END niri-tablet gestures =====

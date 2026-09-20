@@ -8,6 +8,8 @@
     ../dm/sddm.nix
     # Wallpaper
     ./wallpaper.nix
+    # Tablet mode: on-screen keyboard and touchscreen gestures.
+    ./tablet.nix
     # Hibernation and locking behaviour.
     ./hibernation.nix
   ];
@@ -16,7 +18,6 @@
   environment.systemPackages = with pkgs; [
     everforest-cursors
     xwayland-satellite
-    iio-niri  # Allows for autorotation based on sensors.
   ];
 
 }
