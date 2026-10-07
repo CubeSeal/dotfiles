@@ -91,6 +91,16 @@ in
       enable = true;
       package = pkgs.chromium.override { enableWideVine = true; };
     };
+    onlyoffice = {
+      enable = true;
+      settings = {
+        UITheme = "theme-dark";
+        locale = "en-AU";
+        editorWindowMode = false;
+        titlebar = "system";
+        maximized = true;
+      };
+    };
   };
 
   # The home.packages option allows you to install Nix packages into your
