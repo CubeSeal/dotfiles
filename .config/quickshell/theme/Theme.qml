@@ -28,6 +28,7 @@ Singleton {
     readonly property color accentCharge:   "#76946A"
     readonly property color accentMuted:    "#E82424"
     readonly property color accentWifi:     "#C5C9C5"
+    readonly property color accentBrightness: "#E6C384"
     readonly property color accentEth:      "#6A9589"
     readonly property color workspaceInactive: "#888888"
 

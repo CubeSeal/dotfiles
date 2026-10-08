@@ -79,6 +79,7 @@ Variants {
             RowLayout {
                 spacing: 10
                 Battery {}
+                Backlight {}
                 Volume {}
                 Bluetooth {}
                 Network {}

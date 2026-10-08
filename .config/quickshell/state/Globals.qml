@@ -11,6 +11,7 @@ Singleton {
     property bool launcherOpen: false
     property bool wifiOpen: false
     property bool bluetoothOpen: false
+    property bool brightnessOpen: false
 
     function toggleBar(): void { root.barVisible = !root.barVisible; }
 
@@ -19,6 +20,7 @@ Singleton {
         root.launcherOpen = false;
         root.wifiOpen = false;
         root.bluetoothOpen = false;
+        root.brightnessOpen = false;
     }
     function toggleLauncher(): void { const v = !root.launcherOpen; root._closePopups(); root.launcherOpen = v; }
     function closeLauncher(): void { root.launcherOpen = false; }
@@ -26,4 +28,6 @@ Singleton {
     function closeWifi(): void { root.wifiOpen = false; }
     function toggleBluetooth(): void { const v = !root.bluetoothOpen; root._closePopups(); root.bluetoothOpen = v; }
     function closeBluetooth(): void { root.bluetoothOpen = false; }
+    function toggleBrightness(): void { const v = !root.brightnessOpen; root._closePopups(); root.brightnessOpen = v; }
+    function closeBrightness(): void { root.brightnessOpen = false; }
 }
