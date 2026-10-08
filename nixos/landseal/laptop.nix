@@ -82,6 +82,23 @@
     
     # Start the service back up
     ${pkgs.systemd}/bin/systemctl start bluetooth.service
+
+    # Re-probe intel_hid (see extraModprobeConfig below). After a resume the
+    # firmware stops delivering tablet-mode switch events to it, so folding
+    # never reaches niri's switch-events and the OSK stays in laptop mode.
+    # A fresh probe re-arms them; the lid is acpid's ACPI button, not this.
+    ${pkgs.kmod}/bin/modprobe -r intel_hid
+    ${pkgs.kmod}/bin/modprobe intel_hid
+  '';
+
+  # Tablet-mode switch for wm/tablet.nix. On this convertible intel_hid
+  # defaults to creating its "Intel HID switches" device only on the first
+  # fold event (enable_sw_tablet_mode=1); 2 creates it at probe and reads the
+  # current state, so it exists straight after the resume reload above. This is
+  # the only working SW_TABLET_MODE source -- hp_wmi advertises one too, but it
+  # is stuck at 0 on this model.
+  boot.extraModprobeConfig = ''
+    options intel_hid enable_sw_tablet_mode=2
   '';
 
   # Define time delay for hibernation
