@@ -5,6 +5,7 @@
   programs = {
     nix-ld.enable = true; # Enable dynamic linking
     zsh.enable = true;
+    # Can't add nushell here because of the below:
     # No nushell here: the module does not exist in the nixpkgs-2605 pin that
     # steambox uses, and nothing needs it. nushell is installed per-user by
     # home-manager/programs/nushell.nix, which is what kitty's `shell` points
