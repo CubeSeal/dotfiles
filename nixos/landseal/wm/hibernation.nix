@@ -92,6 +92,25 @@ in {
     lidEventCommands = "${lidHandler}";
   };
 
+  # The policy above only runs on a lid event, so closing the lid while docked
+  # (-> lock) and then pulling the dock would leave the laptop awake in a bag.
+  # Re-run it whenever AC or a monitor comes or goes; lidHandler exits early if
+  # the lid is open. HOTPLUG=="1" skips the drm change events niri's DPMS
+  # power-off emits. Started as a unit with --no-block so the suspend isn't run
+  # from inside udev's worker.
+  systemd.services.lid-recheck = {
+    description = "Re-apply lid close policy after a dock/AC change";
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${lidHandler}";
+    };
+  };
+
+  services.udev.extraRules = ''
+    SUBSYSTEM=="power_supply", KERNEL=="ADP*", ACTION=="change", RUN+="${systemctl} start --no-block lid-recheck.service"
+    SUBSYSTEM=="drm", ACTION=="change", ENV{HOTPLUG}=="1", RUN+="${systemctl} start --no-block lid-recheck.service"
+  '';
+
   systemd.user.services.swayidle = {
     description = "Idle Manager for Niri";
     wantedBy = [ "graphical-session.target" ];
