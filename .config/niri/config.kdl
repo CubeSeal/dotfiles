@@ -109,10 +109,12 @@ output "eDP-1" {
     // so to put another output directly adjacent to it on the right, set its x to 1920.
     // If the position is unset or results in an overlap, the output is instead placed
     // automatically.
-    position x=1280 y=0
+    position x=1920 y=0
 }
 
-output "HDMI-A-1" {
+// Matched by make/model/serial rather than connector: through the USB-C dock
+// this monitor shows up as DP-1, on the laptop's own port as HDMI-A-1.
+output "Dell Inc. SE2417HGX 0x30384449" {
     // Uncomment this line to disable this output.
     // off
 
