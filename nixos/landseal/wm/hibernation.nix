@@ -97,9 +97,13 @@ in {
   # Re-run it whenever AC or a monitor comes or goes; lidHandler exits early if
   # the lid is open. HOTPLUG=="1" skips the drm change events niri's DPMS
   # power-off emits. Started as a unit with --no-block so the suspend isn't run
-  # from inside udev's worker.
+  # from inside udev's worker. Ordered after multi-user.target because udev fires
+  # these during a lid-closed boot too, before the dock's monitor has enumerated;
+  # lidHandler then sees no display and suspends mid-boot, which breaks SOF's
+  # probe and leaves the laptop with no sound card.
   systemd.services.lid-recheck = {
     description = "Re-apply lid close policy after a dock/AC change";
+    after = [ "multi-user.target" ];
     serviceConfig = {
       Type = "oneshot";
       ExecStart = "${lidHandler}";
