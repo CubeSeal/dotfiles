@@ -10,6 +10,7 @@
         vi_normal = "block";
       };
     };
+    loadSessionVariables = true;
   };
 
   # Other programs integrations
