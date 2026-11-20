@@ -135,7 +135,8 @@ in {
           timeout 300  '${runOnAC "${lock}"}' \
           timeout 305  '${runOnAC "${niriMsg} power-off-monitors"}' \
             resume     '${niriMsg} power-on-monitors' \
-          lock         '${lock}' \
+          timeout 1800 '${runOnAC "${systemctl} ${suspend_cmd}"}' \
+          lock        '${lock}' \
           before-sleep '${lock}'
       '';
     };
