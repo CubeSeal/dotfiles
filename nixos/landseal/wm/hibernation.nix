@@ -33,8 +33,6 @@ let
 
   suspend_cmd = "suspend-then-hibernate";
 
-  loginctl = "${pkgs.systemd}/bin/loginctl";
-
   # Deliberately tests only `status`, unlike logind's own dock check
   # (manager_count_external_displays) which additionally requires the connector's
   # `enabled` sysattr to read "enabled". niri flips `enabled` to "disabled"
@@ -54,19 +52,17 @@ let
 
   # logind's three lid keys are all "ignore" (laptop.nix); acpid routes lid events
   # here instead, because logind checks docked before power and so cannot give
-  # docked-on-AC and docked-on-battery different actions. `loginctl lock-sessions`
-  # emits logind's Lock signal, which swayidle's `lock` handler below already
-  # catches. acpid invokes this as `<script> '%e'`, but reading the ACPI lid state
-  # is more robust than parsing the event string, and ignores open events.
+  # docked-on-AC and docked-on-battery different actions. Docked on AC the lid
+  # close is deliberately a no-op (no lock): swayidle's AC timers still lock and
+  # suspend once the session goes idle. acpid invokes this as `<script> '%e'`, but
+  # reading the ACPI lid state is more robust than parsing the event string, and
+  # ignores open events.
   lidHandler = pkgs.writeShellScript "lid-handler" ''
     grep -q closed /proc/acpi/button/lid/LID0/state || exit 0
 
     if ${checkAC}; then
-      if ${hasExternalDisplay}; then
-        ${loginctl} lock-sessions
-      else
-        ${systemctl} suspend
-      fi
+      ${hasExternalDisplay} && exit 0
+      ${systemctl} suspend
     else
       ${systemctl} ${suspend_cmd}
     fi
@@ -85,7 +81,7 @@ in {
   security.pam.services.quickshell = {};
 
   # Lid close policy, since logind cannot express it (see lidHandler above):
-  #   docked + AC  -> lock          docked + battery -> suspend-then-hibernate
+  #   docked + AC  -> nothing       docked + battery -> suspend-then-hibernate
   #   bare   + AC  -> suspend       bare   + battery -> suspend-then-hibernate
   services.acpid = {
     enable = true;
@@ -93,7 +89,7 @@ in {
   };
 
   # The policy above only runs on a lid event, so closing the lid while docked
-  # (-> lock) and then pulling the dock would leave the laptop awake in a bag.
+  # (-> nothing) and then pulling the dock would leave the laptop awake in a bag.
   # Re-run it whenever AC or a monitor comes or goes; lidHandler exits early if
   # the lid is open. HOTPLUG=="1" skips the drm change events niri's DPMS
   # power-off emits. Started as a unit with --no-block so the suspend isn't run
